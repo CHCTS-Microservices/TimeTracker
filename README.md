@@ -10,14 +10,16 @@ First, open the Docker application and click `Dev Env [Beta]`.
 
 Then it will ask you to create a name for this environment and ask for the git repository address.
 It will then ask you which code editor you want to use:
-- * *VS Code* 
+>[VS Code] 
+
 You will need open VS Code and navigate to `extensions`.
 You must download `Remote Containers`/`Remote Development` (make sure you also download everything inside this extension pack).
 Press continue. Docker will then start to set up a dev environment in a container. Then it will ask you if you would like to open this environment in VS Code.
+
+Before starting up the project, you will need to port forward. To do so, open up the terminal in VS Code and navigate to the Port section. Here add a port. `3000` (This is the default port react will launch the application to. If not, check the terminal log when you run the project to see which port its being sent to or check the `next. config` file)
 Follow the * *Before Starting Up* section
 
-
-- * *Other* 
+>[Other]
 Follow instructions in docker or google it.
 
 
