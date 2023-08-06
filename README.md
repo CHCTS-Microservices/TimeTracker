@@ -20,6 +20,7 @@ Before starting up the project, you will need to port forward. To do so, open up
 Follow the * *Before Starting Up* section
 
 >[Other]
+
 Follow instructions in docker or google it.
 
 
