@@ -34,6 +34,8 @@ To check if you have Node and Npm installed.
 #Before Starting UP
 When starting up the project, do the following:
 ```bash
+npm i
+or
 npm install --all
 ```
 This will create a folder `node_modules` and download/update all the libraries currently used by the application. Due to the size of the folder, it is not added into git.
