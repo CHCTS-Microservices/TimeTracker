@@ -1,0 +1,1 @@
+// Type rules defined here -> globally accessable
