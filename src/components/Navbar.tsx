@@ -9,7 +9,8 @@ type NavProps = {
 
 export default function NavBar(props: NavProps) {
 
-    let title = props.title
+    let title = props.title;
+    
 
   return (
     <div className='w-full h-20 flex  bg-slate-500'>
