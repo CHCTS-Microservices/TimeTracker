@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Test from '@/components/Testing'
 import  * as Struct from '@/app/utils/types'
 
+
 export default function Home() {
   let a : Struct.User = {
     id : 123,
