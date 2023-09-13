@@ -14,24 +14,24 @@ export type Event = {
 
 export type Trial = {
     id: number;
-    users? : [number];
+    users? : number[];
     date : Date;
     title : string;
     unit : string; // this will need to be an enum
     Stage : string; // this will need to be an enum
-    activities : [number];
-    totalTime : number;
-    metadata : string; // will need to be flushed out
+    activities : number[];
+    totalTime? : number;
+    metadata? : string; // will need to be flushed out
 }
 
 export type Activity = {
     id: number;
-    users? : [number];
+    users? : number[];
     date : Date;
     title : string;
     unit : string; // this will need to be an enum
-    totalTime : number;
-    metadata : string; // will need to be flushed out
+    totalTime? : number;
+    metadata? : string; // will need to be flushed out
 
 }
 
@@ -219,5 +219,35 @@ const dummyEvent : Event[] = [
     active : false,
     totalTime : 7
   }];
+
+  const dummyTrial : Trial[] = [
+    {
+        id : 1,
+        date : new Date("2023-06-16"),
+        title : "Meclizine Hydrochloride",
+        unit : "Cardiology",
+        Stage : "Start-Up",
+        activities : [0,1]
+
+    },
+    {
+        id : 2,
+        date : new Date("2023-06-16"),
+        title : "Isoniazid",
+        unit : "Critical Care",
+        Stage : "Start-Up",
+        activities : [0,1]
+
+    },
+    {
+        id : 3,
+        date : new Date("2023-06-16"),
+        title : "Hydrochlorothiazide ",
+        unit : "Haematology",
+        Stage : "Start-Up",
+        activities : [0,1]
+
+    },
+  ];
 
   export {dummyEvent};
