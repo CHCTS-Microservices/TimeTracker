@@ -1,5 +1,5 @@
 // Type rules defined here -> globally accessable
-export type Event{
+export type Event = {
     id : number;
     userID : number;
     date : Date;

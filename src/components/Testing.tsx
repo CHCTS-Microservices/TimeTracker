@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import  * as Struct from '@/app/utils/types';
+import SidePanel from './SidePanel';
 
-export default function Testing(user : Struct.User) {
+export default function Testing(user : Struct.User, event1 : Struct.Event) {
   const [count, setCount] = useState<number>(0);
   // let a : Struct.User = {
   //   id : 123,
-  //   name : 'Francis',
+  //   name : 'Fran',
   //   role : 'Test'
   // }
 
@@ -15,6 +16,10 @@ export default function Testing(user : Struct.User) {
   //     console.log('this works yay!!');
   //     // number = (number + 10 ) %20;
   // }
+
+
+
+
 
   return (
     <div>
@@ -35,6 +40,13 @@ export default function Testing(user : Struct.User) {
           What does this button do??
         </button>
       </div>
+
+      <div >
+        <div>{event1.active}</div>
+        <div>{event1.activityID}</div>
+      {/* <SidePanel events={[event1]} /> */}
+      </div>
+    
     </div>
   );
 }
