@@ -53,15 +53,15 @@ const dummyEvent : Event[] = [
     userID: 1,
     trialID: 2,
     activityID: 2,
-    date : new Date(2023, 9, 10, 8, 10, 42, 11),
+    date : new Date(2023, 9, 8, 8, 10, 42, 11),
     timeLine : [
         {
-            start : new Date(2023, 9, 10, 8, 10, 42, 11),
-            end : new Date(2023, 9, 10, 9, 10, 42, 11)   
+            start : new Date(2023, 9, 8, 8, 10, 42, 11),
+            end : new Date(2023, 9, 8, 9, 10, 42, 11)   
         },
         {
-            start : new Date(2023, 9, 10, 12, 10, 42, 11),
-            end : new Date(2023, 9, 10, 16, 10, 42, 11)   
+            start : new Date(2023, 9, 8, 12, 10, 42, 11),
+            end : new Date(2023, 9, 8, 16, 10, 42, 11)   
         },
     ],
     notes: "24 hour"
@@ -70,11 +70,11 @@ const dummyEvent : Event[] = [
     userID: 1,
     trialID: 3,
     activityID: 1,
-    date : new Date(2023, 9, 10, 9, 20, 42, 11),
+    date : new Date(2023, 9, 8, 9, 20, 42, 11),
     timeLine : [
         {
-            start : new Date(2023, 9, 10, 9, 20, 42, 11),
-            end : new Date(2023, 9, 10, 12, 10, 42, 11)   
+            start : new Date(2023, 9, 8, 9, 20, 42, 11),
+            end : new Date(2023, 9, 8, 12, 10, 42, 11)   
         }
     ],
     notes: "algorithm"
@@ -83,11 +83,11 @@ const dummyEvent : Event[] = [
     userID: 1,
     trialID: 4,
     activityID: 2,
-    date : new Date(2023, 9, 10, 9, 20, 42, 11),
+    date : new Date(2023, 9, 9, 9, 20, 42, 11),
     timeLine : [
         {
-            start : new Date(2023, 9, 10, 9, 20, 42, 11),
-            end : new Date(2023, 9, 10, 12, 10, 42, 11)   
+            start : new Date(2023, 9, 9, 9, 20, 42, 11),
+            end : new Date(2023, 9, 9, 12, 10, 42, 11)   
         }
     ],
     notes: "Focused"
@@ -96,15 +96,15 @@ const dummyEvent : Event[] = [
     userID: 1,
     trialID: 1,
     activityID: 1,
-    date : new Date(2023, 9, 10, 8, 10, 42, 11),
+    date : new Date(2023, 9, 9, 8, 10, 42, 11),
     timeLine : [
         {
-            start : new Date(2023, 9, 10, 8, 10, 42, 11),
-            end : new Date(2023, 9, 10, 9, 10, 42, 11)   
+            start : new Date(2023, 9, 9, 8, 10, 42, 11),
+            end : new Date(2023, 9, 9, 9, 10, 42, 11)   
         },
         {
-            start : new Date(2023, 9, 10, 12, 10, 42, 11),
-            end : new Date(2023, 9, 10, 16, 10, 42, 11)   
+            start : new Date(2023, 9, 9, 12, 10, 42, 11),
+            end : new Date(2023, 9, 9, 16, 10, 42, 11)   
         },
     ],
     notes: "pricing structure"
@@ -143,11 +143,11 @@ const dummyEvent : Event[] = [
     userID: 1,
     trialID: 4,
     activityID: 2,
-    date : new Date(2023, 9, 10, 9, 20, 42, 11),
+    date : new Date(2023, 9, 11, 9, 20, 42, 11),
     timeLine : [
         {
-            start : new Date(2023, 9, 10, 9, 20, 42, 11),
-            end : new Date(2023, 9, 10, 12, 10, 42, 11)   
+            start : new Date(2023, 9, 11, 9, 20, 42, 11),
+            end : new Date(2023, 9, 11, 12, 10, 42, 11)   
         }
     ],
     notes: "Customizable"
@@ -156,15 +156,15 @@ const dummyEvent : Event[] = [
     userID: 1,
     trialID: 1,
     activityID: 1,
-    date : new Date(2023, 9, 10, 8, 10, 42, 11),
+    date : new Date(2023, 9, 11, 8, 10, 42, 11),
     timeLine : [
         {
-            start : new Date(2023, 9, 10, 8, 10, 42, 11),
-            end : new Date(2023, 9, 10, 9, 10, 42, 11)   
+            start : new Date(2023, 9, 11, 8, 10, 42, 11),
+            end : new Date(2023, 9, 11, 9, 10, 42, 11)   
         },
         {
-            start : new Date(2023, 9, 10, 12, 10, 42, 11),
-            end : new Date(2023, 9, 10, 16, 10, 42, 11)   
+            start : new Date(2023, 9, 11, 12, 10, 42, 11),
+            end : new Date(2023, 9, 11, 16, 10, 42, 11)   
         },
     ],
     notes: "artificial intelligence"
@@ -173,15 +173,15 @@ const dummyEvent : Event[] = [
     userID: 1,
     trialID: 2,
     activityID: 2,
-    date : new Date(2023, 9, 10, 8, 10, 42, 11),
+    date : new Date(2023, 9, 12, 8, 10, 42, 11),
     timeLine : [
         {
-            start : new Date(2023, 9, 10, 8, 10, 42, 11),
-            end : new Date(2023, 9, 10, 9, 10, 42, 11)   
+            start : new Date(2023, 9, 12, 8, 10, 42, 11),
+            end : new Date(2023, 9, 12, 9, 10, 42, 11)   
         },
         {
-            start : new Date(2023, 9, 10, 12, 10, 42, 11),
-            end : new Date(2023, 9, 10, 16, 10, 42, 11)   
+            start : new Date(2023, 9, 12, 12, 10, 42, 11),
+            end : new Date(2023, 9, 12, 16, 10, 42, 11)   
         },
     ],
     notes: "local area network"
@@ -190,11 +190,11 @@ const dummyEvent : Event[] = [
     userID: 1,
     trialID: 3,
     activityID: 1,
-    date : new Date(2023, 9, 10, 9, 20, 42, 11),
+    date : new Date(2023, 9, 12, 9, 20, 42, 11),
     timeLine : [
         {
-            start : new Date(2023, 9, 10, 9, 20, 42, 11),
-            end : new Date(2023, 9, 10, 12, 10, 42, 11)   
+            start : new Date(2023, 9, 12, 9, 20, 42, 11),
+            end : new Date(2023, 9, 12, 12, 10, 42, 11)   
         }
     ],
     notes: "knowledge user"
