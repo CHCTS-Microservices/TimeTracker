@@ -195,7 +195,11 @@ const dummyEvent : Event[] = [
         {
             start : new Date(2023, 9, 12, 9, 20, 42, 11),
             end : new Date(2023, 9, 12, 12, 10, 42, 11)   
-        }
+        },
+        {
+            start : new Date(2023, 9, 12, 12, 10, 42, 11),
+            end : new Date(2023, 9, 12, 16, 10, 42, 11)   
+        },
     ],
     notes: "knowledge user"
   }];
