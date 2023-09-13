@@ -2,13 +2,13 @@
 export type Event = {
     id : number;
     userID : number;
-    date? : Date;
+    date : Date;
     title? : string; //* no needed i think
     trialID : number; 
     activityID : number;
-    timeLine? : Time[];
-    active? : boolean;
-    totalTime? : number;
+    timeLine : Time[];
+    active : boolean;
+    totalTime : number;
     notes : string
 }
 
@@ -64,7 +64,9 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 8, 16, 10, 42, 11)   
         },
     ],
-    notes: "24 hour"
+    notes: "24 hour",
+    active : false,
+    totalTime : 5
   }, {
     id: 2,
     userID: 1,
@@ -77,7 +79,9 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 8, 12, 10, 42, 11)   
         }
     ],
-    notes: "algorithm"
+    notes: "algorithm",
+    active : false,
+    totalTime : 3
   }, {
     id: 3,
     userID: 1,
@@ -90,7 +94,9 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 9, 12, 10, 42, 11)   
         }
     ],
-    notes: "Focused"
+    notes: "Focused",
+    active : false,
+    totalTime : 3
   }, {
     id: 4,
     userID: 1,
@@ -107,7 +113,9 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 9, 16, 10, 42, 11)   
         },
     ],
-    notes: "pricing structure"
+    notes: "pricing structure",
+    active : false,
+    totalTime : 5
   }, {
     id: 5,
     userID: 1,
@@ -124,7 +132,9 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 10, 16, 10, 42, 11)   
         },
     ],
-    notes: "budgetary management"
+    notes: "budgetary management",
+    active : false,
+    totalTime : 5
   }, {
     id: 6,
     userID: 1,
@@ -137,7 +147,9 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 10, 12, 10, 42, 11)   
         }
     ],
-    notes: "adapter"
+    notes: "adapter",
+    active : false,
+    totalTime : 3
   }, {
     id: 7,
     userID: 1,
@@ -150,7 +162,9 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 11, 12, 10, 42, 11)   
         }
     ],
-    notes: "Customizable"
+    notes: "Customizable",
+    active : false,
+    totalTime : 3
   }, {
     id: 8,
     userID: 1,
@@ -167,7 +181,9 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 11, 16, 10, 42, 11)   
         },
     ],
-    notes: "artificial intelligence"
+    notes: "artificial intelligence",
+    active : false,
+    totalTime : 5
   }, {
     id: 9,
     userID: 1,
@@ -184,7 +200,9 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 12, 16, 10, 42, 11)   
         },
     ],
-    notes: "local area network"
+    notes: "local area network",
+    active : false,
+    totalTime : 5
   }, {
     id: 10,
     userID: 1,
@@ -194,14 +212,12 @@ const dummyEvent : Event[] = [
     timeLine : [
         {
             start : new Date(2023, 9, 12, 9, 20, 42, 11),
-            end : new Date(2023, 9, 12, 12, 10, 42, 11)   
-        },
-        {
-            start : new Date(2023, 9, 12, 12, 10, 42, 11),
             end : new Date(2023, 9, 12, 16, 10, 42, 11)   
         },
     ],
-    notes: "knowledge user"
+    notes: "knowledge user",
+    active : false,
+    totalTime : 7
   }];
 
   export {dummyEvent};
