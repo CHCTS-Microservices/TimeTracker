@@ -21,7 +21,6 @@ export type Trial = {
     Stage : string; // this will need to be an enum
     activities : number[];
     totalTime? : number;
-    metadata? : string; // will need to be flushed out
 }
 
 export type Activity = {
@@ -31,7 +30,6 @@ export type Activity = {
     title : string;
     unit : string; // this will need to be an enum
     totalTime? : number;
-    metadata? : string; // will need to be flushed out
 
 }
 
