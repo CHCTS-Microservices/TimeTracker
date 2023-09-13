@@ -14,7 +14,7 @@ export type Event = {
 
 export type Trial = {
     id: number;
-    users? : number[];
+    staffID : number[];
     date : Date;
     title : string;
     unit : string; // this will need to be an enum
@@ -26,7 +26,7 @@ export type Trial = {
 
 export type Activity = {
     id: number;
-    users? : number[];
+    staffID : number[];
     date : Date;
     title : string;
     unit : string; // this will need to be an enum
@@ -227,8 +227,8 @@ const dummyEvent : Event[] = [
         title : "Meclizine Hydrochloride",
         unit : "Cardiology",
         Stage : "Start-Up",
-        activities : [0,1]
-
+        activities : [0,1],
+        staffID : [1]
     },
     {
         id : 2,
@@ -236,8 +236,8 @@ const dummyEvent : Event[] = [
         title : "Isoniazid",
         unit : "Critical Care",
         Stage : "Start-Up",
-        activities : [0,1]
-
+        activities : [0,1],
+        staffID : [1]
     },
     {
         id : 3,
@@ -245,9 +245,25 @@ const dummyEvent : Event[] = [
         title : "Hydrochlorothiazide ",
         unit : "Haematology",
         Stage : "Start-Up",
-        activities : [0,1]
-
+        activities : [0,1],
+        staffID : [1]
     },
   ];
 
-  export {dummyEvent};
+  const dummyActivity : Activity[] = [
+    {
+        id : 1,
+        title : "Research",
+        unit : "All",
+        staffID: [1],
+        date: new Date("2023-06-16")
+    },
+    {
+        id : 2,
+        title : "Testing",
+        unit : "All",
+        staffID: [1],
+        date: new Date("2023-06-16")
+    }
+  ];
+  export {dummyEvent, dummyTrial, dummyActivity};
