@@ -1,20 +1,20 @@
 // Type rules defined here -> globally accessable
-export type Event{
+export type Event = {
     id : number;
     userID : number;
-    date : Date;
-    title : string;
-    trialID : number;
+    date? : Date;
+    title? : string; //* no needed i think
+    trialID : number; 
     activityID : number;
-    time : [Time];
-    active : boolean;
-    totalTime : number;
+    timeLine? : Time[];
+    active? : boolean;
+    totalTime? : number;
     notes : string
 }
 
 export type Trial = {
     id: number;
-    users : [number];
+    users? : [number];
     date : Date;
     title : string;
     unit : string; // this will need to be an enum
@@ -26,7 +26,7 @@ export type Trial = {
 
 export type Activity = {
     id: number;
-    users : [number];
+    users? : [number];
     date : Date;
     title : string;
     unit : string; // this will need to be an enum
@@ -46,3 +46,158 @@ export type User = {
     id : number;
     role : string; // will need to be flushed out
 }
+
+const dummyEvent : Event[] = [
+    {
+    id: 1,
+    userID: 1,
+    trialID: 2,
+    activityID: 2,
+    date : new Date(2023, 9, 10, 8, 10, 42, 11),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 10, 8, 10, 42, 11),
+            end : new Date(2023, 9, 10, 9, 10, 42, 11)   
+        },
+        {
+            start : new Date(2023, 9, 10, 12, 10, 42, 11),
+            end : new Date(2023, 9, 10, 16, 10, 42, 11)   
+        },
+    ],
+    notes: "24 hour"
+  }, {
+    id: 2,
+    userID: 1,
+    trialID: 3,
+    activityID: 1,
+    date : new Date(2023, 9, 10, 9, 20, 42, 11),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 10, 9, 20, 42, 11),
+            end : new Date(2023, 9, 10, 12, 10, 42, 11)   
+        }
+    ],
+    notes: "algorithm"
+  }, {
+    id: 3,
+    userID: 1,
+    trialID: 4,
+    activityID: 2,
+    date : new Date(2023, 9, 10, 9, 20, 42, 11),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 10, 9, 20, 42, 11),
+            end : new Date(2023, 9, 10, 12, 10, 42, 11)   
+        }
+    ],
+    notes: "Focused"
+  }, {
+    id: 4,
+    userID: 1,
+    trialID: 1,
+    activityID: 1,
+    date : new Date(2023, 9, 10, 8, 10, 42, 11),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 10, 8, 10, 42, 11),
+            end : new Date(2023, 9, 10, 9, 10, 42, 11)   
+        },
+        {
+            start : new Date(2023, 9, 10, 12, 10, 42, 11),
+            end : new Date(2023, 9, 10, 16, 10, 42, 11)   
+        },
+    ],
+    notes: "pricing structure"
+  }, {
+    id: 5,
+    userID: 1,
+    trialID: 2,
+    activityID: 2,
+    date : new Date(2023, 9, 10, 8, 10, 42, 11),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 10, 8, 10, 42, 11),
+            end : new Date(2023, 9, 10, 9, 10, 42, 11)   
+        },
+        {
+            start : new Date(2023, 9, 10, 12, 10, 42, 11),
+            end : new Date(2023, 9, 10, 16, 10, 42, 11)   
+        },
+    ],
+    notes: "budgetary management"
+  }, {
+    id: 6,
+    userID: 1,
+    trialID: 3,
+    activityID: 1,
+    date : new Date(2023, 9, 10, 9, 20, 42, 11),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 10, 9, 20, 42, 11),
+            end : new Date(2023, 9, 10, 12, 10, 42, 11)   
+        }
+    ],
+    notes: "adapter"
+  }, {
+    id: 7,
+    userID: 1,
+    trialID: 4,
+    activityID: 2,
+    date : new Date(2023, 9, 10, 9, 20, 42, 11),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 10, 9, 20, 42, 11),
+            end : new Date(2023, 9, 10, 12, 10, 42, 11)   
+        }
+    ],
+    notes: "Customizable"
+  }, {
+    id: 8,
+    userID: 1,
+    trialID: 1,
+    activityID: 1,
+    date : new Date(2023, 9, 10, 8, 10, 42, 11),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 10, 8, 10, 42, 11),
+            end : new Date(2023, 9, 10, 9, 10, 42, 11)   
+        },
+        {
+            start : new Date(2023, 9, 10, 12, 10, 42, 11),
+            end : new Date(2023, 9, 10, 16, 10, 42, 11)   
+        },
+    ],
+    notes: "artificial intelligence"
+  }, {
+    id: 9,
+    userID: 1,
+    trialID: 2,
+    activityID: 2,
+    date : new Date(2023, 9, 10, 8, 10, 42, 11),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 10, 8, 10, 42, 11),
+            end : new Date(2023, 9, 10, 9, 10, 42, 11)   
+        },
+        {
+            start : new Date(2023, 9, 10, 12, 10, 42, 11),
+            end : new Date(2023, 9, 10, 16, 10, 42, 11)   
+        },
+    ],
+    notes: "local area network"
+  }, {
+    id: 10,
+    userID: 1,
+    trialID: 3,
+    activityID: 1,
+    date : new Date(2023, 9, 10, 9, 20, 42, 11),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 10, 9, 20, 42, 11),
+            end : new Date(2023, 9, 10, 12, 10, 42, 11)   
+        }
+    ],
+    notes: "knowledge user"
+  }];
+
+  export {dummyEvent};
