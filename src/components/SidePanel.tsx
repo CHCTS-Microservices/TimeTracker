@@ -38,7 +38,7 @@ function SidePanel( {events} : SidePanelProps) {
         // <button className={`m-1 p-1 rounded-lg shadow-md`} style={{ background: event.active ? 'rgb(245, 206, 128)' : 'rgb(118, 167, 176)' }}> // Not really. THis should change color based on if the event is selected
 
         // ${event.active ? 'bg-[#f5ce80]' :'bg-[#76a7b0] ' }
-        <button className={`m-1 side-pannel-width rounded-lg shadow-md bg-[#76a7b0] hover:bg-[#f5ce80]`} >
+        <button className={`m-1 p-1 side-pannel-width rounded-lg shadow-md bg-[#76a7b0] hover:bg-[#f5ce80]`} >
           
           {/* Using flexbox to layout inner elements of the card horizontally */}
           <div className="flex space-x-2 ">
