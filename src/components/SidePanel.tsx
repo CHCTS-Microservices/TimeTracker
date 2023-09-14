@@ -18,10 +18,12 @@ function SidePanel( {events} : SidePanelProps) {
         // sort by date if both have the same active status
           return new Date(b.date).getTime() - new Date(a.date).getTime();
       }
-
-    
-      
   });
+
+  // convert the given duration object into a human-readable string.
+  function formatDuration(duration: Struct.Duration): string {
+    return `${duration.hours}h ${duration.minutes}m ${duration.seconds}s`;
+  } 
 
   const EventCard: React.FC<{ event: Struct.Event }> = ({ event }) => {
     return (
@@ -34,13 +36,13 @@ function SidePanel( {events} : SidePanelProps) {
 
             <div>
               {/*Card: active label. Label indicating whether the event is active ("Tracking") or inactive */}
-              <div className={`w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg text-white text-center  ${event.active ? 'bg-green-600' : 'bg-red-400'}`} >
-                <p className="text-xs font-semibold mb-2 mt-2 ml-0 ">{event.active ? 'Tracking' : 'Inactive'}</p>
+              <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg text-white  ${event.active ? 'bg-green-600' : 'bg-red-400'}`} >
+                <p className="text-xs font-semibold">{event.active ? 'Tracking' : 'Inactive'}</p>
               </div>
 
               {/*Card: dynamic time. */}
-              <div className={`w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg text-white text-center  ${event.active ? 'bg-green-600' : 'bg-red-400'}`} >
-                <p className="text-xs font-semibold mb-2 mt-2 ml-0 ">{event.active ? 'Tracking' : 'Inactive'}</p>
+              <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg bg-white`} >
+                <p className="text-xs font-semibold  ">{formatDuration(Struct.timeCalc(event))}</p>
               </div>
             </div>
 
