@@ -26,14 +26,22 @@ function SidePanel( {events} : SidePanelProps) {
   const EventCard: React.FC<{ event: Struct.Event }> = ({ event }) => {
     return (
       // Container for the entire card, background color changes based on the event's active status
-        <div className={`m-1 p-1 rounded-lg shadow-md `} style={{ background: event.active ? 'rgb(245, 206, 128)' : 'rgb(118, 167, 176)' }}>
+        <div className={`m-1 p-1 rounded-lg shadow-md`} style={{ background: event.active ? 'rgb(245, 206, 128)' : 'rgb(118, 167, 176)' }}>
           
           {/* Using flexbox to layout inner elements of the card horizontally */}
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 ">
 
-            {/*Card: active label. Label indicating whether the event is active ("Tracking") or inactive */}
-            <div className={`w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg text-white text-center  ${event.active ? 'bg-green-600' : 'bg-red-400'}`} >
-              <p className="text-xs font-semibold mb-2 mt-2 ml-0 ">{event.active ? 'Tracking' : 'Inactive'}</p>
+
+            <div>
+              {/*Card: active label. Label indicating whether the event is active ("Tracking") or inactive */}
+              <div className={`w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg text-white text-center  ${event.active ? 'bg-green-600' : 'bg-red-400'}`} >
+                <p className="text-xs font-semibold mb-2 mt-2 ml-0 ">{event.active ? 'Tracking' : 'Inactive'}</p>
+              </div>
+
+              {/*Card: dynamic time. */}
+              <div className={`w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg text-white text-center  ${event.active ? 'bg-green-600' : 'bg-red-400'}`} >
+                <p className="text-xs font-semibold mb-2 mt-2 ml-0 ">{event.active ? 'Tracking' : 'Inactive'}</p>
+              </div>
             </div>
 
             {/*Card: Side panel detail. Container for detailed information about the event */}
