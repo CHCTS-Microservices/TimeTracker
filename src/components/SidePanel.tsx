@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 import  * as Struct from '@/app/utils/types';
 
