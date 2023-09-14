@@ -45,6 +45,31 @@ export type User = {
     role : string; // will need to be flushed out
 }
 
+export type Duration = {
+    hours: number;
+    minutes : number;
+    seconds : number;
+}
+
+// funtion that calculates duration
+export function timeCalc(event : Event){
+    event.totalTime = 0;
+    event.timeLine.forEach((x) => {
+        const timeElap = x.end?.getTime() - x.start.getTime()
+        event.totalTime += timeElap
+    });
+    const totalSeconds = Math.floor(event.totalTime / 1000); // Convert milliseconds to seconds
+    const dur : Duration = {
+        hours : Math.floor(totalSeconds / 3600),
+        minutes : Math.floor((totalSeconds % 3600) / 60),
+        seconds : totalSeconds % 60
+
+    };
+    console.log(`${dur.hours} hrs ${dur.minutes} min ${dur.seconds} sec`);
+    return dur;
+
+}
+
 const dummyEvent : Event[] = [
     {
     id: 1,
