@@ -6,6 +6,7 @@ import SidePanel from './SidePanel';
 
 export default function Testing(user : Struct.User, event1 : Struct.Event) {
   const [count, setCount] = useState<number>(0);
+  const dummyEvent : Struct.Event[] = Struct.dummyEvent;
   // let a : Struct.User = {
   //   id : 123,
   //   name : 'Fran',
@@ -15,6 +16,11 @@ export default function Testing(user : Struct.User, event1 : Struct.Event) {
   // function test (){
   //     console.log('this works yay!!');
   //     // number = (number + 10 ) %20;
+  function LogEvent(){
+    console.log(count)
+    console.log(dummyEvent[count]);
+
+  }
   // }
 
 
@@ -32,21 +38,32 @@ export default function Testing(user : Struct.User, event1 : Struct.Event) {
         </h1>
       </div>
 
-      <div className="bg-purple-800 w-40 h-auto align-middle mx-auto hover:bg-yellow-400">
-        <button
-          className="text-red-600 hover:text-white"
-          onClick={() => setCount((count + 10) % 40)}
-        >
-          What does this button do??
-        </button>
-      </div>
-
       <div >
         <div>{event1.active}</div>
         <div>{event1.activityID}</div>
       {/* <SidePanel events={[event1]} /> */}
       </div>
-    
+
+      <div className="bg-purple-800 w-40 h-auto align-middle mx-auto hover:bg-yellow-400">
+        <button
+          className="text-red-600 hover:text-white"
+          onClick={() => setCount((count + 1) % 10)}
+        >
+          What does this button do??
+        </button>
+
+        
+      
+      </div>
+
+      <div className="bg-amber-600 w-40 h-auto align-middle mx-auto hover:bg-orange-300">
+        <button
+          className="text-white hover:text-purple-500"
+          onClick={LogEvent}
+        >
+          heleo 
+        </button>
+      </div>
     </div>
   );
 }
