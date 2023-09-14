@@ -4,7 +4,7 @@ import { useState } from "react";
 import  * as Struct from '@/app/utils/types';
 import SidePanel from './SidePanel';
 
-export default function Testing(user : Struct.User, event1 : Struct.Event) {
+export default function Testing(user : Struct.User) {
   const [count, setCount] = useState<number>(0);
   const dummyEvent : Struct.Event[] = Struct.dummyEvent;
   // let a : Struct.User = {
@@ -38,11 +38,6 @@ export default function Testing(user : Struct.User, event1 : Struct.Event) {
         </h1>
       </div>
 
-      <div >
-        <div>{event1.active}</div>
-        <div>{event1.activityID}</div>
-      {/* <SidePanel events={[event1]} /> */}
-      </div>
 
       <div className="bg-purple-800 w-40 h-auto align-middle mx-auto hover:bg-yellow-400">
         <button
@@ -63,6 +58,10 @@ export default function Testing(user : Struct.User, event1 : Struct.Event) {
         >
           heleo 
         </button>
+      </div>
+
+      <div >
+        <SidePanel events={dummyEvent} />
       </div>
     </div>
   );
