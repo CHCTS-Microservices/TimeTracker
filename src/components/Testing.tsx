@@ -18,6 +18,7 @@ export default function Testing(user : Struct.User) {
   function LogEvent(){
     console.log(count)
     console.log(dummyEvent[count]);
+    console.log(Struct.timeCalc(dummyEvent[count]));
 
   }
   // }
