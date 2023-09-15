@@ -28,3 +28,8 @@ body {
 .side-pannel-width{
   width: -webkit-fill-available;;
 }
+
+.flex-container {
+  display: flex;
+}
+
