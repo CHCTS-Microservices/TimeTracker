@@ -10,10 +10,10 @@ type EventDetailProps = {
 
 export default function EventDetail({ event, trial, activity }: EventDetailProps) {
     return (
-        <div className="eventdetail">
-            <div className="trial-info-form">
-                <div className="overlap-group">
-                    <div className="trial-name-stage">
+        <div className="h-[200px] w-[486px]">
+            <div className="h-[200px] w-[488px] relative left-[400px]">
+                <div className="bg-[#254985] rounded-[15px] h-[200px] w-[486px] relative">
+                    <div className="absolute top-[12px] left-[12px] w-[462px] text-white font-extrabold text-[24px] leading-normal tracking-normal font-inter">
                         {`Trial: ${trial.title}`}
                         <br />
                         {`Stage: ${trial.Stage}`}

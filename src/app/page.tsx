@@ -4,7 +4,7 @@ import  * as Struct from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
 import EventDetail from '@/components/EventDetail';
 import Box from '@/components/Metadata';
-
+// Interaction for side panel and event details will be implemented by the time all the components are complet the time-tracking page
 export default function Home() {
   let a : Struct.User = {
     id : 123,
