@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 
 function TimerController() {
@@ -6,6 +7,7 @@ function TimerController() {
     const [status, setStatus] = useState('Stop');
 
     function toggle() {
+        console.log('yello');
         setIsActive(!isActive);
     }
 
@@ -15,8 +17,9 @@ function TimerController() {
         setStatus('Stop');
     }
 
+    
     useEffect(() => {
-        let interval = null;
+        let interval : any = null;
         if (isActive) {
             setStatus('Tracking');
             interval = setInterval(() => {
@@ -32,7 +35,8 @@ function TimerController() {
     const formatTime = () => {
         const getSeconds = `0${(seconds % 60)}`.slice(-2);
         const minutes = `${Math.floor(seconds / 60)}`;
-        const getMinutes = `0${minutes % 60}`.slice(-2);
+        const min = Math.floor(seconds / 60)
+        const getMinutes = `0${min % 60}`.slice(-2);
         const getHours = `0${Math.floor(seconds / 3600)}`.slice(-2);
 
         return `${getHours} : ${getMinutes} : ${getSeconds}`;
@@ -43,7 +47,8 @@ function TimerController() {
             <div className="time">{formatTime()}</div>
             <div className={`status ${status}`}>{status}</div>
             <div className="row">
-                <button className={`button button-start ${status === 'Stop' ? 'button-disabled' : ''}`} disabled={status === 'Stop'} onClick={toggle}>
+                {/* <button className={`bg-blue-100 button button-start ${status === 'Stop' ? 'button-disabled' : ''}`} disabled={status === 'Stop'} onClick={toggle}> */}
+                <button className='bg-blue-500' onClick={toggle}>
                     {isActive ? 'Pause' : 'Start'}
                 </button>
                 <button className="button button-stop" onClick={reset}>

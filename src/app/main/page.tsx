@@ -1,4 +1,5 @@
-import TimerController from '../../components/TimerController';
+
+import TimerController from "@/components/TimerController";
 
 export default function Page() {
         
