@@ -8,8 +8,6 @@ interface SidePanelProps {
   }
 
 
-
-
 function SidePanel( {events} : SidePanelProps) {
     // sort events by active then by time
     events.sort((a, b) => {
@@ -23,25 +21,20 @@ function SidePanel( {events} : SidePanelProps) {
       }
   });
 
-
-
-
   // convert the given duration object into a human-readable string.
   function formatDuration(duration: Struct.Duration): string {
     return `${duration.hours}h ${duration.minutes}m ${duration.seconds}s`;
   } 
 
   const EventCard: React.FC<{ event: Struct.Event }> = ({ event }) => {
-    
     return (
       // Container for the entire card, background color changes based on the event's active status
-        // <button className={`m-1 p-1 rounded-lg shadow-md`} style={{ background: event.active ? 'rgb(245, 206, 128)' : 'rgb(118, 167, 176)' }}> // Not really. THis should change color based on if the event is selected
-
-        // ${event.active ? 'bg-[#f5ce80]' :'bg-[#76a7b0] ' }
-        <button className={`m-1 p-1 side-pannel-width rounded-lg shadow-md bg-[#76a7b0] hover:bg-[#f5ce80]`} >
+        <div className={`m-1 p-1 rounded-lg shadow-md`} style={{ background: event.active ? 'rgb(245, 206, 128)' : 'rgb(118, 167, 176)' }}>
           
           {/* Using flexbox to layout inner elements of the card horizontally */}
           <div className="flex space-x-2 ">
+
+
             <div>
               {/*Card: active label. Label indicating whether the event is active ("Tracking") or inactive */}
               <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg text-white  ${event.active ? 'bg-green-600' : 'bg-red-400'}`} >
@@ -56,13 +49,13 @@ function SidePanel( {events} : SidePanelProps) {
 
             {/*Card: Side panel detail. Container for detailed information about the event */}
             <div className={`w-[200px] h-[100px] rounded-lg shadow-lg text-white `} style={{ background: 'rgb(32, 63, 119)' }}>
-                <p className="text-xs m-2 font-semibold ">Trial: {event.trialName}</p>
-                <p className="text-xs m-2">Stage: {event.stage}</p>
-                <p className="text-xs m-2">Activity: {event.activityName}</p>
+                <p className="text-xs m-2 font-semibold ">{event.notes}</p>
+                <p className="text-xs m-2">Trail number: {event.trialID}</p>
+                <p className="text-xs m-2">Stage:</p>
             </div>
           </div>
 
-        </button>
+        </div>
     );
   }
 
