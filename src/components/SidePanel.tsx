@@ -32,13 +32,25 @@ function SidePanel( {events} : SidePanelProps) {
   } 
 
   const EventCard: React.FC<{ event: Struct.Event }> = ({ event }) => {
+
+    const [showPanel, setShowPanel] = useState(false);
+    const [panelData, setPanelData] =  useState<Event | null>(null);
+
+
+    const handleClick = () => {
+      setShowPanel(!showPanel);
+      // setPanelData(event);
+    };
+
+    
+
     
     return (
       // Container for the entire card, background color changes based on the event's active status
         // <button className={`m-1 p-1 rounded-lg shadow-md`} style={{ background: event.active ? 'rgb(245, 206, 128)' : 'rgb(118, 167, 176)' }}> // Not really. THis should change color based on if the event is selected
 
         // ${event.active ? 'bg-[#f5ce80]' :'bg-[#76a7b0] ' }
-        <button className={`m-1 p-1 side-pannel-width rounded-lg shadow-md bg-[#76a7b0] hover:bg-[#f5ce80]`} >
+        <button className={`m-1 p-1 side-pannel-width rounded-lg shadow-md bg-[#76a7b0] hover:bg-[#f5ce80]`} onClick={handleClick} >
           
           {/* Using flexbox to layout inner elements of the card horizontally */}
           <div className="flex space-x-2 ">
@@ -61,6 +73,13 @@ function SidePanel( {events} : SidePanelProps) {
                 <p className="text-xs m-2">Activity: {event.activityName}</p>
             </div>
           </div>
+
+          {showPanel && (
+                <div className="ml-4 p-4 border rounded-lg shadow-md bg-gray-100">
+                  {/* the page will show after click the button */}
+                  <p>here is display Card</p>
+                </div>
+            )}
 
         </button>
     );
