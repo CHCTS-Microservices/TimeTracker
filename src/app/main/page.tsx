@@ -54,13 +54,10 @@ export default function Page() {
                                 
                         </div>
                         {/* Third Element - 25% */}
-                        <textarea className="bg-white text-black p-4 rounded-lg" style={{ height: '24%'}}>Note</textarea>
-                        {/* Fourth Element - 25% */}
-                        <div className="flex justify-end">
-                            <button className="bg-gray-500 text-white p-4 rounded-lg" id="stop">Stop</button>
-                            <button className="bg-red-500 text-white p-4 rounded-lg" id="pause">Pause</button>
-                            <button className="bg-green-500 text-white p-4 rounded-lg" id="start">Start</button>
-                        </div>
+                        <textarea className="bg-white text-black p-4 rounded-lg" style={{ height: '34%'}}>Note</textarea>
+                        {/* Third Element - 25% */}
+                        <button className="bg-white text-black p-4 rounded-lg" style={{ height: '24%'}}>save</button>
+                        
                     </div>
                 </div>
             </div>

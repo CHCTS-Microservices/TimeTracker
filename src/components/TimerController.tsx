@@ -44,14 +44,20 @@ function TimerController() {
 
     return (
         <div className="time-controller">
-            <div className="time">{formatTime()}</div>
-            <div className={`status ${status}`}>{status}</div>
+            <div className="flex items-center space-x-4">
+                <div className="time p-2 bg-white text-black border rounded-md text-4xl">
+                    {formatTime()}
+                </div>
+                <div className={`status p-2 text-white rounded-md ${status === 'Tracking' ? 'bg-green-500' : status === 'Pause' ? 'bg-yellow-500' : 'bg-red-500'}`}>
+                    {status}
+                </div>
+            </div>
             <div className="row">
                 {/* <button className={`bg-blue-100 button button-start ${status === 'Stop' ? 'button-disabled' : ''}`} disabled={status === 'Stop'} onClick={toggle}> */}
-                <button className='bg-blue-500' onClick={toggle}>
+                <button className={`bg-green-500 text-white p-4 rounded-lg ${isActive ? 'bg-yellow-500' : ''}`} onClick={toggle}>
                     {isActive ? 'Pause' : 'Start'}
                 </button>
-                <button className="button button-stop" onClick={reset}>
+                <button className="bg-red-500 text-white p-4 rounded-lg" onClick={reset}>
                     Stop
                 </button>
             </div>
