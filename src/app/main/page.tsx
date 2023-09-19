@@ -51,7 +51,7 @@ export default function Page() {
                             </div>
                             {/* Second Sub-Element */}
                             <div className="flex justify-between items-center" style={{width: '40%'}}>
-                                <TimerController />
+                                <TimerController event={selectedEvent}/>
                             </div>
                         </div>
                         {/* Second Element - 25% */}
