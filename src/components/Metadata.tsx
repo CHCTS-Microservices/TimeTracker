@@ -5,7 +5,7 @@ type MetadataProps = {
     metadata: string;
 };
 
-function Metadata({ metadata }: MetadataProps): JSX.Element {
+function Box({ metadata }: MetadataProps): JSX.Element {
     return (
         <div className="box">
             <div className="metadata">
@@ -19,5 +19,5 @@ function Metadata({ metadata }: MetadataProps): JSX.Element {
     );
 }
 
-export default Metadata;
+export default Box;
 

@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import  * as Struct from '@/app/utils/types';
+import '@/app/page';
 
 // Interface to define the expected props for the SidePanel component
 interface SidePanelProps {
