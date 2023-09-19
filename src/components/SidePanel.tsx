@@ -50,7 +50,7 @@ function SidePanel( {events} : SidePanelProps) {
 
               {/*Card: dynamic time. */}
               <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg bg-white`} >
-                <p className="text-xs font-semibold  ">{formatDuration(Struct.timeCalc(event))}</p>
+                <p className="text-xs font-semibold  bg-white text-black">{formatDuration(Struct.timeCalc(event))}</p>
               </div>
             </div>
 

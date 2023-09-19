@@ -26,7 +26,7 @@ export default function Page() {
                         Create Activity
                     </button>
                     {/* Sidebar */}
-                    <div className="text-4xl text-white">
+                    <div className="">
                     <SidePanel events={events}/>
                     </div>
                 </div>
