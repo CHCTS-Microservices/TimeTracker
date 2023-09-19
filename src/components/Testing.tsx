@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import  * as Struct from '@/app/utils/types';
+import SidePanel from './SidePanel';
 
 export default function Testing(user : Struct.User) {
   const [count, setCount] = useState<number>(0);
   const dummyEvent : Struct.Event[] = Struct.dummyEvent;
   // let a : Struct.User = {
   //   id : 123,
-  //   name : 'Francis',
+  //   name : 'Fran',
   //   role : 'Test'
   // }
 
@@ -23,6 +24,10 @@ export default function Testing(user : Struct.User) {
   }
   // }
 
+
+
+
+
   return (
     <div>
       <div className="pb-5">
@@ -34,6 +39,7 @@ export default function Testing(user : Struct.User) {
         </h1>
       </div>
 
+
       <div className="bg-purple-800 w-40 h-auto align-middle mx-auto hover:bg-yellow-400">
         <button
           className="text-red-600 hover:text-white"
@@ -41,6 +47,9 @@ export default function Testing(user : Struct.User) {
         >
           What does this button do??
         </button>
+
+        
+      
       </div>
 
       <div className="bg-amber-600 w-40 h-auto align-middle mx-auto hover:bg-orange-300">
@@ -50,6 +59,10 @@ export default function Testing(user : Struct.User) {
         >
           heleo 
         </button>
+      </div>
+
+      <div >
+        <SidePanel events={dummyEvent} />
       </div>
     </div>
   );

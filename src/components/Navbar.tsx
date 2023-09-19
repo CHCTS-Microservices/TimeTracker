@@ -18,8 +18,8 @@ export default function NavBar(props: NavProps) {
         <Link className='text-4xl' href="/">{title}</Link>
         </div>
         {/* Implement different color on active/focus state  */}
-        <div className='my-auto  flex flex-row ml-auto mr-44  justify-end'>
-            <Link className='mx-5' href="/main">Dashboard</Link>
+        <div className='my-auto flex flex-row ml-auto mr-44  justify-end'>
+            <Link className='mx-5' href="/main">Main</Link>
             <Link className='mx-5' href="/calendar">Calendar</Link>
             <Link className='mx-5' href="/statistics">Satistics?</Link>
         </div>

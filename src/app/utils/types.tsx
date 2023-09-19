@@ -1,11 +1,15 @@
 // Type rules defined here -> globally accessable
+// this is not how db will look like. Need to make sure when calling data, it fits to this form
 export type Event = {
     id : number;
     userID : number;
     date : Date;
     title? : string; //* no needed i think
-    trialID : number; 
+    trialID : number;
+    trialName : String;
+    stage : String; 
     activityID : number;
+    activityName: String;
     timeLine : Time[];
     active : boolean;
     totalTime : number;
@@ -75,7 +79,10 @@ const dummyEvent : Event[] = [
     id: 1,
     userID: 1,
     trialID: 2,
+    trialName: "Isoniazid",
+    stage : "Start-Up",
     activityID: 2,
+    activityName: "Testing",
     date : new Date(2023, 9, 8, 8, 10, 42, 11),
     timeLine : [
         {
@@ -94,7 +101,10 @@ const dummyEvent : Event[] = [
     id: 2,
     userID: 1,
     trialID: 3,
+    trialName: "Hydrochlorothiazide ",
+    stage : "Start-Up",
     activityID: 1,
+    activityName: "Research",
     date : new Date(2023, 9, 8, 9, 20, 42, 11),
     timeLine : [
         {
@@ -109,7 +119,10 @@ const dummyEvent : Event[] = [
     id: 3,
     userID: 1,
     trialID: 4,
+    trialName: "Amoxicillin",
+    stage : "Start-Up",
     activityID: 2,
+    activityName: "Testing",
     date : new Date(2023, 9, 9, 9, 20, 42, 11),
     timeLine : [
         {
@@ -124,7 +137,10 @@ const dummyEvent : Event[] = [
     id: 4,
     userID: 1,
     trialID: 1,
+    trialName: "Meclizine Hydrochloride",
+    stage : "Start-Up",
     activityID: 1,
+    activityName: "Research",
     date : new Date(2023, 9, 9, 8, 10, 42, 11),
     timeLine : [
         {
@@ -143,7 +159,10 @@ const dummyEvent : Event[] = [
     id: 5,
     userID: 1,
     trialID: 2,
+    trialName: "Isoniazid",
+    stage : "Start-Up",
     activityID: 2,
+    activityName: "Testing",
     date : new Date(2023, 9, 10, 8, 10, 42, 11),
     timeLine : [
         {
@@ -162,7 +181,10 @@ const dummyEvent : Event[] = [
     id: 6,
     userID: 1,
     trialID: 3,
+    trialName: "Hydrochlorothiazide ",
+    stage : "Start-Up",
     activityID: 1,
+    activityName: "Research",
     date : new Date(2023, 9, 10, 9, 20, 42, 11),
     timeLine : [
         {
@@ -177,7 +199,10 @@ const dummyEvent : Event[] = [
     id: 7,
     userID: 1,
     trialID: 4,
+    trialName: "Amoxicillin",
+    stage : "Start-Up",
     activityID: 2,
+    activityName: "Testing",
     date : new Date(2023, 9, 11, 9, 20, 42, 11),
     timeLine : [
         {
@@ -192,7 +217,10 @@ const dummyEvent : Event[] = [
     id: 8,
     userID: 1,
     trialID: 1,
+    trialName: "Meclizine Hydrochloride",
+    stage : "Start-Up",
     activityID: 1,
+    activityName: "Research",
     date : new Date(2023, 9, 11, 8, 10, 42, 11),
     timeLine : [
         {
@@ -211,7 +239,10 @@ const dummyEvent : Event[] = [
     id: 9,
     userID: 1,
     trialID: 2,
+    trialName: "Isoniazid",
+    stage : "Start-Up",
     activityID: 2,
+    activityName: "Testing",
     date : new Date(2023, 9, 12, 8, 10, 42, 11),
     timeLine : [
         {
@@ -230,7 +261,10 @@ const dummyEvent : Event[] = [
     id: 10,
     userID: 1,
     trialID: 3,
+    trialName: "Hydrochlorothiazide",
+    stage : "Start-Up",
     activityID: 1,
+    activityName: "Research",
     date : new Date(2023, 9, 12, 9, 20, 42, 11),
     timeLine : [
         {
@@ -271,6 +305,15 @@ const dummyEvent : Event[] = [
         activities : [0,1],
         staffID : [1]
     },
+    {
+        id : 4,
+        date : new Date("2023-06-16"),
+        title : "Amoxicillin",
+        unit : "Critical Care",
+        Stage : "Start-Up",
+        activities : [0,1],
+        staffID : [1]
+    }
   ];
 
   const dummyActivity : Activity[] = [
