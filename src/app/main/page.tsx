@@ -1,7 +1,12 @@
 
 import TimerController from "@/components/TimerController";
+import  * as Struct from '@/app/utils/types'
+import SidePanel from '@/components/SidePanel';
 
 export default function Page() {
+
+    const events : Struct.Event[] = Struct.dummyEvent;
+    const selectedEvent : Struct.Event = events[0];
         
     return (
         <>
@@ -22,7 +27,7 @@ export default function Page() {
                     </button>
                     {/* Sidebar */}
                     <div className="text-4xl text-white">
-                        Tao's work here
+                    <SidePanel events={events}/>
                     </div>
                 </div>
     
@@ -55,10 +60,9 @@ export default function Page() {
                         </div>
                         {/* Third Element - 25% */}
                         <textarea className="bg-white text-black p-4 rounded-lg" style={{ height: '34%'}}>Note</textarea>
-                        {/* Third Element - 25% */}
-                        <button className="bg-white text-black p-4 rounded-lg" style={{ height: '24%'}}>save</button>
                         
                     </div>
+                    
                 </div>
             </div>
         </>
