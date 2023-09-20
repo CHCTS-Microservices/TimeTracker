@@ -7,8 +7,27 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { EventSourceInput } from '@fullcalendar/core/index.js'
+import { Event } from '@/app/utils/types'
+import { dummyEvent } from '@/app/utils/types'
 
 export default function Calendar() {
+
+    const fullCalendarEvents = dummyEvent.flatMap(event => {
+        return event.timeLine.map(timeRange => {
+          return {
+            id: event.id.toString(),
+            title: event.activityName.toString(),
+            start: timeRange.start,
+            ...(timeRange.end !== null ? { end: timeRange.end } : {})
+           
+          };
+        });
+      });
+      
+      // Then use fullCalendarEvents when rendering FullCalendar.
+
+    //console.log(fullCalendarEvents);
+
     return (
         <>
         <nav className="flex justify-between mb-12 border-b border-violet-100 p-4">
@@ -26,9 +45,10 @@ export default function Calendar() {
                 headerToolbar={{
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'resourceTimelineWook, dayGridMonth,timeGridWeek'
+                    right: 'resourceTimelineWook, dayGridMonth,timeGridWeek,dayGridDay'
                   }}
-                events={{}}
+                events={fullCalendarEvents}
+                
                 nowIndicator={true}
                 editable={true}
                 droppable={true}
@@ -39,6 +59,7 @@ export default function Calendar() {
                 // eventClick={}
                 />
                 </div>
+                
             </div>
         </main>
         </>
