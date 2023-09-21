@@ -2,6 +2,7 @@
 import TimerController from "@/components/TimerController";
 import  * as Struct from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
+import NoteEditor from '@/components/NoteEditor';
 
 export default function Page() {
 
@@ -58,8 +59,10 @@ export default function Page() {
                         <div  style={{ height: '25%'}}>
                                 
                         </div>
-                        {/* Third Element - 25% */}
-                        <textarea className="bg-white text-black p-4 rounded-lg" style={{ height: '34%'}}>Note</textarea>
+                         {/* Third Element - 35% */}
+                        <div style={{ height: '35%' }}>
+                            <NoteEditor />
+                        </div>
                         
                     </div>
                     
