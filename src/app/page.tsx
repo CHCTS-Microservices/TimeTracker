@@ -3,6 +3,7 @@ import Test from '@/components/Testing'
 import  * as Struct from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
 
+
 export default function Home() {
   let a : Struct.User = {
     id : 123,
