@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import  * as Struct from '@/app/utils/types';
 
 // Interface to define the expected props for the SidePanel component
@@ -22,6 +22,30 @@ function SidePanel( {events} : SidePanelProps) {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
       }
   });
+
+//   useEffect(() => {
+//     let interval : any = null;
+//     if (isActive) {
+//         setStatus('Tracking');
+//         interval = setInterval(() => {
+//             setSeconds(seconds => seconds + 1);
+//         }, 1000);
+//     } else if (!isActive && seconds !== 0) {
+//         clearInterval(interval);
+//         setStatus('Pause');
+//     }
+//     return () => clearInterval(interval);
+// }, [isActive, seconds]);
+
+// const formatTime = () => {
+//     const getSeconds = `0${(seconds % 60)}`.slice(-2);
+//     const minutes = `${Math.floor(seconds / 60)}`;
+//     const min = Math.floor(seconds / 60)
+//     const getMinutes = `0${min % 60}`.slice(-2);
+//     const getHours = `0${Math.floor(seconds / 3600)}`.slice(-2);
+
+//     return `${getHours} : ${getMinutes} : ${getSeconds}`;
+// }
 
 
 

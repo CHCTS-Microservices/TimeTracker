@@ -14,7 +14,14 @@ export type Event = {
     active : boolean;
     totalTime : number;
     notes : string
+    
 }
+
+// export type Track{
+//     hours : number,
+//     minutes : number,
+//     seconds : number
+// }
 
 export type Trial = {
     id: number;

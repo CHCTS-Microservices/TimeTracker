@@ -1,7 +1,12 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import  * as Struct from '@/app/utils/types';
 
-function TimerController() {
+interface TimerControlerProps {
+    event: Struct.Event;
+  }
+
+function TimerController(event : TimerControlerProps) {
     const [seconds, setSeconds] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const [status, setStatus] = useState('Stop');
@@ -34,8 +39,11 @@ function TimerController() {
 
         return `${getHours} : ${getMinutes} : ${getSeconds}`;
     }
+    console.log('hi', event.event);
+
 
     return (
+    
         <div className="time-controller">
             <div className="flex items-center space-x-4">
                 <div className="time p-2 bg-white text-black border rounded-md text-4xl">
