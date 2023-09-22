@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import  * as Struct from '@/app/utils/types';
-import API from '../app/utils/cosmos';
+import API from '../app/utils/supabase';
 import SidePanel from './SidePanel';
 
 export default function Testing(user : Struct.User) {
