@@ -83,14 +83,14 @@ function SidePanel( {events} : SidePanelProps) {
 
         <div>
           {/* Filter */}
-            <div className="m-1 p-1 ml-0 rounded-lg shadow-md w-64 h-full" style={{ background: 'rgb(245, 206, 128)'}}>
+            <div className="m-1 p-1 ml-0 rounded-lg shadow-md w-64 h-full text-black" style={{ background: 'rgb(245, 206, 128)'}}>
                 {/* Label indicating the purpose of the dropdown */}
                 <label>Select active status:</label>
 
                 {/* Dropdown to select the active status filter. 
                  It updates the `filterActive` state when its value changes. */}
                 <select
-                    className="ml-2 p-1 border rounded"
+                    className="ml-2 p-1 border rounded bg- white"
                     value={filterActive === null ? '' : filterActive.toString()}
                     onChange={e => setFilterActive(e.target.value === '' ? null : e.target.value === 'true')}
                 >

@@ -11,13 +11,6 @@ function TimerController() {
         setIsActive(!isActive);
     }
 
-    function reset() {
-        setSeconds(0);
-        setIsActive(false);
-        setStatus('Stop');
-    }
-
-    
     useEffect(() => {
         let interval : any = null;
         if (isActive) {
@@ -53,12 +46,8 @@ function TimerController() {
                 </div>
             </div>
             <div className="row">
-                {/* <button className={`bg-blue-100 button button-start ${status === 'Stop' ? 'button-disabled' : ''}`} disabled={status === 'Stop'} onClick={toggle}> */}
                 <button className={`bg-green-500 text-white p-4 rounded-lg ${isActive ? 'bg-yellow-500' : ''}`} onClick={toggle}>
                     {isActive ? 'Pause' : 'Start'}
-                </button>
-                <button className="bg-red-500 text-white p-4 rounded-lg" onClick={reset}>
-                    Stop
                 </button>
             </div>
         </div>
