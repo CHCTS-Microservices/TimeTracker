@@ -5,12 +5,13 @@ import  * as Struct from '@/app/utils/types';
 // Interface to define the expected props for the SidePanel component
 interface SidePanelProps {
     events: Struct.Event[];
-  }
+    onEventSelect: (event: Struct.Event) => void;
+}
 
 
 
 
-function SidePanel( {events} : SidePanelProps) {
+function SidePanel({ events, onEventSelect }: SidePanelProps) {
     // sort events by active then by time
     events.sort((a, b) => {
       if (a.active && !b.active) {
@@ -31,14 +32,20 @@ function SidePanel( {events} : SidePanelProps) {
     return `${duration.hours}h ${duration.minutes}m ${duration.seconds}s`;
   } 
 
-  const EventCard: React.FC<{ event: Struct.Event }> = ({ event }) => {
+  interface EventCardProps {
+    event: Struct.Event;
+    onEventSelect: (event: Struct.Event) => void;
+  }
+
+  // an interface for the props expected by the `EventCard` component.
+  const EventCard: React.FC<EventCardProps> = ({ event, onEventSelect }) => {
     
     return (
       // Container for the entire card, background color changes based on the event's active status
         // <button className={`m-1 p-1 rounded-lg shadow-md`} style={{ background: event.active ? 'rgb(245, 206, 128)' : 'rgb(118, 167, 176)' }}> // Not really. THis should change color based on if the event is selected
 
         // ${event.active ? 'bg-[#f5ce80]' :'bg-[#76a7b0] ' }
-        <button className={`m-1 p-1 side-pannel-width rounded-lg shadow-md bg-[#76a7b0] hover:bg-[#f5ce80]`} >
+        <button className={`m-1 p-1 side-pannel-width rounded-lg shadow-md bg-[#76a7b0] hover:bg-[#f5ce80]`} onClick={() => onEventSelect(event)}>
           
           {/* Using flexbox to layout inner elements of the card horizontally */}
           <div className="flex space-x-2 ">
@@ -103,7 +110,7 @@ function SidePanel( {events} : SidePanelProps) {
             {/* Event Cards */}
             <div className="w-64 h-full bg-gray-100 p-4 shadow-md " style={{ background: 'rgb(26, 97, 120)' }}>
               {filteredEvents.map(event => (
-                <EventCard key={event.id} event={event} />
+                <EventCard key={event.id} event={event} onEventSelect={onEventSelect}/>
               ))}
 
       
