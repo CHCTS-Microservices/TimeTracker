@@ -1,9 +1,16 @@
 
+import { createClient } from '@supabase/supabase-js'
+
+// const supabaseUrl = 'https://mqsvuplppswdwhybeeqq.supabase.co';
+// const supabaseKey = process.env.SUPABASE_KEY;
+// const supabase = createClient(supabaseUrl, supabaseKey);
 
 class API{
 
     // Read a data
-    read(){
+    async read(){
+        // let { yello: Activity, error } = await supabase.from('Activity').select('id');
+        // console.log(yello);
         console.log('Hello world1');
     }
 

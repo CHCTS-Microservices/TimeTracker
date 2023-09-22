@@ -4,11 +4,38 @@ import { useState } from "react";
 import  * as Struct from '@/app/utils/types';
 import API from '../app/utils/supabase';
 import SidePanel from './SidePanel';
+import supabase from '../../supabase';
 
-export default function Testing(user : Struct.User) {
+
+// import { createClient } from '@supabase/supabase-js';
+
+// const supabaseUrl = 'https://mqsvuplppswdwhybeeqq.supabase.co';
+// // const supabaseKey = process.env.SUPABASE_KEY;
+// const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1xc3Z1cGxwcHN3ZHdoeWJlZXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTUxMDY2NjIsImV4cCI6MjAxMDY4MjY2Mn0.7S9S1mWsIJb2Dv9X5Twehy56mO0LffLB_Y5kPsY1pcs';
+// const supabase = createClient(supabaseUrl, supabaseKey);
+
+export default function  Testing(user : Struct.User) {
   const test = new API();
   const [count, setCount] = useState<number>(0);
   const dummyEvent : Struct.Event[] = Struct.dummyEvent;
+  const tt = async () =>{
+    try{
+      console.log('ii');
+        // let { yello : any , error } = await supabase.from('Activity').select('*');
+        
+
+        let { data, error } = await supabase.from('Activity').select('title');
+      
+
+        console.log(data);
+        // console.log(error);
+    }
+    catch{
+      console.log('fffff');
+    }
+    
+    
+  };
   // let a : Struct.User = {
   //   id : 123,
   //   name : 'Fran',
@@ -18,6 +45,8 @@ export default function Testing(user : Struct.User) {
   // function test (){
   //     console.log('this works yay!!');
   //     // number = (number + 10 ) %20;
+
+
   function LogEvent(){
     console.log(count)
     console.log(dummyEvent[count]);
@@ -25,7 +54,18 @@ export default function Testing(user : Struct.User) {
 
   }
   // }
-  function testo(){
+  //@ts-ignore
+  async function testo(){
+    
+    // console.log(await supabase.from('Activity').select('*'));
+    // console.log(d);
+
+    // console.log(supabaseUrl);
+    // console.log(supabaseKey);
+    // console.log(process.env);
+    tt();
+    // let { yello : any, error } = await supabase.from('Activity').select('*');
+    // console.log(yello);
     test.create();
   }
 
@@ -61,14 +101,14 @@ export default function Testing(user : Struct.User) {
       <div className="bg-amber-600 w-40 h-auto align-middle mx-auto hover:bg-orange-300">
         <button
           className="text-white hover:text-purple-500"
-          onClick={LogEvent}
+          onClick={testo}
         >
           heleo 
         </button>
       </div>
 
       <div >
-        <SidePanel events={dummyEvent} />
+     
       </div>
       <button
           className="text-yellow-400 hover:text-white"
