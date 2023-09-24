@@ -127,7 +127,6 @@ class API{
             ]).select();
 
             return data;
-
         }
         catch (error)
         {
@@ -135,29 +134,52 @@ class API{
         }
     }
 
+    // update Event, funtion will return
+    async updateEvent(event : strct.Event)
+    {
+    /**
+     *  updates event for event id {id}
+     *  @return {event} event
+     */
+        try
+        {
+            const { data, error } = await supabase.from('Events').update(
+                {
+                 userID: event.userID,
+                 trialID: event.trialID,
+                 activityID: event.activityID,
+                 timeLine: event.timeLine,
+                 active: event.active,
+                 notes: event.notes,
+                 date: event.date}
+            ).eq('id', event.id).select();
 
-    // Read a data
-    async read(){
-        // let { yello: Activity, error } = await supabase.from('Activity').select('id');
-        // console.log(yello);
-        console.log('Hello world1');
+            return data;
+        }
+        catch (error)
+        {
+            console.log('Error: cant create event');
+        }
     }
 
-    // create data
-    create(){
-        console.log('create');
-    }
+    // delete Event, funtion will return error
+    async deleteEvent(id : number)
+    {
+    /**
+     *  delete event for event id {id}
+     *  @return {error} 
+     */
+        try
+        {
+            const { data, error } = await supabase.from('Events').delete().eq('id', id);
 
-    // delete data
-    delete(){
-        console.log('delete');
+            return error;
+        }
+        catch (error)
+        {
+            console.log('Error: cant create event');
+        }
     }
-
-    // update data
-    update(){
-        console.log('update');
-    }
-
 
 }
 export default API;

@@ -60,8 +60,8 @@ export default function  Testing(user : Struct.User) {
   async function testo(){
     // const testl = new API();
     // console.log( await testl.getEvent(1));
-    const dd : Struct.Event = {
-    id: 200,
+    let dd : Struct.Event = {
+    id: 17,
     userID: 1,
     trialID: 2,
     trialName: "TESTING",
@@ -79,13 +79,17 @@ export default function  Testing(user : Struct.User) {
             end : new Date(2023, 9, 8, 16, 10, 42, 11)   
         },
     ],
-    notes: "asdfsdafasdfsadfsafd",
+    notes: "sfsdfdfdfdfg",
     active : false,
     totalTime : 5
     };
     // console.log(dd.date);
     // console.log(dd.date.getDate() +'/' + dd.date.getMonth() + '/' + dd.date.getFullYear())
-    console.log(await testl.createEvent(dd));
+    // console.log(dd);
+    // let ff : any = await testl.createEvent(dd);
+    // console.log(ff);
+    // ff.notes = "uisahf sdkjlfh dsff";
+    // console.log(await testl.deleteEvent(17));
     
   
   }
