@@ -7,7 +7,7 @@ import supabase from '../../../supabase';
 class API{
  
     // gets user id and querys events for that user
-    
+    //!!!!!!!TODO will need to only get data for the current date 
     async startUp(id : number)
     {
      /**
@@ -16,7 +16,7 @@ class API{
      */
         try
         {
-            let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID`).eq('userID', id);
+            let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID`).eq('userID', id);
             let events : strct.Event[] = [];
             if (data?.length != 0)
             {
@@ -24,8 +24,11 @@ class API{
                 {
 
                     let trial : any = await this.getTrialDet(ev.trialID);
+                    let activity : any = await this.getTrialDet(ev.activityID);
                     let event : strct.Event = {
                         ...ev,
+                        trialName : trial.title,
+                        activityName : activity.title,
                         ...trial[0],
                     };
                     events.push(event);
@@ -36,12 +39,13 @@ class API{
         }
         catch (error)
         {
-            console.log('error');
+            console.log('Error: cant get events');
 
         }
 
     }
 
+    // given trial id, funtion will return trial
     async getTrialDet(id : number)
     {
     /**
@@ -51,11 +55,55 @@ class API{
         try
         {
             let { data, error } = await supabase.from('Trials').select(`title, unit, stage`).eq('id', id);
-            return data;
+            return data[0];
         }
         catch (error)
         {
-            console.log('wtf');
+            console.log('Error: cant get trial details');
+        }
+    }
+
+    // given Activity ID, funtion will return Activity
+    async getActivityDet(id : number)
+    {
+    /**
+     *  Returns activity for id {id}
+     *  @return {data} activity
+     */
+        try
+        {
+            let { data, error } = await supabase.from('Activity').select(`title`).eq('id', id);
+            return data[0];
+        }
+        catch (error)
+        {
+            console.log('Error: cant get activity details');
+        }
+    }
+
+    // given Event ID, funtion will return Activity
+    async getEvent(id : number)
+    {
+    /**
+     *  Returns event for event id {id}
+     *  @return {event} event
+     */
+        try
+        {
+            let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID`).eq('id', id);
+            let trial : any = await this.getTrialDet(data[0].trialID);
+            let activity : any = await this.getTrialDet(data[0].activityID);
+            let event : strct.Event = {
+                ...data[0],
+                trialName : trial.title,
+                activityName : activity.title,
+                ...trial[0],
+            };
+            return event;
+        }
+        catch (error)
+        {
+            console.log('Error: cant get event details');
         }
     }
 
