@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import  * as Struct from '@/app/utils/types';
-import API from '../app/utils/supabase';
+import API from '../app/utils/ServiceLayer';
 import SidePanel from './SidePanel';
 import supabase from '../../supabase';
+import test from "node:test";
 
 
 // import { createClient } from '@supabase/supabase-js';
@@ -15,27 +16,29 @@ import supabase from '../../supabase';
 // const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function  Testing(user : Struct.User) {
-  const test = new API();
+  const testl = new API();
   const [count, setCount] = useState<number>(0);
   const dummyEvent : Struct.Event[] = Struct.dummyEvent;
-  const tt = async () =>{
-    try{
-      console.log('ii');
-        // let { yello : any , error } = await supabase.from('Activity').select('*');
+  // const tt = async () =>{
+  //   try{
+  //     console.log('ii');
+  //       // let { yello : any , error } = await supabase.from('Activity').select('*');
+  //       let l : Struct.Event;
         
 
-        let { data, error } = await supabase.from('Activity').select('title');
+  //       let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, Trials(id)`).eq('userID', '1');
       
 
-        console.log(data);
-        // console.log(error);
-    }
-    catch{
-      console.log('fffff');
-    }
+  //       console.log(data);
+  //       // console.log(error);
+  //   }
+  //   catch{
+  //     console.log('fffff');
+  //   }
+
     
     
-  };
+  // };
   // let a : Struct.User = {
   //   id : 123,
   //   name : 'Fran',
@@ -53,20 +56,12 @@ export default function  Testing(user : Struct.User) {
     console.log(Struct.timeCalc(dummyEvent[count]));
 
   }
-  // }
-  //@ts-ignore
+  
   async function testo(){
+    // const testl = new API();
+    console.log( await testl.startUp(1));
     
-    // console.log(await supabase.from('Activity').select('*'));
-    // console.log(d);
-
-    // console.log(supabaseUrl);
-    // console.log(supabaseKey);
-    // console.log(process.env);
-    tt();
-    // let { yello : any, error } = await supabase.from('Activity').select('*');
-    // console.log(yello);
-    test.create();
+  
   }
 
 
