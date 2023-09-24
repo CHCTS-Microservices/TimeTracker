@@ -40,9 +40,7 @@ class API{
         catch (error)
         {
             console.log('Error: cant get events');
-
         }
-
     }
 
     // given trial id, funtion will return trial
@@ -90,7 +88,7 @@ class API{
      */
         try
         {
-            let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID`).eq('id', id);
+            let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID, date`).eq('id', id);
             let trial : any = await this.getTrialDet(data[0].trialID);
             let activity : any = await this.getTrialDet(data[0].activityID);
             let event : strct.Event = {
@@ -99,11 +97,41 @@ class API{
                 activityName : activity.title,
                 ...trial[0],
             };
-            return event;
+            return event.date;
         }
         catch (error)
         {
             console.log('Error: cant get event details');
+        }
+    }
+
+    // create Event, funtion will return
+    async createEvent(event : strct.Event)
+    {
+    /**
+     *  Returns event for event id {id}
+     *  @return {event} event
+     */
+        try
+        {
+            const { data, error } = await supabase.from('Events').insert(
+            [
+                {
+                 userID: event.userID,
+                 trialID: event.trialID,
+                 activityID: event.activityID,
+                 timeLine: event.timeLine,
+                 active: event.active,
+                 notes: event.notes,
+                 date: event.date}
+            ]).select();
+
+            return data;
+
+        }
+        catch (error)
+        {
+            console.log('Error: cant create event');
         }
     }
 

@@ -59,7 +59,33 @@ export default function  Testing(user : Struct.User) {
   
   async function testo(){
     // const testl = new API();
-    console.log( await testl.startUp(1));
+    // console.log( await testl.getEvent(1));
+    const dd : Struct.Event = {
+    id: 200,
+    userID: 1,
+    trialID: 2,
+    trialName: "TESTING",
+    stage : "Start-Up",
+    activityID: 2,
+    activityName: "asdfsadf",
+    date : new Date ("2023-10-07"),
+    timeLine : [
+        {
+            start : new Date(2023, 9, 8, 8, 10, 42, 11),
+            end : new Date(2023, 9, 8, 9, 10, 42, 11)   
+        },
+        {
+            start : new Date(2023, 9, 8, 12, 10, 42, 11),
+            end : new Date(2023, 9, 8, 16, 10, 42, 11)   
+        },
+    ],
+    notes: "asdfsdafasdfsadfsafd",
+    active : false,
+    totalTime : 5
+    };
+    // console.log(dd.date);
+    // console.log(dd.date.getDate() +'/' + dd.date.getMonth() + '/' + dd.date.getFullYear())
+    console.log(await testl.createEvent(dd));
     
   
   }

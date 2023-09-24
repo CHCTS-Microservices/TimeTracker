@@ -1,10 +1,9 @@
 // Type rules defined here -> globally accessable
 // this is not how db will look like. Need to make sure when calling data, it fits to this form
 export type Event = {
-    id : number;
+    id? : number;
     userID : number;
     date : Date;
-    title? : string; //* no needed i think
     trialID : number;
     trialName : String;
     stage : String; 
