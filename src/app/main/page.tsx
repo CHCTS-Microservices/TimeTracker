@@ -1,12 +1,31 @@
 
+"use client"
 import TimerController from "@/components/TimerController";
 import  * as Struct from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
+import API from '../utils/ServiceLayer';
+import { useEffect, useState } from "react";
 
 export default function Page() {
 
-    const events : Struct.Event[] = Struct.dummyEvent;
-    const selectedEvent : Struct.Event = events[0];
+    const dataBase = new API();
+    const userID : number = 1;
+
+    const [events, setEvents] = useState<Struct.Event[]>([]);
+    const [selectedEvent, setEvent] = useState<Struct.Event>();
+    // const events : Struct.Event[] = await dataBase.startUp(1);
+    // const selectedEvent : Struct.Event = events[0];
+
+    async function getEvents()
+    {
+       const events : Struct.Event[] = await dataBase.startUp(userID);
+       setEvents(events);
+       setEvent(events[0]);
+    }
+
+    useEffect(() => {
+        getEvents();
+    }, []);
         
     return (
         <>

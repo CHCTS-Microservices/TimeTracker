@@ -56,11 +56,16 @@ export type Duration = {
 }
 
 // funtion that calculates duration
+
 export function timeCalc(event : Event){
     event.totalTime = 0;
     event.timeLine.forEach((x) => {
-        const timeElap = x.end?.getTime() - x.start.getTime()
-        event.totalTime += timeElap
+        
+        if (x.end != null)
+        {
+            const timeElap = new Date (x.end).getTime() - new Date (x.start).getTime()
+            event.totalTime += timeElap
+        }
     });
     const totalSeconds = Math.floor(event.totalTime / 1000); // Convert milliseconds to seconds
     const dur : Duration = {
@@ -69,7 +74,7 @@ export function timeCalc(event : Event){
         seconds : totalSeconds % 60
 
     };
-    console.log(`${dur.hours} hrs ${dur.minutes} min ${dur.seconds} sec`);
+    // console.log(`${dur.hours} hrs ${dur.minutes} min ${dur.seconds} sec`);
     return dur;
 
 }
