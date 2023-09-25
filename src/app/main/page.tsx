@@ -41,7 +41,7 @@ export default function Page() {
                     </button>
                     {/* Sidebar */}
                     <div className="">
-                    <SidePanel events={events} onEventSelect={handleEventSelect}/>
+                    <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                     </div>
                 </div>
     
