@@ -19,7 +19,7 @@ export default function Home() {
         {/* need to fix this way */}
         {/* <Test name={a.name} id={a.id} role={a.role}  />  */}
       {/* </div> */}
-      <SidePanel events={events}/>
+      {/* <SidePanel events={events}/> */}
     </main>
   )
 }
