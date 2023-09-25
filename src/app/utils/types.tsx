@@ -66,20 +66,34 @@ export type Duration = {
 export function timeCalc(event : Event){
     event.totalTime = 0;
     event.timeLine.forEach((x) => {
-        const timeElap = x.end?.getTime() - x.start.getTime()
-        event.totalTime += timeElap
+        const end = x.end || new Date(); // Use the current system time if end is null
+        const timeElap = end.getTime() - x.start.getTime();
+        event.totalTime += timeElap;
     });
-    const totalSeconds = Math.floor(event.totalTime / 1000); // Convert milliseconds to seconds
-    const dur : Duration = {
-        hours : Math.floor(totalSeconds / 3600),
-        minutes : Math.floor((totalSeconds % 3600) / 60),
-        seconds : totalSeconds % 60
 
+    let totalSeconds = Math.floor(event.totalTime / 1000); // Convert milliseconds to seconds
+
+    const dur: Duration = {
+        hours: Math.floor(totalSeconds / 3600),
+        minutes: Math.floor((totalSeconds % 3600) / 60),
+        seconds: totalSeconds % 60
     };
+
+    // The following code is used to ensure that minutes and seconds do not exceed 60
+    if (dur.seconds >= 60) {
+        dur.minutes += Math.floor(dur.seconds / 60);
+        dur.seconds %= 60;
+    }
+    
+    if (dur.minutes >= 60) {
+        dur.hours += Math.floor(dur.minutes / 60);
+        dur.minutes %= 60;
+    }
+
     console.log(`${dur.hours} hrs ${dur.minutes} min ${dur.seconds} sec`);
     return dur;
-
 }
+
 
 const dummyEvent : Event[] = [
     {
@@ -97,12 +111,12 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 8, 9, 10, 42, 11)   
         },
         {
-            start : new Date(2023, 9, 8, 12, 10, 42, 11),
-            end : new Date(2023, 9, 8, 16, 10, 42, 11)   
+            start : new Date(2023, 9, 22, 12, 10, 42, 11),
+            end : null  
         },
     ],
     notes: "24 hour",
-    active : false,
+    active : true,
     totalTime : 5
   }, {
     id: 2,
@@ -155,12 +169,12 @@ const dummyEvent : Event[] = [
             end : new Date(2023, 9, 9, 9, 10, 42, 11)   
         },
         {
-            start : new Date(2023, 9, 9, 12, 10, 42, 11),
-            end : new Date(2023, 9, 9, 16, 10, 42, 11)   
+            start : new Date(2023, 9, 20, 12, 10, 42, 11),
+            end :  null
         },
     ],
     notes: "pricing structure",
-    active : false,
+    active : true,
     totalTime : 5
   }, {
     id: 5,
