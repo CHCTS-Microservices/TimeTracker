@@ -62,7 +62,7 @@ export default function Testing(user : Struct.User) {
       </div>
 
       <div >
-        <SidePanel events={dummyEvent} />
+        {/* <SidePanel events={dummyEvent} /> */}
       </div>
     </div>
   );
