@@ -70,16 +70,22 @@ export default function Page() {
                             </div>
                             {/* Second Sub-Element */}
                             <div className="flex justify-between items-center" style={{width: '40%'}}>
-                                <TimerController />
+                                <TimerController event={selectedEvent}/>
                             </div>
                         </div>
                         {/* Second Element - 25% */}
                         <div  style={{ height: '25%'}}>
                                 
                         </div>
-                        {/* Third Element - 25% */}
-                        <textarea className="bg-white text-black p-4 rounded-lg" style={{ height: '34%'}}>Note</textarea>
                         
+                        {/* Third Element - 25% */}
+                        <textarea className="bg-white text-black p-4 rounded-lg" style={{ height: '40%' }}>Note</textarea>
+                        {/* Save Button */}
+                        <button
+                            className="mt-auto bg-blue-500 text-white py-2 px-4 rounded bottom-4 right-4"
+                        >
+                            Save
+                        </button>
                     </div>
                     
                 </div>
