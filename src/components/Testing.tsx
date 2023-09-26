@@ -18,7 +18,7 @@ import test from "node:test";
 export default function  Testing(user : Struct.User) {
   const testl = new API();
   const [count, setCount] = useState<number>(0);
-  const dummyEvent : Struct.Event[] = Struct.dummyEvent;
+  // const dummyEvent : Struct.Event[] = Struct.dummyEvent;
   // const tt = async () =>{
   //   try{
   //     console.log('ii');
