@@ -12,20 +12,28 @@ export default function Page() {
     const userID : number = 1;
 
     const [events, setEvents] = useState<Struct.Event[]>([]);
-    const [selectedEvent, setEvent] = useState<Struct.Event>();
-    // const events : Struct.Event[] = await dataBase.startUp(1);
-    // const selectedEvent : Struct.Event = events[0];
 
+    // Setting up a state to track which event has been selected by the user
+    // Initially set to null, meaning no event is selected at the start
+    const [selectedEvent, setSelectedEvent] = useState<Struct.Event | null>(null);
+    
     async function getEvents()
     {
        const events : Struct.Event[] = await dataBase.startUp(userID);
        setEvents(events);
-       setEvent(events[0]);
+
     }
 
     useEffect(() => {
         getEvents();
     }, []);
+
+    // Handler function to update the selectedEvent state 
+    // when an event is selected from the side panel
+    function handleEventSelect(event: Struct.Event) {
+        setSelectedEvent(event);
+    }
+        
         
     return (
         <>
@@ -46,7 +54,7 @@ export default function Page() {
                     </button>
                     {/* Sidebar */}
                     <div className="">
-                    <SidePanel events={events}/>
+                    <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                     </div>
                 </div>
     
@@ -67,6 +75,7 @@ export default function Page() {
                             {/* First Sub-Element */}
                             <div className="bg-244982 text-4xl text-black" >
                                 Joseph's work here
+                                <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p>
                             </div>
                             {/* Second Sub-Element */}
                             <div className="flex justify-between items-center" style={{width: '40%'}}>
