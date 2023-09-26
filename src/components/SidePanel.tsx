@@ -5,10 +5,12 @@ import  * as Struct from '@/app/utils/types';
 
 // Interface to define the expected props for the SidePanel component
 interface SidePanelProps {
-    events: Struct.Event[];
-  }
+  events: Struct.Event[];
+  onEventSelect: (event: Struct.Event) => void;
+  selectedEvent: Struct.Event | null;
+}
 
-function SidePanel( {events} : SidePanelProps) {
+function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
     // sort events by active then by time
     events.sort((a, b) => {
       if (a.active && !b.active) {
@@ -26,7 +28,18 @@ function SidePanel( {events} : SidePanelProps) {
     return `${duration.hours}h ${duration.minutes}m ${duration.seconds}s`;
   } 
 
-  const EventCard: React.FC<{ event: Struct.Event }> = ({ event }) => {
+  interface EventCardProps {
+    event: Struct.Event;
+    onEventSelect: (event: Struct.Event) => void;
+    selectedEvent: Struct.Event | null;
+  }
+
+  // an interface for the props expected by the `EventCard` component.
+  const EventCard: React.FC<EventCardProps> = ({ event, selectedEvent, onEventSelect }) => {
+
+    // Check if the current event is the selected event based on their IDs.
+    const isSelected = selectedEvent?.id === event.id;
+
     // Get the initial duration using timeCalc function
     const initialDuration = Struct.timeCalc(event);
     const initialSeconds = initialDuration.hours * 3600 + initialDuration.minutes * 60 + initialDuration.seconds;
@@ -69,13 +82,13 @@ function SidePanel( {events} : SidePanelProps) {
   
       
     return (
-        // ${event.active ? 'bg-[#f5ce80]' :'bg-[#76a7b0] ' }
-        <button className={`m-1 p-1 side-pannel-width rounded-lg shadow-md bg-[#76a7b0] hover:bg-[#f5ce80]`} >
+        // Container for the entire card, background color changes based on if the event is selected 
+        <button className={`m-1 p-1 side-pannel-width rounded-lg shadow-md ${isSelected ? 'bg-[#f5ce80]' : 'bg-[#76a7b0]'} hover:bg-[#f5ce80]`} onClick={() => onEventSelect(event)}>
           
           {/* Using flexbox to layout inner elements of the card horizontally */}
           <div className="flex space-x-2 ">
             <div>
-              {/*Card: active label. Label indicating whether the event is active ("Tracking") or inactive */}
+              {/*Card: active label. Label indicating whether the event is active ("Tracking") or inactive. The background color changes based on the event's active status */}
               <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg text-white  ${event.active ? 'bg-green-600' : 'bg-red-400'}`} >
                 <p className="text-xs font-semibold">{event.active ? 'Tracking' : 'Inactive'}</p>
               </div>
@@ -98,9 +111,11 @@ function SidePanel( {events} : SidePanelProps) {
     );
   }
     // State for managing the active filter status. 
+    // It can be either `true` (Trackinig), `false` (Inactive), or `null` (show all).
     const [filterActive, setFilterActive] = useState<boolean | null>(null);
 
     // Filtering the list of events based on the active status filter.
+    // If `filterActive` is null, show all events. Otherwise, show events that match the active status.
     const filteredEvents = filterActive !== null
         ? events.filter(event => event.active === filterActive)
         : events;
@@ -128,7 +143,7 @@ function SidePanel( {events} : SidePanelProps) {
               {/* Event Cards */}
               <div className="bg-gray-100 p-4 shadow-md " style={{ background: 'rgb(26, 97, 120)', height: 'calc(784px - 2.5rem)', overflowY: 'auto', width: '330px' }}>
                   {filteredEvents.map(event => (
-                      <EventCard key={event.id} event={event} />
+                       <EventCard key={event.id} event={event} selectedEvent={selectedEvent} onEventSelect={onEventSelect}/>
                   ))}
               </div>
           </div>
