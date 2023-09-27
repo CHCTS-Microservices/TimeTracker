@@ -53,6 +53,12 @@ export type Duration = {
     minutes : number;
     seconds : number;
 }
+export type Log = {
+    staffID : number,
+    action : string,
+    eventID : number,
+    date : Date
+}
 
 // funtion that calculates duration
 
