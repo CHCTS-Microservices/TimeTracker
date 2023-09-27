@@ -2,6 +2,7 @@
 import { createClient } from '@supabase/supabase-js'
 import * as strct from './types';
 import supabase from '../../../supabase';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 class API{
@@ -228,6 +229,8 @@ class API{
                 }
                  
             ]).select();
+            toast('yello');
+
 
             return data;
         }
