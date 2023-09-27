@@ -1,23 +1,39 @@
-'use client'
+
+"use client"
 import TimerController from "@/components/TimerController";
 import  * as Struct from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
-import React, { useState } from 'react';
+import API from '../utils/ServiceLayer';
+import { useEffect, useState } from "react";
 
 export default function Page() {
 
-    const events : Struct.Event[] = Struct.dummyEvent;
-    // const selectedEvent : Struct.Event = events[0];
+    const dataBase = new API();
+    const userID : number = 1;
+
+    const [events, setEvents] = useState<Struct.Event[]>([]);
 
     // Setting up a state to track which event has been selected by the user
     // Initially set to null, meaning no event is selected at the start
     const [selectedEvent, setSelectedEvent] = useState<Struct.Event | null>(null);
+    
+    async function getEvents()
+    {
+       const events : Struct.Event[] = await dataBase.startUp(userID);
+       setEvents(events);
+
+    }
+
+    useEffect(() => {
+        getEvents();
+    }, []);
 
     // Handler function to update the selectedEvent state 
     // when an event is selected from the side panel
     function handleEventSelect(event: Struct.Event) {
         setSelectedEvent(event);
     }
+        
         
     return (
         <>
