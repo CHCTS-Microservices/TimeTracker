@@ -218,7 +218,6 @@ class API{
      */
         try
         {
-            console.log(log);
             const { data, error } = await supabase.from('Logs').insert(
             [
                 {
@@ -229,7 +228,6 @@ class API{
                 }
                  
             ]).select();
-            console.log(error);
 
             return data;
         }

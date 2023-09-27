@@ -58,7 +58,7 @@ export default function  Testing(user : Struct.User) {
   }
   
   async function testo(){
-    const testl = new API();
+    // const testl = new API();
     // console.log( await testl.getEvent(1));
     let dd : Struct.Event = {
     id: 17,
@@ -88,8 +88,8 @@ export default function  Testing(user : Struct.User) {
     // console.log(dd);
     // let ff : any = await testl.createEvent(dd);
     // console.log(ff);
-    dd.notes = "uisahf sdkjlfh dsff";
-    console.log(await testl.deleteEvent(dd));
+    // dd.notes = "uisahf sdkjlfh dsff";
+    // console.log(await testl.deleteEvent(dd));
     
   
   }
