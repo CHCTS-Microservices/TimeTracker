@@ -44,11 +44,35 @@ export default function Page() {
     function handleEventSelect(event: Struct.Event) {
         setSelectedEvent(event);
     }
+
+    function toggleActive() {
+        
+        if (selectedEvent?.active) // if true that means its recording
+        {
+            selectedEvent.timeLine[selectedEvent.timeLine.length -1].end = new Date();
+        }
+        else
+        {
+            let x : Struct.Time = {start : new Date(), end : null};
+            selectedEvent?.timeLine.push(x);
+        }
+
+
+        selectedEvent.active = !selectedEvent.active;
+        console.log(selectedEvent);
+        
+        console.log(selectedEvent?.active);
+        setEvents((prevE) =>
+        prevE.map((eve) =>
+        eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
+        
+    }
    
    
     function testo ()
     {
        console.log('rip');
+       toggleActive();
     }
         
         

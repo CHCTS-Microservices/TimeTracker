@@ -74,7 +74,7 @@ export function timeCalc(event : Event){
 
     };
     // console.log(`${dur.hours} hrs ${dur.minutes} min ${dur.seconds} sec`);
-    console.log(event);
+    // console.log(event);
     return dur;
 
 }

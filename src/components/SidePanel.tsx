@@ -12,7 +12,6 @@ interface SidePanelProps {
 
 function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
     // sort events by active then by time
-    console.log(events);
     events.sort((a, b) => {
       if (a.active && !b.active) {
           return -1; 
