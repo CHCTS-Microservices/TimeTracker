@@ -3,16 +3,19 @@ import React, { useState, useEffect } from 'react';
 
 
 interface TimerControllerProps {
-    selectedEvent: Struct.Event | null;
+    event: Struct.Event | null;
+    setActive: () => void;
   }
 
-function TimerController() {
+function TimerController({event, setActive} : TimerControllerProps) {
     const [seconds, setSeconds] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const [status, setStatus] = useState('Stop');
 
     function toggle() {
         console.log('yello');
+        setActive();
+        // toggle();
         setIsActive(!isActive);
     }
 
@@ -62,9 +65,9 @@ function TimerController() {
                 <button className={`bg-green-500 text-white p-4 rounded-lg ${isActive ? 'bg-yellow-500' : ''}`} onClick={toggle}>
                     {isActive ? 'Pause' : 'Start'}
                 </button>
-                <button className="bg-red-500 text-white p-4 rounded-lg" onClick={reset}>
+                {/* <button className="bg-red-500 text-white p-4 rounded-lg" onClick={reset}>
                     Stop
-                </button>
+                </button> */}
             </div>
         </div>
     );

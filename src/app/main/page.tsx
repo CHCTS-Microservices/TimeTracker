@@ -55,9 +55,9 @@ export default function Page() {
         {
             let x : Struct.Time = {start : new Date(), end : null};
             selectedEvent?.timeLine.push(x);
+
         }
-
-
+        
         selectedEvent.active = !selectedEvent.active;
         console.log(selectedEvent);
         
@@ -69,11 +69,11 @@ export default function Page() {
     }
    
    
-    function testo ()
-    {
-       console.log('rip');
-       toggleActive();
-    }
+    // function testo ()
+    // {
+    //    console.log('rip');
+    //    toggleActive();
+    // }
         
         
     return (
@@ -89,7 +89,7 @@ export default function Page() {
                             width: '330px', 
                             height: '75px', 
                             animationDuration: '0ms'
-                        }} onClick={testo}
+                        }} 
                     >
                         Create Activity
                     </button>
@@ -120,7 +120,7 @@ export default function Page() {
                             </div>
                             {/* Second Sub-Element */}
                             <div className="flex justify-between items-center" style={{width: '40%'}}>
-                                <TimerController event={selectedEvent}/>
+                                <TimerController event={selectedEvent} setActive={toggleActive}/>
                             </div>
                         </div>
                         {/* Second Element - 25% */}

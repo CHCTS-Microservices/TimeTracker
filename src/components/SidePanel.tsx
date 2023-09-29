@@ -45,7 +45,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
     const initialSeconds = initialDuration.hours * 3600 + initialDuration.minutes * 60 + initialDuration.seconds;
 
     // Set the initial seconds
-    const [seconds, setSeconds] = useState(initialSeconds);
+    const [seconds, setSeconds] = useState(0);
     // const isActive = event.active;
 
     useEffect(() => {
