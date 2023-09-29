@@ -1,6 +1,11 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 
+
+interface TimerControllerProps {
+    selectedEvent: Struct.Event | null;
+  }
+
 function TimerController() {
     const [seconds, setSeconds] = useState(0);
     const [isActive, setIsActive] = useState(false);

@@ -12,6 +12,7 @@ interface SidePanelProps {
 
 function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
     // sort events by active then by time
+    console.log(events);
     events.sort((a, b) => {
       if (a.active && !b.active) {
           return -1; 
@@ -46,11 +47,11 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
 
     // Set the initial seconds
     const [seconds, setSeconds] = useState(initialSeconds);
-    const isActive = event.active;
+    // const isActive = event.active;
 
     useEffect(() => {
         let interval: any = null;
-        if (isActive) {
+        if (event.active) {
             interval = setInterval(() => {
                 setSeconds(seconds => seconds + 1);
             }, 1000);
@@ -58,7 +59,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
             clearInterval(interval);
         }
         return () => clearInterval(interval);
-    }, [isActive]);
+    }, [event.active]);
 
     const formatTime = () => {
       // Add initial time to the current elapsed time (in seconds)
