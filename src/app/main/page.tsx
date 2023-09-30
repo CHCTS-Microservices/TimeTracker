@@ -1,9 +1,9 @@
 
 "use client"
 import TimerController from "@/components/TimerController";
-import  * as Struct from '@/app/utils/types'
+import  {Event} from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
-import API from '../utils/ServiceLayer';
+import API from '@/app/utils/ServiceLayer';
 import { useEffect, useState } from "react";
 import NoteEditor from '@/components/NoteEditor';
 
@@ -12,15 +12,15 @@ export default function Page() {
     const dataBase = new API();
     const userID : number = 1;
 
-    const [events, setEvents] = useState<Struct.Event[]>([]);
+    const [events, setEvents] = useState<Event[]>([]);
 
     // Setting up a state to track which event has been selected by the user
     // Initially set to null, meaning no event is selected at the start
-    const [selectedEvent, setSelectedEvent] = useState<Struct.Event | null>(null);
+    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
     
     async function getEvents()
     {
-       const events : Struct.Event[] = await dataBase.startUp(userID);
+       const events : Event[] = await dataBase.startUp(userID);
        setEvents(events);
 
     }
@@ -31,7 +31,7 @@ export default function Page() {
 
     // Handler function to update the selectedEvent state 
     // when an event is selected from the side panel
-    function handleEventSelect(event: Struct.Event) {
+    function handleEventSelect(event: Event) {
         setSelectedEvent(event);
     }
 

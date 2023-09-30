@@ -1,12 +1,12 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import  * as Struct from '@/app/utils/types'
+import {Event} from '@/app/utils/types'
 
 
 // Interface to define the expected props for the SidePanel component
 interface NoteEditorProps {
     saveNote: (newNote : String) => void;
-    event: Struct.Event;
+    event: Event;
   }
 
 
