@@ -1,6 +1,6 @@
 
 import { createClient } from '@supabase/supabase-js'
-import * as strct from './types';
+import {Event} from './types';
 import supabase from '../../../supabase';
 
 
@@ -17,7 +17,7 @@ class API{
         try
         {
             let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID`).eq('userID', id);
-            let events : strct.Event[] = [];
+            let events : Event[] = [];
             if (data?.length != 0)
             {
                 for (const ev of data)
@@ -25,7 +25,7 @@ class API{
 
                     let trial : any = await this.getTrialDet(ev.trialID);
                     let activity : any = await this.getTrialDet(ev.activityID);
-                    let event : strct.Event = {
+                    let event : Event = {
                         ...ev,
                         trialName : trial.title,
                         activityName : activity.title,
@@ -91,7 +91,7 @@ class API{
             let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID, date`).eq('id', id);
             let trial : any = await this.getTrialDet(data[0].trialID);
             let activity : any = await this.getTrialDet(data[0].activityID);
-            let event : strct.Event = {
+            let event : Event = {
                 ...data[0],
                 trialName : trial.title,
                 activityName : activity.title,
@@ -106,7 +106,7 @@ class API{
     }
 
     // create Event, funtion will return
-    async createEvent(event : strct.Event)
+    async createEvent(event : Event)
     {
     /**
      *  Returns event for event id {id}
@@ -135,7 +135,7 @@ class API{
     }
 
     // update Event, funtion will return
-    async updateEvent(event : strct.Event)
+    async updateEvent(event : Event)
     {
     /**
      *  updates event for event id {id}
