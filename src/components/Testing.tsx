@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {Event} from '@/app/utils/types';
+import {Event, User} from '@/app/utils/types';
 import API from '../app/utils/ServiceLayer';
 import SidePanel from './SidePanel';
 import supabase from '../../supabase';
