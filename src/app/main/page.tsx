@@ -139,15 +139,7 @@ export default function Page() {
                             </div>
                             
                         </div>
-                        
-                        {/* Third Element - 25% */}
-                        <textarea className="bg-white text-black p-4 rounded-lg" style={{ height: '40%' }}>Note</textarea>
-                        {/* Save Button */}
-                        <button
-                            className="mt-auto bg-blue-500 text-white py-2 px-4 rounded bottom-4 right-4"
-                        >
-                            Save
-                        </button>
+                       
                     </div>
                 </div>
             </>
