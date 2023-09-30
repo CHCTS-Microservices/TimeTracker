@@ -1,13 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import  * as Struct from '@/app/utils/types';
+import {Event, Duration} from '@/app/utils/types';
+import { timeCalc } from '@/app/utils/globalFuntions';
 
 
 // Interface to define the expected props for the SidePanel component
 interface SidePanelProps {
-  events: Struct.Event[];
-  onEventSelect: (event: Struct.Event) => void;
-  selectedEvent: Struct.Event | null;
+  events: Event[];
+  onEventSelect: (event: Event) => void;
+  selectedEvent: Event | null;
 }
 
 function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
@@ -24,14 +25,14 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
   });
 
   // convert the given duration object into a human-readable string.
-  function formatDuration(duration: Struct.Duration): string {
+  function formatDuration(duration: Duration): string {
     return `${duration.hours}h ${duration.minutes}m ${duration.seconds}s`;
   } 
 
   interface EventCardProps {
-    event: Struct.Event;
-    onEventSelect: (event: Struct.Event) => void;
-    selectedEvent: Struct.Event | null;
+    event: Event;
+    onEventSelect: (event: Event) => void;
+    selectedEvent: Event | null;
   }
 
   // an interface for the props expected by the `EventCard` component.
@@ -41,7 +42,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
     const isSelected = selectedEvent?.id === event.id;
 
     // Get the initial duration using timeCalc function
-    const initialDuration = Struct.timeCalc(event);
+    const initialDuration = timeCalc(event);
     const initialSeconds = initialDuration.hours * 3600 + initialDuration.minutes * 60 + initialDuration.seconds;
 
     // Set the initial seconds

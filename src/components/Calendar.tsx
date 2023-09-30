@@ -8,11 +8,29 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { EventSourceInput } from '@fullcalendar/core/index.js'
 import { Event } from '@/app/utils/types'
-import { dummyEvent } from '@/app/utils/types'
+
+import API from '@/app/utils/ServiceLayer';
 
 export default function Calendar() {
 
-    const fullCalendarEvents = dummyEvent.flatMap(event => {
+  const dataBase = new API();
+  const userID : number = 1;
+
+  const [events, setEvents] = useState<Event[]>([]);
+
+  
+  async function getEvents()
+  {
+     const events : Event[] = await dataBase.startUp(userID);
+     setEvents(events);
+
+  }
+
+  useEffect(() => {
+      getEvents();
+  }, []);
+
+    const fullCalendarEvents = events.flatMap(event => {
         return event.timeLine.map(timeRange => {
           return {
             id: event.id.toString(),
