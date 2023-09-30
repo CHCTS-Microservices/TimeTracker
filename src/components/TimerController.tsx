@@ -2,20 +2,46 @@
 import React, { useState, useEffect } from 'react';
 import  * as Struct from '@/app/utils/types';
 
-interface TimerControlerProps {
-    event: Struct.Event;
+
+interface TimerControllerProps {
+    event: Struct.Event | null;
+    setActive: () => void;
   }
 
-function TimerController(event : TimerControlerProps) {
-    const [seconds, setSeconds] = useState(0);
+function TimerController({event, setActive} : TimerControllerProps) {
+    // const [seconds, setSeconds] = useState(0);
+    const [seconds, setSeconds] = useState((Math.floor(event.totalTime / 1000))%60);
     const [isActive, setIsActive] = useState(false);
     const [status, setStatus] = useState('Stop');
 
     function toggle() {
         console.log('yello');
+        setActive();
+        // toggle();
         setIsActive(!isActive);
     }
 
+    function reset() {
+        setSeconds(0);
+        setIsActive(false);
+        setStatus('Stop');
+    }
+
+     // Need to use Effect on event so it refreshes the notes
+     useEffect(() => {
+        setIsActive(event.active);
+        setSeconds((Math.floor(event.totalTime / 1000))%60);
+        if (event.active)
+        {
+            setStatus('Pause');
+        }
+        else{
+            setStatus('Stop');
+        }
+      }, [event]);
+  
+
+    
     useEffect(() => {
         let interval : any = null;
         if (isActive) {
@@ -57,6 +83,9 @@ function TimerController(event : TimerControlerProps) {
                 <button className={`bg-green-500 text-white p-4 rounded-lg ${isActive ? 'bg-yellow-500' : ''}`} onClick={toggle}>
                     {isActive ? 'Pause' : 'Start'}
                 </button>
+                {/* <button className="bg-red-500 text-white p-4 rounded-lg" onClick={reset}>
+                    Stop
+                </button> */}
             </div>
         </div>
     );
