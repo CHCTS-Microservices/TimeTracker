@@ -1,6 +1,6 @@
 
 import { createClient } from '@supabase/supabase-js'
-import {Event} from './types';
+import {Event, Trial} from './types';
 import supabase from '../../../supabase';
 
 
@@ -54,6 +54,32 @@ class API{
         {
             let { data, error } = await supabase.from('Trials').select(`title, unit, stage`).eq('id', id);
             return data[0];
+        }
+        catch (error)
+        {
+            console.log('Error: cant get trial details');
+        }
+    }
+
+
+    // given User id, funtion will return trials that user is in
+    async getTrials(id : number)
+    {
+    /**
+     *  Returns trial for user {id}
+     *  @return {data} Trials
+     */
+        try
+        {
+            // let { data, error } = await supabase.from('Trials').select(`title, unit, stage`).eq('id', id);
+            
+            let { data, error } = await supabase.from('Trials').select('id').contains('staff', [id]);
+            console.log(data);
+
+            // format data so its easier for front end to use
+            let trials : number[] = [];
+            data?.forEach((x) =>trials.push(x.id));
+            return trials;
         }
         catch (error)
         {
