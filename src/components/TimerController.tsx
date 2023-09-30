@@ -8,7 +8,8 @@ interface TimerControllerProps {
   }
 
 function TimerController({event, setActive} : TimerControllerProps) {
-    const [seconds, setSeconds] = useState(0);
+    // const [seconds, setSeconds] = useState(0);
+    const [seconds, setSeconds] = useState((Math.floor(event.totalTime / 1000))%60);
     const [isActive, setIsActive] = useState(false);
     const [status, setStatus] = useState('Stop');
 
@@ -24,6 +25,20 @@ function TimerController({event, setActive} : TimerControllerProps) {
         setIsActive(false);
         setStatus('Stop');
     }
+
+     // Need to use Effect on event so it refreshes the notes
+     useEffect(() => {
+        setIsActive(event.active);
+        setSeconds((Math.floor(event.totalTime / 1000))%60);
+        if (event.active)
+        {
+            setStatus('Pause');
+        }
+        else{
+            setStatus('Stop');
+        }
+      }, [event]);
+  
 
     
     useEffect(() => {
