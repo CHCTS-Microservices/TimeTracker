@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import  * as Struct from '@/app/utils/types';
+import {Event} from '@/app/utils/types';
 import API from '../app/utils/ServiceLayer';
 import SidePanel from './SidePanel';
 import supabase from '../../supabase';
@@ -17,15 +17,15 @@ import 'react-toastify/dist/ReactToastify.css';
 // const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1xc3Z1cGxwcHN3ZHdoeWJlZXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTUxMDY2NjIsImV4cCI6MjAxMDY4MjY2Mn0.7S9S1mWsIJb2Dv9X5Twehy56mO0LffLB_Y5kPsY1pcs';
 // const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default function  Testing(user : Struct.User) {
+export default function  Testing(user : User) {
   const testl = new API();
   const [count, setCount] = useState<number>(0);
-  // const dummyEvent : Struct.Event[] = Struct.dummyEvent;
+  // const dummyEvent : Event[] = dummyEvent;
   // const tt = async () =>{
   //   try{
   //     console.log('ii');
   //       // let { yello : any , error } = await supabase.from('Activity').select('*');
-  //       let l : Struct.Event;
+  //       let l : Event;
         
 
   //       let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, Trials(id)`).eq('userID', '1');
@@ -41,7 +41,7 @@ export default function  Testing(user : Struct.User) {
     
     
   // };
-  // let a : Struct.User = {
+  // let a : User = {
   //   id : 123,
   //   name : 'Fran',
   //   role : 'Test'
@@ -53,17 +53,17 @@ export default function  Testing(user : Struct.User) {
 
 
   function LogEvent(){
-    console.log(count)
-    console.log(dummyEvent[count]);
-    console.log(Struct.timeCalc(dummyEvent[count]));
+    // console.log(count)
+    // console.log(dummyEvent[count]);
+    // console.log(timeCalc(dummyEvent[count]));
 
   }
   
   async function testo(){
     const testl = new API();
     // console.log( await testl.getEvent(1));
-    let dd : Struct.Event = {
-    // id: 17,
+    let dd : Event = {
+    id: 17,
     userID: 1,
     trialID: 2,
     trialName: "TESTING",
