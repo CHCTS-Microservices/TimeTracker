@@ -1,6 +1,6 @@
 
 import { createClient } from '@supabase/supabase-js'
-import {Event} from './types';
+import {Event, Log} from './types';
 import supabase from '../../../supabase';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -127,7 +127,7 @@ class API{
                  date: event.date}
             ]).select();
 
-            const log : strct.Log = {
+            const log : Log = {
                 eventID : data[0].id,
                 staffID : event.userID,
                 action : "Created Event",
@@ -164,7 +164,7 @@ class API{
                  date: event.date}
             ).eq('id', event.id).select();
 
-            const log : strct.Log = {
+            const log : Log = {
                 eventID : event.id,
                 staffID : event.userID,
                 action : "Updated Event",
@@ -182,7 +182,7 @@ class API{
     }
 
     // delete Event, funtion will return error
-    async deleteEvent(event : strct.Event)
+    async deleteEvent(event : Event)
     {
     /**
      *  delete event for event id {id}
@@ -192,7 +192,7 @@ class API{
         {
             const { data, error } = await supabase.from('Events').delete().eq('id', event.id);
 
-            const log : strct.Log = {
+            const log : Log = {
                 eventID : event.id,
                 staffID : event.userID,
                 action : "Deleted Event",
@@ -211,7 +211,7 @@ class API{
 
     // Funtionality for logs
     // create Log, funtion will return
-    async logAction(log : strct.Log)
+    async logAction(log : Log)
     {
     /**
      *  Returns event for event id {id}

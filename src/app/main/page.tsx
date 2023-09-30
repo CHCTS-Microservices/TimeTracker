@@ -127,7 +127,7 @@ export default function Page() {
                                 animationDuration: '0ms'
                             }}
                         >
-                            Create Activity
+                            Create Event
                         </button>
                         {/* Sidebar */}
                         <div className="">
