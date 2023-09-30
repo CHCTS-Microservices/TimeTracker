@@ -1,35 +1,58 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import  * as Struct from '@/app/utils/types'
 
-export default function NoteEditor() {
-    const [note, setNote] = useState('Note'); // Initial note text
 
+// Interface to define the expected props for the SidePanel component
+interface NoteEditorProps {
+    saveNote: (newNote : String) => void;
+    event: Struct.Event;
+  }
+
+
+export default function NoteEditor({event, saveNote} : NoteEditorProps) {
+    const [note, setNote] = useState(event.notes); // Temp note
+
+    // to handel save -> will save the changes to the origianl event.
     const handleSave = () => {
-        // Handle the Save operation here
-        alert('Note saved!'); //alert the user that the note has been saved
+
+        saveNote(note);
+        
     };
 
+    // to handle cancel -> revert back to original notes in event
     const handleCancel = () => {
-        // Handle the Cancel operation here
-        alert('Note canceled!'); //alert the user that the note has been canceled
+
+        setNote(event.notes);
     };
+
+    // Need to use Effect on event so it refreshes the notes
+    useEffect(() => {
+        
+      setNote(event.notes);
+    }, [event]);
+
+  
+
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px',height: '300px' }}>
+        // <div style={{ display: 'flex', flexDirection: 'column', gap: '10px',height: '300px' }}>
+        <div className='flex flex-col gap-3 h-72'>
             {/* Note Textarea */}
             <textarea
-                className="bg-white text-black p-4 rounded-lg"
-                style={{ flexGrow: 1 }}
+                className="bg-white text-black p-4 rounded-lg flex-grow"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-            ></textarea>
+            >
+
+            </textarea>
 
             {/* Save and Cancel Buttons */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <button className="bg-green-500 text-white p-2 rounded" onClick={handleSave}>
+            <div className='flex justify-end gap-8'>
+                <button className="mt-auto bg-blue-500 text-white py-2 px-4 rounded bottom-4 right-4" onClick={handleSave}>
                     Save
                 </button>
-                <button className="bg-red-500 text-white p-2 rounded ml-2" onClick={handleCancel}>
+                <button className="mt-auto bg-red-500 text-white py-2 px-4 rounded bottom-4 right-4" onClick={handleCancel}>
                     Cancel
                 </button>
             </div>
