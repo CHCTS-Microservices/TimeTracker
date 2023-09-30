@@ -24,7 +24,7 @@ export default function Page() {
     {
        const events : Event[] = await dataBase.startUp(userID);
        setEvents(events);
-       setSelectedEvent(events[0]);
+    //    setSelectedEvent(events[0]);
  
     }
 
@@ -165,7 +165,7 @@ export default function Page() {
                         </button>
                         {/* Sidebar */}
                         <div className="">
-                        <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
+                            <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
                     </div>
                 </div>
