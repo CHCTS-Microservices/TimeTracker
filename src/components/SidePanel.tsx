@@ -1,16 +1,16 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import  * as Struct from '@/app/utils/types';
+
 
 // Interface to define the expected props for the SidePanel component
 interface SidePanelProps {
-    events: Struct.Event[];
-  }
+  events: Struct.Event[];
+  onEventSelect: (event: Struct.Event) => void;
+  selectedEvent: Struct.Event | null;
+}
 
-
-
-
-function SidePanel( {events} : SidePanelProps) {
+function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
     // sort events by active then by time
     events.sort((a, b) => {
       if (a.active && !b.active) {
@@ -23,34 +23,79 @@ function SidePanel( {events} : SidePanelProps) {
       }
   });
 
-
-
-
   // convert the given duration object into a human-readable string.
   function formatDuration(duration: Struct.Duration): string {
     return `${duration.hours}h ${duration.minutes}m ${duration.seconds}s`;
   } 
 
-  const EventCard: React.FC<{ event: Struct.Event }> = ({ event }) => {
-    
-    return (
-      // Container for the entire card, background color changes based on the event's active status
-        // <button className={`m-1 p-1 rounded-lg shadow-md`} style={{ background: event.active ? 'rgb(245, 206, 128)' : 'rgb(118, 167, 176)' }}> // Not really. THis should change color based on if the event is selected
+  interface EventCardProps {
+    event: Struct.Event;
+    onEventSelect: (event: Struct.Event) => void;
+    selectedEvent: Struct.Event | null;
+  }
 
-        // ${event.active ? 'bg-[#f5ce80]' :'bg-[#76a7b0] ' }
-        <button className={`m-1 p-1 side-pannel-width rounded-lg shadow-md bg-[#76a7b0] hover:bg-[#f5ce80]`} >
+  // an interface for the props expected by the `EventCard` component.
+  const EventCard: React.FC<EventCardProps> = ({ event, selectedEvent, onEventSelect }) => {
+
+    // Check if the current event is the selected event based on their IDs.
+    const isSelected = selectedEvent?.id === event.id;
+
+    // Get the initial duration using timeCalc function
+    const initialDuration = Struct.timeCalc(event);
+    const initialSeconds = initialDuration.hours * 3600 + initialDuration.minutes * 60 + initialDuration.seconds;
+
+    // Set the initial seconds
+    const [seconds, setSeconds] = useState(initialSeconds);
+    const isActive = event.active;
+
+    useEffect(() => {
+        let interval: any = null;
+        if (isActive) {
+            interval = setInterval(() => {
+                setSeconds(seconds => seconds + 1);
+            }, 1000);
+        } else {
+            clearInterval(interval);
+        }
+        return () => clearInterval(interval);
+    }, [isActive]);
+
+    const formatTime = () => {
+      // Add initial time to the current elapsed time (in seconds)
+      const initialSeconds = initialDuration.hours * 3600 + initialDuration.minutes * 60 + initialDuration.seconds;
+      const totalSeconds = seconds + initialSeconds;
+      const getSeconds = `0${(totalSeconds % 60)}`.slice(-2);
+      const min = Math.floor(totalSeconds / 60);
+      const getMinutes = `0${min % 60}`.slice(-2);
+      const totalHours = Math.floor(totalSeconds / 3600);
+      
+      // Check if total hours exceed 24, then convert it to days
+      if (totalHours >= 24) {
+          const days = Math.floor(totalHours / 24);
+          const getHours = `0${totalHours % 24}`.slice(-2);
+          return `${days}D ${getHours}h ${getMinutes}m ${getSeconds}s`;
+      } else {
+          const getHours = `0${totalHours}`.slice(-2);
+          return `${getHours}h ${getMinutes}m ${getSeconds}s`;
+      }
+   }
+  
+      
+    return (
+        // Container for the entire card, background color changes based on if the event is selected 
+        <button className={`m-1 p-1 side-pannel-width rounded-lg shadow-md ${isSelected ? 'bg-[#f5ce80]' : 'bg-[#76a7b0]'} hover:bg-[#f5ce80]`} onClick={() => onEventSelect(event)}>
           
           {/* Using flexbox to layout inner elements of the card horizontally */}
           <div className="flex space-x-2 ">
             <div>
-              {/*Card: active label. Label indicating whether the event is active ("Tracking") or inactive */}
+              {/*Card: active label. Label indicating whether the event is active ("Tracking") or inactive. The background color changes based on the event's active status */}
               <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg text-white  ${event.active ? 'bg-green-600' : 'bg-red-400'}`} >
                 <p className="text-xs font-semibold">{event.active ? 'Tracking' : 'Inactive'}</p>
               </div>
 
               {/*Card: dynamic time. */}
-              <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg bg-white`} >
-                <p className="text-xs font-semibold  bg-white text-black">{formatDuration(Struct.timeCalc(event))}</p>
+              <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg bg-white`}>
+                <p className="text-xs font-semibold  bg-white text-black">{formatTime()}</p>
               </div>
             </div>
 
@@ -65,10 +110,6 @@ function SidePanel( {events} : SidePanelProps) {
         </button>
     );
   }
-
-
-
-
     // State for managing the active filter status. 
     // It can be either `true` (Trackinig), `false` (Inactive), or `null` (show all).
     const [filterActive, setFilterActive] = useState<boolean | null>(null);
@@ -79,38 +120,35 @@ function SidePanel( {events} : SidePanelProps) {
         ? events.filter(event => event.active === filterActive)
         : events;
 
-  return (
-
-        <div>
-          {/* Filter */}
-            <div className="m-1 p-1 ml-0 rounded-lg shadow-md w-64 h-full" style={{ background: 'rgb(245, 206, 128)'}}>
-                {/* Label indicating the purpose of the dropdown */}
-                <label>Select active status:</label>
-
-                {/* Dropdown to select the active status filter. 
-                 It updates the `filterActive` state when its value changes. */}
-                <select
-                    className="ml-2 p-1 border rounded"
-                    value={filterActive === null ? '' : filterActive.toString()}
-                    onChange={e => setFilterActive(e.target.value === '' ? null : e.target.value === 'true')}
-                >
-                    <option value="">All</option>
-                    <option value="true">Tracking</option>
-                    <option value="false">Inactive</option>
-                </select>
-            </div>
-
-            {/* Event Cards */}
-            <div className="w-64 h-full bg-gray-100 p-4 shadow-md " style={{ background: 'rgb(26, 97, 120)' }}>
-              {filteredEvents.map(event => (
-                <EventCard key={event.id} event={event} />
-              ))}
-
+        return (
+          <div style={{left: '50px', position: 'fixed', overflow: 'auto' }}>
+              {/* Filter */}
+              <div className="m-1 p-1 ml-0 rounded-lg shadow-md text-black" style={{ background: 'rgb(245, 206, 128)', width: '330px' }}>
+                  {/* Label indicating the purpose of the dropdown */}
+                  <label>Select active status:</label>
       
-            </div>
-        </div>)
-
-
+                  {/* Dropdown to select the active status filter. 
+                  It updates the `filterActive` state when its value changes. */}
+                  <select
+                      className="ml-2 p-1 border rounded bg- white"
+                      value={filterActive === null ? '' : filterActive.toString()}
+                      onChange={e => setFilterActive(e.target.value === '' ? null : e.target.value === 'true')}
+                  >
+                      <option value="">All</option>
+                      <option value="true">Tracking</option>
+                      <option value="false">Inactive</option>
+                  </select>
+              </div>
+      
+              {/* Event Cards */}
+              <div className="bg-gray-100 p-4 shadow-md " style={{ background: 'rgb(26, 97, 120)', height: 'calc(784px - 2.5rem)', overflowY: 'auto', width: '330px' }}>
+                  {filteredEvents.map(event => (
+                       <EventCard key={event.id} event={event} selectedEvent={selectedEvent} onEventSelect={onEventSelect}/>
+                  ))}
+              </div>
+          </div>
+      )
+      
     
   // );
 }

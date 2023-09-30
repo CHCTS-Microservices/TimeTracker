@@ -1,13 +1,40 @@
 
+"use client"
 import TimerController from "@/components/TimerController";
 import  * as Struct from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
+import API from '../utils/ServiceLayer';
+import { useEffect, useState } from "react";
 import NoteEditor from '@/components/NoteEditor';
 
 export default function Page() {
 
-    const events : Struct.Event[] = Struct.dummyEvent;
-    const selectedEvent : Struct.Event = events[0];
+    const dataBase = new API();
+    const userID : number = 1;
+
+    const [events, setEvents] = useState<Struct.Event[]>([]);
+
+    // Setting up a state to track which event has been selected by the user
+    // Initially set to null, meaning no event is selected at the start
+    const [selectedEvent, setSelectedEvent] = useState<Struct.Event | null>(null);
+    
+    async function getEvents()
+    {
+       const events : Struct.Event[] = await dataBase.startUp(userID);
+       setEvents(events);
+
+    }
+
+    useEffect(() => {
+        getEvents();
+    }, []);
+
+    // Handler function to update the selectedEvent state 
+    // when an event is selected from the side panel
+    function handleEventSelect(event: Struct.Event) {
+        setSelectedEvent(event);
+    }
+        
         
     return (
         <>
@@ -28,7 +55,7 @@ export default function Page() {
                     </button>
                     {/* Sidebar */}
                     <div className="">
-                    <SidePanel events={events}/>
+                    <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                     </div>
                 </div>
     
@@ -49,10 +76,11 @@ export default function Page() {
                             {/* First Sub-Element */}
                             <div className="bg-244982 text-4xl text-black" >
                                 Joseph's work here
+                                <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p>
                             </div>
                             {/* Second Sub-Element */}
                             <div className="flex justify-between items-center" style={{width: '40%'}}>
-                                <TimerController />
+                                <TimerController event={selectedEvent}/>
                             </div>
                         </div>
                         {/* Second Element - 25% */}
