@@ -6,6 +6,7 @@ import SidePanel from '@/components/SidePanel';
 import API from '@/app/utils/ServiceLayer';
 import { useEffect, useState } from "react";
 import NoteEditor from '@/components/NoteEditor';
+import EventPopup from '@/components/EventPopUp';
 
 export default function Page() {
 
@@ -44,7 +45,7 @@ export default function Page() {
         prevE.map((eve) =>
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
     }
-
+ const [showPopup, setShowPopup] = useState(false);
     if (selectedEvent != null)
     {
         return (
@@ -52,7 +53,7 @@ export default function Page() {
                 <div className="p-4 flex">
                     {/* Left 1/3 */}
                     <div className="w-1/3">
-                        {/* Button */}
+                        {/* Button to toggle the visibility of the EventPopup component */}
                         <button 
                             className="w-80 h-20 mt-4 ml-8 bg-blue-500 text-2xl flex-grow text-white rounded"
                             
@@ -61,13 +62,17 @@ export default function Page() {
                                 height: '75px', 
                                 animationDuration: '0ms'
                             }}
+                            onClick={() => setShowPopup(!showPopup)}
                         >
                             Create Activity
                         </button>
+                        
                         {/* Sidebar */}
                         <div className="">
                         <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
+                        {/* Conditional rendering of the EventPopup component */}
+                        {showPopup && <EventPopup />} 
                     </div>
         
                     {/* Right 2/3 */}
@@ -111,6 +116,7 @@ export default function Page() {
         );
     }
     else{
+       
         return(
             <>
                 <div className="p-4 flex">
@@ -125,13 +131,17 @@ export default function Page() {
                                 height: '75px', 
                                 animationDuration: '0ms'
                             }}
+                            onClick={() => setShowPopup(!showPopup)}
                         >
                             Create Event
                         </button>
+                        
                         {/* Sidebar */}
                         <div className="">
                         <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
+                        {/* Conditional rendering of the EventPopup component */}
+                        {showPopup && <EventPopup />} 
                     </div>
                 </div>
             </>
