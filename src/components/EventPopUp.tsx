@@ -27,6 +27,7 @@ export default function EventPopup({database, userID} : EventPopupProps)
 
 
 
+  // sets the Trials -> calls databse to retrive the trials associated to a user
   const getTrials = async () => {
     const trialIDs: number[] = (await database.getTrials(userID)) || [];
     const trialDetails: Trial[] = (await database.getTrialsDet(trialIDs)) || [];
@@ -34,39 +35,40 @@ export default function EventPopup({database, userID} : EventPopupProps)
   }
 
 
+  // sets the Activities -> calls databse to retrieve activities associated to a trial
   const getActivites =async () => {
     const activityDet = (await database.getActivitiesDet(selectedTrial?.activities) || []);
     setActivities(activityDet);
   
   }
 
+
+  // if database or user changes, call get the Trials 
 useEffect(() => {
     getTrials();
 }, [database, userID]);
 
+// if selectd trial changes, call the get Activities
 useEffect(() => {
   getActivites();
 }, [selectedTrial]);
 
 
-
-
-
+// funtion sets the selected Trial
 const handleTrialChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  // it will need to find out which trial has been selected
   trials.find(function (trial){
     if (e.target.value == trial.title)
     {
       setTrial(trial);
     }
   })
-    // const selectedTrialId = Number(e.target.value);
-    // const selectedTrial = trials.find((trial) => trial.id === selectedTrialId);
-    // if (selectedTrial && selectedTrial.activities) {
-    //     setSelectedActivities(selectedTrial.activities);
-    // }
+
 }
 
+// Funtion sets the selected Activity
 const handleActivityChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  // it will need to find out which activty has been selected
   activities.find(function (activity){
     if (e.target.value == activity.title)
     {
@@ -76,67 +78,11 @@ const handleActivityChange = async (e: React.ChangeEvent<HTMLSelectElement>) => 
 }
 
 
-// const fetchActivityDetails = async () => {
-//     let details: Activity[] = [];
-//     for (const activityId of selectedActivities) {
-//         console.log("Fetching details for Activity ID:", activityId); // Debugging line
-//         const activityDetail = await database.getActivityDet(activityId);
-//         console.log("Fetched Details: ", activityDetail); // Debugging line
-//         if (activityDetail) {
-//             details.push(activityDetail as Activity);
-//         }
-//     }
-//     // setActivityDetails(details);
-//  }
- 
-
-
-//  useEffect(() => {
-//     console.log("selectedActivities: ", selectedActivities); // Debugging line
-//     fetchActivityDetails();
-// }, [selectedActivities, database]);
-
-
   function testo(){
     console.log('activities', activities);
   }
 
-   
-
-
-
-  // useEffect(() => {
-  //   const fetchTrials = async () => {
-  //     const userId = 1; // Replace with actual user id
-  //     const trialIds = await getTrials(userId); 
-      
-  //     // If trialIds are received, fetch each trial’s details
-  //     if (trialIds && trialIds.length > 0) {
-  //       const trialsDetails = [];
-
-  //       for (const id of trialIds) {
-  //         const { data, error } = await supabase
-  //           .from('Trial')
-  //           .select('title')
-  //           .eq('id', id);
-
-  //         if (error) {
-  //           console.error('Error fetching trial details', error);
-  //           continue; // Skip to the next iteration
-  //         }
-
-  //         if (data && data.length > 0) {
-  //           trialsDetails.push({ id, title: data[0].title });
-  //         }
-  //       }
-
-  //       setTrials(trialsDetails);
-  //     }
-  //   };
-
-  //   fetchTrials();
-  // }, []);
-  // if (trials != null)
+ 
     return (
       <div className="bg-[rgb(26,97,120)] w-[1050px] top-[110px] right-[50px] h-[590px] fixed rounded p-5">
         <div className="mb-5">
