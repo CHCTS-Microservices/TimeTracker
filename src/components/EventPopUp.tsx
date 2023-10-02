@@ -1,17 +1,55 @@
-import React, { useState } from 'react';
+import React, {  useEffect,useState } from 'react';
+import supabase from '@supabase/supabase-js'
+import API from '@/app/utils/ServiceLayer';
+import getTrials from '@/app/utils/ServiceLayer';
 
 const EventPopup = () => {
   const [showTrialDropdown, setShowTrialDropdown] = useState(false);
   const [showActivitiesDropdown, setShowActivitiesDropdown] = useState(false);
+  const [trials, setTrials] = useState([]);
+
+  useEffect(() => {
+    const fetchTrials = async () => {
+      const userId = 1; // Replace with actual user id
+      const trialIds = await getTrials(userId); 
+      
+      // If trialIds are received, fetch each trial’s details
+      if (trialIds && trialIds.length > 0) {
+        const trialsDetails = [];
+
+        for (const id of trialIds) {
+          const { data, error } = await supabase
+            .from('Trial')
+            .select('title')
+            .eq('id', id);
+
+          if (error) {
+            console.error('Error fetching trial details', error);
+            continue; // Skip to the next iteration
+          }
+
+          if (data && data.length > 0) {
+            trialsDetails.push({ id, title: data[0].title });
+          }
+        }
+
+        setTrials(trialsDetails);
+      }
+    };
+
+    fetchTrials();
+  }, []);
 
   return (
     <div className="bg-[rgb(26,97,120)] w-[1050px] top-[110px] right-[50px] h-[590px] fixed rounded p-5">
       <div className="mb-5">
         <label className="bg-[rgb(37,73,133)] text-white w-[80px] h-[30px] inline-block rounded text-center">Trial</label>
         <select className="mx-5" onClick={() => setShowTrialDropdown(!showTrialDropdown)}>
-          <option value="trial1">Trial 1</option>
-          <option value="trial2">Trial 2</option>
-          <option value="trial3">Trial 3</option>
+        {trials.map((trial) => (
+          <option key={trial.id} value={trial.id}>
+            {trial.title}
+          </option>
+        ))}
         </select>
         <label className="bg-[rgb(37,73,133)] text-white w-[80px] h-[30px] inline-block rounded text-center ml-12">Stage2</label>
       </div>
