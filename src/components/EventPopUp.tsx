@@ -2,6 +2,7 @@ import React, {  useEffect,useState } from 'react';
 import supabase from '@supabase/supabase-js'
 import API from '@/app/utils/ServiceLayer';
 import { Trial } from '@/app/utils/types';
+import { Activity } from '@/app/utils/types';
 
 
 
@@ -17,19 +18,52 @@ export default function EventPopup({database, userID} : EventPopupProps)
 {
   const [showTrialDropdown, setShowTrialDropdown] = useState(false);
   const [showActivitiesDropdown, setShowActivitiesDropdown] = useState(false);
-  const [trials, setTrials] = useState([]);
-
-  async function getTrials(){
-    const trialIDs : Number[] = await database.getTrials(userID);
-
-    setTrials(await database.getTrialsDet(trialIDs));
-
-  }
+  const [trials, setTrials] = useState<Trial[]>([]);
+  const [selectedActivities, setSelectedActivities] = useState<number[]>([]);
+  const [activityDetails, setActivityDetails] = useState<Activity[]>([]);
 
 
-  useEffect(() => {
+
+
+  const getTrials = async () => {
+    const trialIDs: number[] = (await database.getTrials(userID)) || [];
+    const trialDetails: Trial[] = (await database.getTrialsDet(trialIDs)) || [];
+    setTrials(trialDetails);
+}
+
+useEffect(() => {
     getTrials();
-  }, []);
+}, [database, userID]);
+
+const handleTrialChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedTrialId = Number(e.target.value);
+    const selectedTrial = trials.find((trial) => trial.id === selectedTrialId);
+    if (selectedTrial && selectedTrial.activities) {
+        setSelectedActivities(selectedTrial.activities);
+    }
+}
+
+
+const fetchActivityDetails = async () => {
+    let details: Activity[] = [];
+    for (const activityId of selectedActivities) {
+        console.log("Fetching details for Activity ID:", activityId); // Debugging line
+        const activityDetail = await database.getActivityDet(activityId);
+        console.log("Fetched Details: ", activityDetail); // Debugging line
+        if (activityDetail) {
+            details.push(activityDetail as Activity);
+        }
+    }
+    setActivityDetails(details);
+ }
+ 
+
+
+ useEffect(() => {
+    console.log("selectedActivities: ", selectedActivities); // Debugging line
+    fetchActivityDetails();
+}, [selectedActivities, database]);
+
 
   function testo(){
     console.log('trials', trials);
@@ -75,7 +109,8 @@ export default function EventPopup({database, userID} : EventPopupProps)
       <div className="bg-[rgb(26,97,120)] w-[1050px] top-[110px] right-[50px] h-[590px] fixed rounded p-5">
         <div className="mb-5">
           <label className="bg-[rgb(37,73,133)] text-white w-[80px] h-[30px] inline-block rounded text-center">Trial</label>
-          <select className="mx-5" onClick={() => setShowTrialDropdown(!showTrialDropdown)}>
+          <select className="mx-5" onChange={handleTrialChange}>
+          <option value="">Select a Trial</option>
           {trials.map((trial) => (
             <option key={trial.id} value={trial.id}>
               {trial.title}
@@ -87,10 +122,12 @@ export default function EventPopup({database, userID} : EventPopupProps)
   
         <div className="mb-5">
           <label className="bg-[rgb(37,73,133)] text-white w-[80px] h-[30px] inline-block rounded text-center">Activity</label>
-          <select className="mx-5" onClick={() => setShowActivitiesDropdown(!showActivitiesDropdown)}>
-            <option value="activity1">Activity 1</option>
-            <option value="activity2">Activity 2</option>
-            <option value="activity3">Activity 3</option>
+          <select className="mx-5" >
+            {activityDetails.map((activity) => (
+            <option key={activity.id} value={activity.id}>
+                {activity.title}
+            </option>
+             ))}
           </select>
         </div>
   
