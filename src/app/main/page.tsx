@@ -6,6 +6,7 @@ import SidePanel from '@/components/SidePanel';
 import API from '@/app/utils/ServiceLayer';
 import { useEffect, useState } from "react";
 import NoteEditor from '@/components/NoteEditor';
+import EventDetail from "@/components/EventDetail";
 
 export default function Page() {
 
@@ -86,8 +87,9 @@ export default function Page() {
                             <div className="flex justify-between items-center rounded-lg p-4" style={{ height: '25%'}}>
                                 {/* First Sub-Element */}
                                 <div className="bg-244982 text-4xl text-black" >
-                                    Joseph's work here
-                                    <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p>
+                                    {/* Joseph's work here
+                                    <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p> */}
+                                    <EventDetail event={selectedEvent}/>
                                 </div>
                                 {/* Second Sub-Element */}
                                 <div className="flex justify-between items-center" style={{width: '40%'}}>
