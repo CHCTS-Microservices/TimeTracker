@@ -19,8 +19,10 @@ export default function EventPopup({database, userID} : EventPopupProps)
   const [showTrialDropdown, setShowTrialDropdown] = useState(false);
   const [showActivitiesDropdown, setShowActivitiesDropdown] = useState(false);
   const [trials, setTrials] = useState<Trial[]>([]);
-  const [selectedActivities, setSelectedActivities] = useState<number[]>([]);
-  const [activityDetails, setActivityDetails] = useState<Activity[]>([]);
+  const [selectedTrial, setTrial] = useState<Trial>();
+  // const [selectedActivities, setSelectedActivities] = useState<number[]>([]);
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [selectedActivity, setActivity] = useState<Activity>();
 
 
 
@@ -29,44 +31,74 @@ export default function EventPopup({database, userID} : EventPopupProps)
     const trialIDs: number[] = (await database.getTrials(userID)) || [];
     const trialDetails: Trial[] = (await database.getTrialsDet(trialIDs)) || [];
     setTrials(trialDetails);
-}
+  }
+
+
+  const getActivites =async () => {
+    const activityDet = (await database.getActivitiesDet(selectedTrial?.activities) || []);
+    setActivities(activityDet);
+  
+  }
 
 useEffect(() => {
     getTrials();
 }, [database, userID]);
 
+useEffect(() => {
+  getActivites();
+}, [selectedTrial]);
+
+
+
+
+
 const handleTrialChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedTrialId = Number(e.target.value);
-    const selectedTrial = trials.find((trial) => trial.id === selectedTrialId);
-    if (selectedTrial && selectedTrial.activities) {
-        setSelectedActivities(selectedTrial.activities);
+  trials.find(function (trial){
+    if (e.target.value == trial.title)
+    {
+      setTrial(trial);
     }
+  })
+    // const selectedTrialId = Number(e.target.value);
+    // const selectedTrial = trials.find((trial) => trial.id === selectedTrialId);
+    // if (selectedTrial && selectedTrial.activities) {
+    //     setSelectedActivities(selectedTrial.activities);
+    // }
+}
+
+const handleActivityChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  activities.find(function (activity){
+    if (e.target.value == activity.title)
+    {
+      setActivity(activity);
+    }
+  })
 }
 
 
-const fetchActivityDetails = async () => {
-    let details: Activity[] = [];
-    for (const activityId of selectedActivities) {
-        console.log("Fetching details for Activity ID:", activityId); // Debugging line
-        const activityDetail = await database.getActivityDet(activityId);
-        console.log("Fetched Details: ", activityDetail); // Debugging line
-        if (activityDetail) {
-            details.push(activityDetail as Activity);
-        }
-    }
-    setActivityDetails(details);
- }
+// const fetchActivityDetails = async () => {
+//     let details: Activity[] = [];
+//     for (const activityId of selectedActivities) {
+//         console.log("Fetching details for Activity ID:", activityId); // Debugging line
+//         const activityDetail = await database.getActivityDet(activityId);
+//         console.log("Fetched Details: ", activityDetail); // Debugging line
+//         if (activityDetail) {
+//             details.push(activityDetail as Activity);
+//         }
+//     }
+//     // setActivityDetails(details);
+//  }
  
 
 
- useEffect(() => {
-    console.log("selectedActivities: ", selectedActivities); // Debugging line
-    fetchActivityDetails();
-}, [selectedActivities, database]);
+//  useEffect(() => {
+//     console.log("selectedActivities: ", selectedActivities); // Debugging line
+//     fetchActivityDetails();
+// }, [selectedActivities, database]);
 
 
   function testo(){
-    console.log('trials', trials);
+    console.log('activities', activities);
   }
 
    
@@ -110,7 +142,6 @@ const fetchActivityDetails = async () => {
         <div className="mb-5">
           <label className="bg-[rgb(37,73,133)] text-white w-[80px] h-[30px] inline-block rounded text-center">Trial</label>
           <select className="mx-5" onChange={handleTrialChange}>
-          <option value="">Select a Trial</option>
           {trials.map((trial) => (
             <option key={trial.id} value={trial.id}>
               {trial.title}
@@ -122,8 +153,8 @@ const fetchActivityDetails = async () => {
   
         <div className="mb-5">
           <label className="bg-[rgb(37,73,133)] text-white w-[80px] h-[30px] inline-block rounded text-center">Activity</label>
-          <select className="mx-5" >
-            {activityDetails.map((activity) => (
+          <select className="mx-5" onChange={handleActivityChange} >
+            {activities.map((activity) => (
             <option key={activity.id} value={activity.id}>
                 {activity.title}
             </option>

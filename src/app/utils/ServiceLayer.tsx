@@ -1,6 +1,6 @@
 
 import { createClient } from '@supabase/supabase-js'
-import {Event, Trial} from './types';
+import {Activity, Event, Trial} from './types';
 import supabase from '../../../supabase';
 
 
@@ -82,7 +82,7 @@ class API{
 
                     let getTrial : any = await this.getTrialDet(x);
                     // let activity : any = await this.getTrialDet(ev.activityID);
-                    let trial : Event = {
+                    let trial : Trial = {
                         ...getTrial,
                         // trialName : trial.title,
                         // activityName : activity.title,
@@ -134,7 +134,7 @@ class API{
      */
         try
         {
-            let { data, error } = await supabase.from('Activity').select(`title`).eq('id', id);
+            let { data, error } = await supabase.from('Activity').select('*').eq('id', id);
             return data[0];
         }
         catch (error)
@@ -142,6 +142,46 @@ class API{
             console.log('Error: cant get activity details');
         }
     }
+
+
+    // given trial id, funtion will return trial
+    async getActivitiesDet(id : number[])
+    {
+    /**
+     *  Returns Activitiex for id {id}
+     *  @return {data} Activities
+     */
+        try
+        {
+            // let { data, error } = await supabase.from('Trials').select(`title, unit, stage, activities`).eq('id', id);
+            // let { data, error } = await supabase.from('Trials').select(`title, unit, stage, activities`).eq('id', id);
+            // return data[0];
+            let activities : Activity[] = [];
+            if (id.length != 0)
+            {
+                for (const x of id)
+                {
+
+                    let getAct : any = await this.getActivityDet(x);
+                    // let activity : any = await this.getTrialDet(ev.activityID);
+                    let activity : Activity = {
+                        ...getAct,
+                        // trialName : trial.title,
+                        // activityName : activity.title,
+                        // ...trial[0],
+                    };
+                    activities.push(activity);
+                }
+            }
+            return activities;
+        }
+        catch (error)
+        {
+            console.log('Error: cant get trial details');
+        }
+    }
+
+
 
     // given Event ID, funtion will return Activity
     async getEvent(id : number)
