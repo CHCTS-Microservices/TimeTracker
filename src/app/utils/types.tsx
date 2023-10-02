@@ -17,8 +17,8 @@ export type Event = {
 
 export type Trial = {
     id: number;
-    staffID : number[];
-    date : Date;
+    staffID? : number[];
+    date? : Date;
     title : string;
     unit : string; // this will need to be an enum
     Stage : string; // this will need to be an enum

@@ -52,8 +52,46 @@ class API{
      */
         try
         {
-            let { data, error } = await supabase.from('Trials').select(`title, unit, stage`).eq('id', id);
+            // let { data, error } = await supabase.from('Trials').select(`title, unit, stage, activities`).eq('id', id);
+            let { data, error } = await supabase.from('Trials').select(`title, unit, stage, activities`).eq('id', id);
             return data[0];
+        }
+        catch (error)
+        {
+            console.log('Error: cant get trial details');
+        }
+    }
+
+    // given trial id, funtion will return trial
+    async getTrialsDet(id : number[])
+    {
+    /**
+     *  Returns trial for id {id}
+     *  @return {data} Trial
+     */
+        try
+        {
+            // let { data, error } = await supabase.from('Trials').select(`title, unit, stage, activities`).eq('id', id);
+            // let { data, error } = await supabase.from('Trials').select(`title, unit, stage, activities`).eq('id', id);
+            // return data[0];
+            let trials : Trial[] = [];
+            if (id.length != 0)
+            {
+                for (const x of id)
+                {
+
+                    let getTrial : any = await this.getTrialDet(x);
+                    // let activity : any = await this.getTrialDet(ev.activityID);
+                    let trial : Event = {
+                        ...getTrial,
+                        // trialName : trial.title,
+                        // activityName : activity.title,
+                        // ...trial[0],
+                    };
+                    trials.push(trial);
+                }
+            }
+            return trials;
         }
         catch (error)
         {
@@ -74,7 +112,7 @@ class API{
             // let { data, error } = await supabase.from('Trials').select(`title, unit, stage`).eq('id', id);
             
             let { data, error } = await supabase.from('Trials').select('id').contains('staff', [id]);
-            console.log(data);
+            // console.log(data);
 
             // format data so its easier for front end to use
             let trials : number[] = [];
@@ -83,7 +121,7 @@ class API{
         }
         catch (error)
         {
-            console.log('Error: cant get trial details');
+            console.log('Error: cant get trial user are part of');
         }
     }
 

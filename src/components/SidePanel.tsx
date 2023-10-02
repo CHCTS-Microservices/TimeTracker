@@ -4,6 +4,7 @@ import {Event, Duration} from '@/app/utils/types';
 import { timeCalc } from '@/app/utils/globalFuntions';
 
 
+
 // Interface to define the expected props for the SidePanel component
 interface SidePanelProps {
   events: Event[];
