@@ -1,77 +1,143 @@
-// Main Page
-import  EventDetail  from "@/components/EventDetail";
-import Metadata from "@/components/Metadata";
-import Box from "@/components/Metadata";
-// This is the main page. Make and Import components in /Components/x and setup the how the dashboard page works here. To play with layout use layout.tsx file
 
-// dummy data based on types structure provided i ./utils.types
-// use for displaying main page at the momemnt
-const dummyTimeMultiple = [
+"use client"
+import TimerController from "@/components/TimerController";
+import  {Event} from '@/app/utils/types'
+import SidePanel from '@/components/SidePanel';
+import API from '@/app/utils/ServiceLayer';
+import { useEffect, useState } from "react";
+import NoteEditor from '@/components/NoteEditor';
+
+export default function Page() {
+
+    const dataBase = new API();
+    const userID : number = 1;
+
+    const [events, setEvents] = useState<Event[]>([]);
+
+    // Setting up a state to track which event has been selected by the user
+    // Initially set to null, meaning no event is selected at the start
+    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+    
+    async function getEvents()
     {
-        start: new Date(new Date().setHours(10, 0, 0, 0)), // Today at 10:00 AM
-        end: new Date(new Date().setHours(11, 30, 0, 0))   // Today at 11:30 AM
-    },
-    {
-        start: new Date(new Date().setHours(14, 0, 0, 0)), // Today at 2:00 PM
-        end: new Date(new Date().setHours(15, 30, 0, 0))   // Today at 3:30 PM
+       const events : Event[] = await dataBase.startUp(userID);
+       setEvents(events);
+
     }
-];
 
-const dummyEvent = {
-    id: 999,
-    userID: 1,
-    date: new Date(),
-    title: "Dummy Event",
-    trialID: 99,
-    activityID: 99,
-    time: dummyTimeMultiple,
-    active: true,
-    totalTime: 60,
-    notes: "This is a dummy event for demonstration purposes."
-}
+    useEffect(() => {
+        getEvents();
+    }, []);
 
-const dummyTrial = {
-    id: 99,
-    users: [1, 2],
-    date: new Date(),
-    title: "Dummy Trial",
-    unit: "Dummy Unit",
-    Stage: "Dummy Stage",
-    activities: [99],
-    totalTime: 60,
-    metadata: "Dummy metadata."
-}
-
-const dummyActivity = {
-    id: 99,
-    users: [1, 2],
-    date: new Date(),
-    title: "Dummy Activity",
-    unit: "Dummy Unit",
-    totalTime: 60,
-    metadata: "Dummy metadata."
-}
+    // Handler function to update the selectedEvent state 
+    // when an event is selected from the side panel
+    function handleEventSelect(event: Event) {
+        setSelectedEvent(event);
+    }
 
 
-export default async function Page() {
-    // Assume these variables are supposed to come from some data source.
-    let someEvent = null;      // replace with real data when available
-    let relatedTrial = null;   // replace with real data when available
-    let relatedActivity = null;// replace with real data when available
+    // funtion to that saves notes. 
+    //TODO link this funtion up with the back-end save for permenent save
+    function saveNotes (newNote : String){
+        selectedEvent.notes = newNote;
+        setEvents((prevE) =>
+        prevE.map((eve) =>
+        eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
+    }
 
-    // Use dummy data if real data is not available
-    someEvent = someEvent || dummyEvent;
-    relatedTrial = relatedTrial || dummyTrial;
-    relatedActivity = relatedActivity || dummyActivity;
-
-    return (
-        <>
-            <h1 className="text-red-500 text-center align-middle">
-                THIS HERE IS MAIN PAGE
-            </h1>
-            <div>
-            </div>
-
-        </>
-    );
+    if (selectedEvent != null)
+    {
+        return (
+            <>
+                <div className="p-4 flex">
+                    {/* Left 1/3 */}
+                    <div className="w-1/3">
+                        {/* Button */}
+                        <button 
+                            className="w-80 h-20 mt-4 ml-8 bg-blue-500 text-2xl flex-grow text-white rounded"
+                            
+                            style={{ 
+                                width: '330px', 
+                                height: '75px', 
+                                animationDuration: '0ms'
+                            }}
+                        >
+                            Create Activity
+                        </button>
+                        {/* Sidebar */}
+                        <div className="">
+                        <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
+                        </div>
+                    </div>
+        
+                    {/* Right 2/3 */}
+                    <div className="w-2/3 ml-10">
+                        {/* Form - Tracking */}
+                        <div 
+                            className="gap-2.5 flex flex-col justify-between font-bold p-4 rounded-lg"
+                            style={{ 
+                                width: '1020px', 
+                                height: '889px',
+                                backgroundColor: '#fbd48c',
+                                fontFamily: 'Arial'
+                            }}
+                        >
+                            {/* First Element - 25% */}
+                            <div className="flex justify-between items-center rounded-lg p-4" style={{ height: '25%'}}>
+                                {/* First Sub-Element */}
+                                <div className="bg-244982 text-4xl text-black" >
+                                    Joseph's work here
+                                    <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p>
+                                </div>
+                                {/* Second Sub-Element */}
+                                <div className="flex justify-between items-center" style={{width: '40%'}}>
+                                    <TimerController event={selectedEvent}/>
+                                </div>
+                            </div>
+                            {/* Second Element - 25% */}
+                            <div  style={{ height: '25%'}}>
+                                    
+                            </div>
+                             {/* Third Element - 35% */}
+                            <div style={{ height: '35%' }}>
+                                <NoteEditor event={selectedEvent} saveNote={saveNotes}/>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </>
+        );
+    }
+    else{
+        return(
+            <>
+                <div className="p-4 flex">
+                    {/* Left 1/3 */}
+                    <div className="w-1/3">
+                        {/* Button */}
+                        <button 
+                            className="w-80 h-20 mt-4 ml-8 bg-blue-500 text-2xl flex-grow text-white rounded"
+                            
+                            style={{ 
+                                width: '330px', 
+                                height: '75px', 
+                                animationDuration: '0ms'
+                            }}
+                        >
+                            Create Activity
+                        </button>
+                        {/* Sidebar */}
+                        <div className="">
+                        <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
+        
+        
+    
 }
