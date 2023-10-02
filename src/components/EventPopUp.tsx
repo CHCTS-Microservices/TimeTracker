@@ -21,13 +21,10 @@ export default function EventPopup({database, userID} : EventPopupProps)
 
   async function getTrials(){
     const trialIDs : Number[] = await database.getTrials(userID);
-    console.log('trils', trialIDs);
 
     setTrials(await database.getTrialsDet(trialIDs));
 
   }
-
-
 
 
   useEffect(() => {
