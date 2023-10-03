@@ -1,7 +1,7 @@
 
-import { createClient } from '@supabase/supabase-js'
-import {Activity, Event, Trial} from './types';
-import supabase from '../../../supabase';
+import { createClient } from '@supabase/supabase-js';
+import {Activity, Event, Trial} from '@/app/utils/types';
+import supabase from '@/../supabase';
 
 
 class API{
