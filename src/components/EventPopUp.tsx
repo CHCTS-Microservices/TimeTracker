@@ -39,8 +39,6 @@ export default function EventPopup({database, userID} : EventPopupProps)
   const getActivites =async () => {
     const activityDet = (await database.getActivitiesDet(selectedTrial?.activities) || []);
     setActivities(activityDet);
-    console.log('Fetched activities: ', activities);
-  
   }
 
 
@@ -57,6 +55,11 @@ useEffect(() => {
 
 // funtion sets the selected Trial
 const handleTrialChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  if (e.target.value === "") {
+    setTrial(undefined); 
+    return;
+  }
+  
   // it will need to find out which trial has been selected
   trials.find(function (trial){
     if (e.target.value == trial.title)
@@ -68,30 +71,20 @@ const handleTrialChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
 }
 
 // Funtion sets the selected Activity
-const handleActivityChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-  // it will need to find out which activty has been selected
-  activities.find(function (activity){
-    console.log("Selected e.target.value before update:", e.target.value); 
-    console.log("Selected activity before update:", activity); 
-    if (e.target.value == String(activity.id))
-    {
-      setActivity(activity);
-      console.log("Selected activity after update:", activity); 
-    }
-    console.log("Selected Activity after update:", selectedActivity); 
-  })
-}
-
+const handleActivityButtonPress = (activity: Activity) => {
+  setActivity(activity);
+};
 
   function testo(){
     console.log('activities', activities);
   }
  
     return (
-      <div className="bg-[rgb(26,97,120)] w-[1050px] top-[110px] right-[50px] h-[590px] fixed rounded p-5">
+      <div className="bg-[rgb(26,97,120)] w-3/5 top-[110px] right-[190px] h-[590px] fixed rounded p-5">
         <div className="mb-5">
-          <label className="bg-[rgb(37,73,133)] text-white w-[80px] h-[30px] inline-block rounded text-center">Trial</label>
+          <label className="bg-[rgb(37,73,133)] text-white w-[80px] h-[30px] inline-block rounded text-center font-bold">Trial</label>
           <select className="mx-5" onChange={handleTrialChange}>
+          <option value="" selected>Select a Trial</option>
           {trials.map((trial) => (
             <option key={trial.id} value={trial.id}>
               {trial.title}
@@ -121,34 +114,42 @@ const handleActivityChange = async (e: React.ChangeEvent<HTMLSelectElement>) => 
             )}
           </label>
         </div>
-  
-        <div className="mb-5">
-          <label className="bg-[rgb(37,73,133)] text-white w-[80px] h-[30px] inline-block rounded text-center">Activity</label>
-          <select className="mx-5" onChange={handleActivityChange} >
-            {activities.map((activity) => (
-            <option key={activity.id} value={activity.id}>
-                {activity.title}
-            </option>
-             ))}
-          </select>
-        </div>
 
-        <div className="mb-5 mt-5">
-          <label className="text-white">Activity Details</label>
-          <label className="w-full h-[120px] block bg-white mb-2.5 box-border">
-            {selectedActivity ? (
-              <div>
-                <p><strong>Title:</strong> {selectedActivity.title}</p>
-                <p><strong>Unit:</strong> {selectedActivity.unit}</p>
-                <p><strong>Date:</strong> {selectedActivity.date}</p>
-                {selectedActivity.staffID && <p><strong>Staff IDs:</strong> {selectedActivity.staffID.join(', ')}</p>}
-                {selectedActivity.totalTime && <p><strong>Total Time:</strong> {selectedActivity.totalTime}</p>}
+        {/* Display the Activity label only when Trial is selected */}
+        {selectedTrial && (
+          <div className="mb-5">
+            <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 rounded text-white inline-block rounded text-center font-bold ">Activity</label>
+            {activities.map((activity) => (
+              <button 
+                key={activity.id} 
+                onClick={() => handleActivityButtonPress(activity)} 
+                className={`mx-2 py-1 px-3 rounded text-white ${selectedActivity?.id === activity.id ? 'bg-[#76a7b0]' : 'bg-[rgb(37,73,133)]'}`}
+              >
+                {activity.title}
+              </button>
+            ))}
           </div>
-            ) : (
-                "No activity selected."
-            )}
-          </label>
-        </div>
+        )}
+
+        {/* Display Activity details only when Activity is selected */}
+        {selectedActivity && (
+          <div className="mb-5 mt-5">
+            <label className="text-white">Activity Details</label>
+            <label className="w-full h-[120px] block bg-white mb-2.5 box-border">
+              {selectedActivity ? (
+                <div>
+                  <p><strong>Title:</strong> {selectedActivity.title}</p>
+                  <p><strong>Unit:</strong> {selectedActivity.unit}</p>
+                  <p><strong>Date:</strong> {selectedActivity.date}</p>
+                  {selectedActivity.staffID && <p><strong>Staff IDs:</strong> {selectedActivity.staffID.join(', ')}</p>}
+                  {selectedActivity.totalTime && <p><strong>Total Time:</strong> {selectedActivity.totalTime}</p>}
+            </div>
+              ) : (
+                  "No activity selected."
+              )}
+            </label>
+          </div>
+        )}
 
         
         <div className="absolute bottom-5 right-5">
