@@ -80,10 +80,10 @@ const handleActivityButtonPress = (activity: Activity) => {
   }
  
     return (
-      <div className="bg-[rgb(26,97,120)] w-3/5 top-[110px] right-[190px] h-[590px] fixed rounded p-5">
+      <div className="bg-[rgb(26,97,120)] w-3/5 top-[110px] right-[100px] h-4/5 fixed rounded p-5">
         <div className="mb-5">
-          <label className="bg-[rgb(37,73,133)] text-white w-[80px] h-[30px] inline-block rounded text-center font-bold">Trial</label>
-          <select className="mx-5" onChange={handleTrialChange}>
+          <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 rounded text-white inline-block rounded text-center font-bold">Trial</label>
+          <select className="mx-5 py-1 px-3 rounded" onChange={handleTrialChange}>
           <option value="" selected>Select a Trial</option>
           {trials.map((trial) => (
             <option key={trial.id} value={trial.id}>
@@ -91,7 +91,7 @@ const handleActivityButtonPress = (activity: Activity) => {
             </option>
           ))}
           </select>
-          <label className="bg-[rgb(37,73,133)] text-white h-[30px] inline-block rounded ml-12 px-2">
+          <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 text-white h-[30px] inline-block rounded ml-12 px-2">
             <p><strong> Stage: </strong> {selectedTrial ? selectedTrial.stage : ""}</p>
           </label>
         </div>
