@@ -57,6 +57,7 @@ useEffect(() => {
 const handleTrialChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
   if (e.target.value === "") {
     setTrial(undefined); 
+    setActivity(undefined);
     return;
   }
   
