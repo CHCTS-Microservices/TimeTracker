@@ -124,7 +124,7 @@ const handleActivityButtonPress = (activity: Activity) => {
               <button 
                 key={activity.id} 
                 onClick={() => handleActivityButtonPress(activity)} 
-                className={`mx-2 py-1 px-3 rounded text-white ${selectedActivity?.id === activity.id ? 'bg-[#76a7b0]' : 'bg-[rgb(37,73,133)]'}`}
+                className={`mx-2 py-1 px-3 rounded text-white ${selectedActivity?.id === activity.id ? 'bg-[#76a7b0]' : 'bg-[rgb(37,73,133)]'} hover:bg-[#76a7b0]`}
               >
                 {activity.title}
               </button>
