@@ -98,14 +98,13 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
 
               {/*Card: dynamic time. */}
               <div>
-                {/* Loading spinner only shows when event is active */}
+                {/* Pulse circle only shows when event is active */}
                 {event.active && 
                   <div className="flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg">
-                    <div className="loading-spinner"></div>
+                    <div className="pulse-circle"></div>
                   </div>
                 }
               </div>
-
             </div>
 
             {/*Card: Side panel detail. Container for detailed information about the event */}
