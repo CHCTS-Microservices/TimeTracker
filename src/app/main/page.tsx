@@ -1,7 +1,7 @@
 
 "use client"
 import TimerController from "@/components/TimerController";
-import  {Event} from '@/app/utils/types'
+import  {Event, Time} from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
 import API from '@/app/utils/ServiceLayer';
 import { useEffect, useState } from "react";
@@ -11,6 +11,8 @@ export default function Page() {
 
     const dataBase = new API();
     const userID : number = 1;
+
+
 
     const [events, setEvents] = useState<Event[]>([]);
 
@@ -22,9 +24,12 @@ export default function Page() {
     {
        const events : Event[] = await dataBase.startUp(userID);
        setEvents(events);
-
+    //    setSelectedEvent(events[0]);
+ 
     }
 
+  
+ 
     useEffect(() => {
         getEvents();
     }, []);
@@ -35,8 +40,42 @@ export default function Page() {
         setSelectedEvent(event);
     }
 
+    function toggleActive() {
+        
+        if (selectedEvent?.active) // if true that means its recording
+        {
+            selectedEvent.timeLine[selectedEvent.timeLine.length -1].end = new Date();
+        }
+        else
+        {
+            let x : Time = {start : new Date(), end : null};
+            selectedEvent?.timeLine.push(x);
 
-    // funtion to that saves notes. 
+        }
+        // selectedEvent?.track = 0;
+        
+        selectedEvent.active = !selectedEvent.active;
+        console.log(selectedEvent);
+        
+        console.log(selectedEvent?.active);
+        setEvents((prevE) =>
+        prevE.map((eve) =>
+        eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
+        
+    }
+    // fucntion updateTrack(){
+
+    // }
+   
+   
+    // function testo ()
+    // {
+    //    console.log('rip');
+    //    toggleActive();
+    // }
+        
+        
+     // funtion to that saves notes. 
     //TODO link this funtion up with the back-end save for permenent save
     function saveNotes (newNote : String){
         selectedEvent.notes = newNote;
@@ -62,7 +101,7 @@ export default function Page() {
                                 animationDuration: '0ms'
                             }}
                         >
-                            Create Activity
+                            Create Event
                         </button>
                         {/* Sidebar */}
                         <div className="">
@@ -86,12 +125,12 @@ export default function Page() {
                             <div className="flex justify-between items-center rounded-lg p-4" style={{ height: '25%'}}>
                                 {/* First Sub-Element */}
                                 <div className="bg-244982 text-4xl text-black" >
-                                    Joseph's work here
+                                    {/* Joseph's work here */}
                                     <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p>
                                 </div>
                                 {/* Second Sub-Element */}
                                 <div className="flex justify-between items-center" style={{width: '40%'}}>
-                                    <TimerController event={selectedEvent}/>
+                                <TimerController event={selectedEvent} setActive={toggleActive}/>
                                 </div>
                             </div>
                             {/* Second Element - 25% */}
@@ -104,7 +143,7 @@ export default function Page() {
                             </div>
                             
                         </div>
-                        
+                       
                     </div>
                 </div>
             </>
@@ -126,11 +165,11 @@ export default function Page() {
                                 animationDuration: '0ms'
                             }}
                         >
-                            Create Activity
+                            Create Event
                         </button>
                         {/* Sidebar */}
                         <div className="">
-                        <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
+                            <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
                     </div>
                 </div>
