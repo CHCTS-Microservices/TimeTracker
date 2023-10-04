@@ -45,7 +45,22 @@ export default function Page() {
         prevE.map((eve) =>
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
     }
- const [showPopup, setShowPopup] = useState(false);
+
+    const [showPopup, setShowPopup] = useState(false);
+
+
+    // Call this function when EventPopup is enabled or disabled.
+    function togglePopup() {
+        if (showPopup) {
+        // If EventPopup is currently enabled, disable page scrolling
+        document.body.style.overflow = 'auto';
+        } else {
+        // if EventPopup is currently disabled, enable page scrolling
+        document.body.style.overflow = 'hidden';
+        }
+        setShowPopup(!showPopup);
+    }
+
     if (selectedEvent != null)
     {
         return (
@@ -131,7 +146,8 @@ export default function Page() {
                                 height: '75px', 
                                 animationDuration: '0ms'
                             }}
-                            onClick={() => setShowPopup(!showPopup)}
+                            onClick={togglePopup}
+                            // onClick={() => setShowPopup(!showPopup)}
                         >
                             Create Event
                         </button>
