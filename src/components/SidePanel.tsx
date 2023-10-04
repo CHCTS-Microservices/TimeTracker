@@ -108,7 +108,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
             </div>
 
             {/*Card: Side panel detail. Container for detailed information about the event */}
-            <div className={`w-[200px] h-[100px] rounded-lg shadow-lg text-white `} style={{ background: 'rgb(32, 63, 119)' }}>
+            <div className={`w-[200px] h-[100px] rounded-lg shadow-lg text-white bg-[rgb(32,69,119)]`}>
                 <p className="text-xs m-2 font-semibold ">Trial: {event.trialName}</p>
                 <p className="text-xs m-2">Stage: {event.stage}</p>
                 <p className="text-xs m-2">Activity: {event.activityName}</p>
@@ -127,9 +127,9 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
         : events;
 
         return (
-          <div style={{position: 'fixed', overflow: 'auto' }}>
+          <div className="fixed overflow-auto">
               {/* Filter */}
-              <div className="m-1 p-1 ml-0 rounded-lg shadow-md text-black" style={{ background: 'rgb(245, 206, 128)', width: '330px' }}>
+              <div className="m-1 p-1 ml-0 rounded-lg shadow-md text-black bg-[rgb(245,206,128)] w-[330px]">
                   {/* Label indicating the purpose of the dropdown */}
                   <label>Select active status:</label>
       
@@ -147,7 +147,6 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
               </div>
       
               {/* Event Cards */}
-              {/* <div className="bg-gray-100 p-4 shadow-md " style={{ background: 'rgb(26, 97, 120)', height: 'calc(784px - 2.5rem)', overflowY: 'auto', width: '330px' }}> */}
               <div className="bg-[#1A6178] p-4 shadow-md overflow-y-auto overflow-x-auto h-[calc(100vh-280px)] w-[330px]">
                   {filteredEvents.map(event => (
                        <EventCard key={event.id} event={event} selectedEvent={selectedEvent} onEventSelect={onEventSelect}/>
