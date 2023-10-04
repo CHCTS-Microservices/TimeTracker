@@ -30,7 +30,7 @@ function TimerController({event, setActive} : TimerControllerProps) {
      // Need to use Effect on event so it refreshes the notes
      useEffect(() => {
         setIsActive(event.active);
-        setSeconds((Math.floor(event.totalTime / 1000))%60);
+        setSeconds(Math.floor(event.totalTime / 1000));
         if (event.active)
         {
             setStatus('Pause');

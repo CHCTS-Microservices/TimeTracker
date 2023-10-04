@@ -95,10 +95,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
                 <p className="text-xs font-semibold">{event.active ? 'Tracking' : 'Inactive'}</p>
               </div>
 
-              {/*Card: dynamic time. */}
-              <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg bg-white`}>
-                <p className="text-xs font-semibold  bg-white text-black">{formatTime()}</p>
-              </div>
+              
             </div>
 
             {/*Card: Side panel detail. Container for detailed information about the event */}
