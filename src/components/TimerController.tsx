@@ -10,12 +10,14 @@ interface TimerControllerProps {
 
 function TimerController({event, setActive} : TimerControllerProps) {
     // const [seconds, setSeconds] = useState(0);
-    const [seconds, setSeconds] = useState((Math.floor(event.totalTime / 1000))%60);
+    // const [seconds, setSeconds] = useState((Math.floor(event.totalTime / 1000))%60);
+    const [seconds, setSeconds] = useState();
     const [isActive, setIsActive] = useState(false);
     const [status, setStatus] = useState('Stop');
 
     function toggle() {
-        console.log('yello');
+        console.log('to to ', event?.track);
+
         setActive();
         // toggle();
         setIsActive(!isActive);
@@ -30,13 +32,23 @@ function TimerController({event, setActive} : TimerControllerProps) {
      // Need to use Effect on event so it refreshes the notes
      useEffect(() => {
         setIsActive(event.active);
-        setSeconds(Math.floor(event.totalTime / 1000));
+        
+       
         if (event.active)
         {
             setStatus('Pause');
+
+            const start = new Date(event?.timeLine[event.timeLine.length -1].start);
+            const now = new Date();
+            const dur = (now.getTime()-start.getTime());
+            // console.log('DUR', dur);
+            setSeconds(Math.floor(((event.totalTime+dur) / 1000)));
+            
+
         }
         else{
             setStatus('Stop');
+            setSeconds(Math.floor(event.totalTime / 1000));
         }
       }, [event]);
   
@@ -65,7 +77,7 @@ function TimerController({event, setActive} : TimerControllerProps) {
 
         return `${getHours} : ${getMinutes} : ${getSeconds}`;
     }
-    console.log('hi', event.event);
+
 
 
     return (

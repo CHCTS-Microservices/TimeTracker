@@ -52,6 +52,7 @@ export default function Page() {
             selectedEvent?.timeLine.push(x);
 
         }
+        // selectedEvent?.track = 0;
         
         selectedEvent.active = !selectedEvent.active;
         console.log(selectedEvent);
@@ -62,6 +63,9 @@ export default function Page() {
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
         
     }
+    // fucntion updateTrack(){
+
+    // }
    
    
     // function testo ()
