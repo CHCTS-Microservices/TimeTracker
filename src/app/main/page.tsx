@@ -22,7 +22,8 @@ export default function Page() {
     
     async function getEvents()
     {
-       const events : Event[] = await dataBase.startUp(userID);
+        const events : Event[] = await dataBase.startUp(userID) || [];
+       console.log("All events fetched:", events);
        setEvents(events);
     //    setSelectedEvent(events[0]);
  
@@ -103,7 +104,7 @@ export default function Page() {
                     <div className="w-4/9">
                         {/* Button */}
                         <button 
-                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-2xl flex-grow text-white rounded animate-none"
+                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-4xl flex-grow text-white rounded animate-none"
                             
                         >
                             Create Event
