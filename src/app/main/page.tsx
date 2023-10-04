@@ -103,11 +103,8 @@ export default function Page() {
                     <div className="w-4/9">
                         {/* Button */}
                         <button 
-                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-2xl flex-grow text-white rounded"
+                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-2xl flex-grow text-white rounded animate-none"
                             
-                            style={{ 
-                                animationDuration: '0ms'
-                            }}
                         >
                             Create Event
                         </button>
@@ -157,11 +154,8 @@ export default function Page() {
                     <div className="w-1/3">
                         {/* Button */}
                         <button 
-                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-2xl flex-grow text-white rounded"
-                            
-                            style={{ 
-                                animationDuration: '0ms'
-                            }}
+                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-2xl flex-grow text-white rounded animate-none"
+                        
                         >
                             Create Event
                         </button>
