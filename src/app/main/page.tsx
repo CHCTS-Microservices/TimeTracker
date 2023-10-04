@@ -84,20 +84,28 @@ export default function Page() {
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
     }
 
+    useEffect(() => {
+        // When the component is mounted, set the overflow to 'hidden' on the body element
+        document.body.style.overflow = 'hidden';
+    
+        // When the component will unmount, reset the overflow back to 'auto'
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
+
     if (selectedEvent != null)
     {
         return (
             <>
-                <div className="p-4 flex">
+                <div className="p-4 flex space-x-4 ml-10">
                     {/* Left 1/3 */}
-                    <div className="w-1/3">
+                    <div className="w-4/9">
                         {/* Button */}
                         <button 
-                            className="w-80 h-20 mt-4 ml-8 bg-blue-500 text-2xl flex-grow text-white rounded"
+                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-2xl flex-grow text-white rounded"
                             
                             style={{ 
-                                width: '330px', 
-                                height: '75px', 
                                 animationDuration: '0ms'
                             }}
                         >
@@ -110,35 +118,27 @@ export default function Page() {
                     </div>
         
                     {/* Right 2/3 */}
-                    <div className="w-2/3 ml-10">
-                        {/* Form - Tracking */}
-                        <div 
-                            className="gap-2.5 flex flex-col justify-between font-bold p-4 rounded-lg"
-                            style={{ 
-                                width: '1020px', 
-                                height: '889px',
-                                backgroundColor: '#fbd48c',
-                                fontFamily: 'Arial'
-                            }}
-                        >
+                    <div className="flex-grow mr-5">
+
+                        <div className="bg-[#fbd48c] p-4 shadow-md overflow-y-auto overflow-x-auto h-[calc(100vh-140px)] w-2/7 mr-10">
                             {/* First Element - 25% */}
-                            <div className="flex justify-between items-center rounded-lg p-4" style={{ height: '25%'}}>
+                            <div className="flex items-center rounded-lg p-4 h-1/4">
                                 {/* First Sub-Element */}
                                 <div className="bg-244982 text-4xl text-black" >
                                     {/* Joseph's work here */}
                                     <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p>
                                 </div>
                                 {/* Second Sub-Element */}
-                                <div className="flex justify-between items-center" style={{width: '40%'}}>
+                                <div className="flex items-center ml-auto mr-5">
                                 <TimerController event={selectedEvent} setActive={toggleActive}/>
                                 </div>
                             </div>
                             {/* Second Element - 25% */}
-                            <div  style={{ height: '25%'}}>
+                            <div  className="h-1/4">
                                     
                             </div>
                              {/* Third Element - 35% */}
-                            <div style={{ height: '35%' }}>
+                            <div className="h-7/20">
                                 <NoteEditor event={selectedEvent} saveNote={saveNotes}/>
                             </div>
                             
@@ -152,16 +152,16 @@ export default function Page() {
     else{
         return(
             <>
-                <div className="p-4 flex">
+                <div className="p-4 flex space-x-0 ml-20">
                     {/* Left 1/3 */}
                     <div className="w-1/3">
                         {/* Button */}
                         <button 
-                            className="w-80 h-20 mt-4 ml-8 bg-blue-500 text-2xl flex-grow text-white rounded"
+                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-2xl flex-grow text-white rounded"
                             
                             style={{ 
-                                width: '330px', 
-                                height: '75px', 
+                                // width: '330px', 
+                                // height: '75px', 
                                 animationDuration: '0ms'
                             }}
                         >
@@ -173,6 +173,9 @@ export default function Page() {
                         </div>
                     </div>
                 </div>
+
+
+            
             </>
         );
     }
