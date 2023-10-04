@@ -93,7 +93,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
             <div>
               {/*Card: active label. Label indicating whether the event is active ("Tracking") or inactive. The background color changes based on the event's active status */}
               <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg text-white  ${event.active ? 'bg-green-600' : 'bg-red-400'}`} >
-                <p className="text-xs font-semibold">{event.active ? 'Tracking' : 'Inactive'}</p>
+                <p className="text-m font-semibold">{event.active ? 'Tracking' : 'Inactive'}</p>
               </div>
 
               {/*Card: dynamic time. */}
@@ -108,12 +108,12 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
             </div>
 
             {/*Card: Side panel detail. Container for detailed information about the event */}
-            <div className={`w-[200px] h-[100px] rounded-lg shadow-lg text-white bg-[rgb(32,69,119)]`}>
-                <p className="text-xs m-2 font-semibold ">Trial: {event.trialName}</p>
-                <p className="text-xs m-2">Stage: {event.stage}</p>
-                <p className="text-xs m-2">Activity: {event.activityName}</p>
+            <div className={`w-[165px] h-[100px] rounded-lg shadow-lg text-white bg-[rgb(32,69,119)] text-left`}>
+                <p className="text-l m-2 font-semibold truncate">Trial: {event.trialName}</p>
+                <p className="text-m m-2 truncate">Stage: {event.stage}</p>
+                <p className="text-m m-2 truncate">Activity: {event.activityName}</p>
             </div>
-          </div>
+          </div> 
 
         </button>
     );
@@ -129,7 +129,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
         return (
           <div className="fixed overflow-auto">
               {/* Filter */}
-              <div className="m-1 p-1 ml-0 rounded-lg shadow-md text-black bg-[rgb(245,206,128)] w-[330px]">
+              <div className="text-xl m-1 p-1 ml-0 rounded-lg shadow-md text-black bg-[rgb(245,206,128)] w-[330px]">
                   {/* Label indicating the purpose of the dropdown */}
                   <label>Select active status:</label>
       

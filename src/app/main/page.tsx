@@ -23,7 +23,6 @@ export default function Page() {
     async function getEvents()
     {
         const events : Event[] = await dataBase.startUp(userID) || [];
-       console.log("All events fetched:", events);
        setEvents(events);
     //    setSelectedEvent(events[0]);
  
