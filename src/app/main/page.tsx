@@ -98,7 +98,7 @@ export default function Page() {
     {
         return (
             <>
-                <div className="p-4 flex space-x-4 ml-10">
+                <div className="p-4 flex space-x-8 ml-10">
                     {/* Left 1/3 */}
                     <div className="w-4/9">
                         {/* Button */}
@@ -115,7 +115,7 @@ export default function Page() {
                     </div>
         
                     {/* Right 2/3 */}
-                    <div className="flex-grow mr-5">
+                    <div className="flex-grow mr-5 mt-4">
 
                         <div className="bg-[#fbd48c] p-4 shadow-md overflow-y-auto overflow-x-auto h-[calc(100vh-140px)] w-2/7 mr-10">
                             {/* First Element - 25% */}
