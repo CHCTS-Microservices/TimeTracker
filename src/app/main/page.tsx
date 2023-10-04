@@ -160,8 +160,6 @@ export default function Page() {
                             className="w-[330px] h-[75px] mt-4 bg-blue-500 text-2xl flex-grow text-white rounded"
                             
                             style={{ 
-                                // width: '330px', 
-                                // height: '75px', 
                                 animationDuration: '0ms'
                             }}
                         >
