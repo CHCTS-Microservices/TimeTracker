@@ -6,11 +6,13 @@ import SidePanel from '@/components/SidePanel';
 import API from '@/app/utils/ServiceLayer';
 import { useEffect, useState } from "react";
 import NoteEditor from '@/components/NoteEditor';
+import Delete from "@/components/DeleteEvent";
 
 export default function Page() {
 
     const dataBase = new API();
     const userID : number = 1;
+    
 
 
 
@@ -84,6 +86,14 @@ export default function Page() {
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
     }
 
+    function deleteEvent()
+    {
+        const updatedEvents = events.filter((event) => event.id !== selectedEvent?.id);
+        setEvents(updatedEvents);
+        setSelectedEvent(null);
+
+    }
+
     if (selectedEvent != null)
     {
         return (
@@ -140,6 +150,9 @@ export default function Page() {
                              {/* Third Element - 35% */}
                             <div style={{ height: '35%' }}>
                                 <NoteEditor event={selectedEvent} saveNote={saveNotes}/>
+                            </div>
+                            <div>
+                                <Delete deleteEvent={deleteEvent}></Delete>
                             </div>
                             
                         </div>
