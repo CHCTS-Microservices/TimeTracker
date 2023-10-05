@@ -154,32 +154,32 @@ export default function DeleteEvent({
             </label>
           </div>
 
-          <div className="mb-5 mt-5 flex flex-col">
-            <label className="text-white">Trial Details</label>
-            <label className="w-full  block bg-white mb-2.5 box-border">
+          <div className="mb-5 mt-5 flex flex-col ml-40">
+            <label className="text-black text-xl"> Trial Details</label>
+            <label className="w-5/12 block bg-white mb-2.5 border-4 border-blue-gray-700">
               {selectedTrial ? (
                 <div>
                   <p>
-                    <strong>Title:</strong> {selectedTrial.title}
+                    <span className="font-semibold">Title:</span> {selectedTrial.title}
                   </p>
                   <p>
-                    <strong>Unit:</strong> {selectedTrial.unit}
+                  <span className="font-semibold">Unit:</span>  {selectedTrial.unit}
                   </p>
                   <p>
-                    <strong>Stage:</strong> {selectedTrial.stage}
+                  <span className="font-semibold">Stage:</span>  {selectedTrial.stage}
                   </p>
                   <p>
-                    <strong>Date:</strong> {selectedTrial.date}
+                  <span className="font-semibold">Date:</span>  {selectedTrial.date}
                   </p>
                   {selectedTrial.staffID && (
                     <p>
-                      <strong>Staff IDs:</strong>{" "}
+                      <span className="font-semibold">Staff Ids:</span> {" "}
                       {selectedTrial.staffID.join(", ")}
                     </p>
                   )}
                   {selectedTrial.totalTime && (
                     <p>
-                      <strong>Total Time:</strong> {selectedTrial.totalTime}
+                      <span className="font-semibold">Total Time:</span>  {selectedTrial.totalTime}
                     </p>
                   )}
                 </div>
@@ -191,10 +191,11 @@ export default function DeleteEvent({
 
           {/* Display the Activity label only when Trial is selected */}
           {selectedTrial && (
-            <div className="mb-5">
+            <div className="">
               <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 rounded text-white inline-block rounded text-center font-bold ">
                 Activity
               </label>
+              <div className="flex-col py-4">
               {activities.map((activity) => (
                 <button
                   key={activity.id}
@@ -208,31 +209,34 @@ export default function DeleteEvent({
                   {activity.title}
                 </button>
               ))}
+
+              </div>
+              
             </div>
           )}
 
                     {/* Display Activity details only when Activity is selected */}
                     {selectedActivity && (
-            <div className="mb-5 mt-5">
-              <label className="text-white">Activity Details</label>
-              <label className="w-full h-[120px] block bg-white mb-2.5 box-border">
+            <div className="mb-5 ml-40">
+              <label className="text-black text-xl">Activity Details</label>
+              <label className="w-5/12 block bg-white mb-2.5 border-4 border-blue-gray-700">
                 {selectedActivity ? (
                   <div>
                     <p>
-                      <strong>Title:</strong> {selectedActivity.title}
+                    <span className="font-semibold">Title:</span> {selectedActivity.title}
                     </p>
                     <p>
-                      <strong>Date:</strong> {selectedActivity.date}
+                    <span className="font-semibold">Date:</span> {selectedActivity.date}
                     </p>
                     {selectedActivity.staffID && (
                       <p>
-                        <strong>Staff IDs:</strong>{" "}
+                        <span className="font-semibold">Staff Ids:</span>{" "}
                         {selectedActivity.staffID.join(", ")}
                       </p>
                     )}
                     {selectedActivity.totalTime && (
                       <p>
-                        <strong>Total Time:</strong>{" "}
+                        <span className="font-semibold">Total Time:</span>{" "}
                         {selectedActivity.totalTime}
                       </p>
                     )}
@@ -244,8 +248,6 @@ export default function DeleteEvent({
             </div>
           )}
 
-         
-       
         </DialogBody>
         <DialogFooter className="space-x-2">
           <Button variant="outlined" color="red" onClick={handleOpen}>
