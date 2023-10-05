@@ -7,6 +7,8 @@ import API from '@/app/utils/ServiceLayer';
 import { useEffect, useState } from "react";
 import NoteEditor from '@/components/NoteEditor';
 import Delete from "@/components/DeleteEvent";
+import EventDetail from "@/components/EventDetail";
+import Metadata  from "@/components/Metadata";
 
 export default function Page() {
 
@@ -137,8 +139,10 @@ export default function Page() {
                             <div className="flex justify-between items-center rounded-lg p-4" style={{ height: '25%'}}>
                                 {/* First Sub-Element */}
                                 <div className="bg-244982 text-4xl text-black" >
-                                    {/* Joseph's work here */}
-                                    <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p>
+                                    {/* Joseph's work here
+                                    <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p> */}
+                                    <EventDetail event={selectedEvent}/>
+                                    {/* <Metadata event={selectedEvent}/> */}
                                 </div>
                                 {/* Second Sub-Element */}
                                 <div className="flex justify-between items-center" style={{width: '40%'}}>
@@ -147,6 +151,7 @@ export default function Page() {
                             </div>
                             {/* Second Element - 25% */}
                             <div  style={{ height: '25%'}}>
+                                <Metadata event={selectedEvent}/>
                                     
                             </div>
                              {/* Third Element - 35% */}

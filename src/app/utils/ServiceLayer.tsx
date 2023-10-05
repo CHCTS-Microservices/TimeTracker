@@ -1,7 +1,7 @@
 
 import { createClient } from '@supabase/supabase-js'
-import {Event} from './types';
-import supabase from '../../../supabase';
+import {Event} from '@/app/utils/types';
+import supabase from '@/../supabase';
 
 
 class API{
@@ -24,11 +24,13 @@ class API{
                 {
 
                     let trial : any = await this.getTrialDet(ev.trialID);
-                    let activity : any = await this.getTrialDet(ev.activityID);
+                    let activity : any = await this.getActivityDet(ev.activityID);
                     let event : Event = {
                         ...ev,
                         trialName : trial.title,
                         activityName : activity.title,
+                        stage : trial.stage,
+                        unit : trial.unit,
                         ...trial[0],
                     };
                     events.push(event);
