@@ -3,6 +3,7 @@ import supabase from '@supabase/supabase-js'
 import API from '@/app/utils/ServiceLayer';
 import { Trial } from '@/app/utils/types';
 import { Activity } from '@/app/utils/types';
+import { Event } from '@/app/utils/types';
 
 
 
@@ -76,9 +77,41 @@ const handleActivityButtonPress = (activity: Activity) => {
   setActivity(activity);
 };
 
-  function testo(){
-    console.log('activities', activities);
+function handleConfirmClick() {
+  // Ensure both a trial and an activity are selected before attempting to create an event
+  if (!selectedTrial || !selectedActivity) {
+      alert('Please select both a trial and an activity before confirming.');
+      return;
   }
+
+  const eventToCreate: Event = {
+      id: 0, // Assign a ramdom id
+      userID: userID,
+      totalTime: 0, 
+      timeLine: [], 
+      active: true, 
+      notes: '', 
+      trialID: selectedTrial.id,
+      activityID: selectedActivity.id,
+      date: new Date(), // Assuming current date
+      trialName: selectedTrial.title,
+      activityName: selectedActivity.title
+  };
+
+  database.createEvent(eventToCreate).then(response => {
+      if (response) {
+          // Handle successful event creation, maybe reset some states or close the popup
+          setTrial(undefined);
+          setActivity(undefined);
+          alert('Event created successfully.');
+      } else {
+          alert('Failed to create event.');
+      }
+  }).catch(error => {
+      console.error('Error creating event:', error);
+      alert('An error occurred while creating the event.');
+  });
+}
  
     return (
       <div className="bg-[rgb(26,97,120)] w-3/5 top-[110px] right-[100px] h-4/5 fixed rounded p-5">
@@ -154,7 +187,7 @@ const handleActivityButtonPress = (activity: Activity) => {
 
         
         <div className="absolute bottom-5 right-5">
-          <button className="bg-green-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer" onClick={testo}>Confirm</button>
+          <button className="bg-green-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer" onClick={handleConfirmClick}>Confirm</button>
           <button className="bg-red-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer">Cancel</button>
         </div>
       </div>
