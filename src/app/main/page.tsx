@@ -9,6 +9,7 @@ import NoteEditor from '@/components/NoteEditor';
 import Delete from "@/components/DeleteEvent";
 import EventDetail from "@/components/EventDetail";
 import Metadata  from "@/components/Metadata";
+import Create from "@/components/TestPop";
 
 export default function Page() {
 
@@ -106,7 +107,7 @@ export default function Page() {
                     {/* Left 1/3 */}
                     <div className="w-1/3">
                         {/* Button */}
-                        <button 
+                        {/* <button 
                             className="w-80 h-20 mt-4 ml-8 bg-blue-500 text-2xl flex-grow text-white rounded"
                             
                             style={{ 
@@ -116,7 +117,8 @@ export default function Page() {
                             }}
                         >
                             Create Event
-                        </button>
+                        </button> */}
+                        <Create database={dataBase} userID={userID} />
                         {/* Sidebar */}
                         <div className="">
                         <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
