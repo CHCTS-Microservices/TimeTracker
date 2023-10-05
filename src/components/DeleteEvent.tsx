@@ -16,7 +16,10 @@ interface DeleteEventProps{
 export default function DeleteEvent( {deleteEvent} : DeleteEventProps) {
   const [open, setOpen] = useState(false);
 
+  // Modal/dialog box visibile or not 
   const handleOpen = () => setOpen(!open);
+  
+  // when comfirm button is clicked do the following logic, call parent funtio delete event then close the modal
   function handelDelete(){
     deleteEvent();
     handleOpen;

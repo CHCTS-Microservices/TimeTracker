@@ -86,6 +86,8 @@ export default function Page() {
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
     }
 
+    // funtion that deletes the event
+    //TODO : TODO link this funtion up with the back-end to delete event. * we could create a new table that holds deleted events (after x days permanently delete it)
     function deleteEvent()
     {
         const updatedEvents = events.filter((event) => event.id !== selectedEvent?.id);
