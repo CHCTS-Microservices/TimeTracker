@@ -111,7 +111,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
             {/*Card: Side panel detail. Container for detailed information about the event */}
             <div className={`w-[165px] h-[100px] rounded-lg shadow-lg text-white bg-[rgb(32,69,119)] text-left`}>
                 <p className="text-l m-2 font-semibold truncate">Trial: {event.trialName}</p>
-                <p className="text-m m-2 truncate">Stage: {event.stage}</p>
+                <p className="text-m m-2 truncate">Unit: {event.unit}</p>
                 <p className="text-m m-2 truncate">Activity: {event.activityName}</p>
             </div>
           </div> 
@@ -128,7 +128,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
         : events;
 
         return (
-          <div className="fixed overflow-auto">
+          <div className="overflow-auto">
               {/* Filter */}
               <div className="text-xl m-1 p-1 ml-0 rounded-lg shadow-md text-black bg-[rgb(245,206,128)] w-[330px]">
                   {/* Label indicating the purpose of the dropdown */}
