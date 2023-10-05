@@ -99,6 +99,15 @@ export default function Page() {
 
     }
 
+    function createEvent(event : Event){
+        console.log('yayay', event);
+        const updatedEvents : Event[] = events.push(event);
+        console.log(updatedEvents);
+        // setEvents(updatedEvents);
+        // setSelectedEvent(event);
+
+    }
+
     if (selectedEvent != null)
     {
         return (
@@ -118,7 +127,7 @@ export default function Page() {
                         >
                             Create Event
                         </button> */}
-                        <Create database={dataBase} userID={userID} />
+                        <Create database={dataBase} userID={userID} createEvent={createEvent}/>
                         {/* Sidebar */}
                         <div className="">
                         <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>

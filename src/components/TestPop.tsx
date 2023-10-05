@@ -15,11 +15,12 @@ import { Event } from "@/app/utils/types";
 interface EventPopupProps {
   database: API;
   userID: number;
+  createEvent: (newEvent : Event) => void;
   // onClose: () => void;
   // onEventCreate: (newEvent: Event) => void;
 }
 
-export default function DeleteEvent({ database, userID }: EventPopupProps) {
+export default function DeleteEvent({ database, userID, createEvent}: EventPopupProps) {
   const [open, setOpen] = useState(false);
 
 
@@ -70,6 +71,7 @@ export default function DeleteEvent({ database, userID }: EventPopupProps) {
 
   // if selectd trial changes, call the get Activities
   useEffect(() => {
+    setActivity(null);
     getActivites();
   }, [selectedTrial]);
 
@@ -93,6 +95,26 @@ export default function DeleteEvent({ database, userID }: EventPopupProps) {
   const handleActivityButtonPress = (activity: Activity) => {
     setActivity(activity);
   };
+
+  function buildEvent(){
+    let newEvent : Event = {
+        id: 200,
+        userID: userID,
+        active: false,
+        activityID: selectedActivity?.id,
+        activityName: selectedActivity?.title,
+        date : new Date(),
+        notes: '',
+        stage: selectedTrial?.stage,
+        timeLine : [],
+        totalTime: 0,
+        trialID: selectedTrial?.id,
+        trialName : selectedTrial?.title,
+        unit : selectedTrial?.unit
+    }
+    createEvent(newEvent);
+    handleOpen();
+  }
 
   return (
     <>
@@ -226,9 +248,13 @@ export default function DeleteEvent({ database, userID }: EventPopupProps) {
           )}
 
           <DialogFooter className="absolute bottom-5 right-5">
-            <button className="bg-green-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer">
-              Confirm
-            </button>
+            {selectedActivity ?
+            <button className="bg-green-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer" onClick={buildEvent}> Confirm
+            </button>:<></>
+            }
+
+        
+
             <button
               className="bg-red-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer"
               onClick={handleOpen}

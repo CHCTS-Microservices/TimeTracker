@@ -145,7 +145,7 @@ class API{
 
 
     // given trial id, funtion will return trial
-    async getActivitiesDet(id : number[])
+    async getActivitiesDet(ids : number[])
     {
     /**
      *  Returns Activitiex for id {id}
@@ -157,9 +157,9 @@ class API{
             // let { data, error } = await supabase.from('Trials').select(`title, unit, stage, activities`).eq('id', id);
             // return data[0];
             let activities : Activity[] = [];
-            if (id.length != 0)
+            if (ids.length != 0)
             {
-                for (const x of id)
+                for (const x of ids)
                 {
 
                     let getAct : any = await this.getActivityDet(x);
@@ -177,7 +177,7 @@ class API{
         }
         catch (error)
         {
-            console.log('Error: cant get trial details');
+            console.log('Error: cant get activity details');
         }
     }
 
