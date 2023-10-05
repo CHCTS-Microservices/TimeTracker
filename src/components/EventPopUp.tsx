@@ -99,21 +99,22 @@ function handleConfirmClick() {
       activityName: selectedActivity.title
   };
 
-  database.createEvent(eventToCreate).then(response => {
-        console.log( "hey create:", eventToCreate);
-        console.log( "hey response:", response);
-        if(response!=null){// Handle successful event creation, maybe reset some states or close the popup
-          setTrial(undefined);
-          setActivity(undefined);
-          alert('Event created successfully.');
-        }
-        else{alert('Failed to create event.');}
+  // dont do create event here
+//   database.createEvent(eventToCreate).then(response => {
+//         console.log( "hey create:", eventToCreate);
+//         console.log( "hey response:", response);
+//         if(response!=null){// Handle successful event creation, maybe reset some states or close the popup
+//           setTrial(undefined);
+//           setActivity(undefined);
+//           alert('Event created successfully.');
+//         }
+//         else{alert('Failed to create event.');}
       
-  }).catch(error => {
-      console.error('Error creating event:', error);
-      alert('An error occurred while creating the event.');
-  });
-}
+//   }).catch(error => {
+//       console.error('Error creating event:', error);
+//       alert('An error occurred while creating the event.');
+//   });
+// }
  
     return (
       <div className="bg-[rgb(26,97,120)] w-3/5 top-[110px] right-[100px] h-4/5 fixed rounded p-5">
