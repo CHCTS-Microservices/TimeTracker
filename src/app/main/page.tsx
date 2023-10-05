@@ -116,7 +116,6 @@ export default function Page() {
                             }}
                         >
                             Create Event
-                            Create Event
                         </button>
                         {/* Sidebar */}
                         <div className="">
@@ -186,7 +185,6 @@ export default function Page() {
                                 animationDuration: '0ms'
                             }}
                         >
-                            Create Event
                             Create Event
                         </button>
                         {/* Sidebar */}
