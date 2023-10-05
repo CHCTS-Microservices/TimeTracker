@@ -16,6 +16,12 @@ export type Event = {
     unit : string
 }
 
+// export type Track{
+//     hours : number,
+//     minutes : number,
+//     seconds : number
+// }
+
 export type Trial = {
     id: number;
     staffID : number[];
