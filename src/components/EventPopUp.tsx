@@ -93,20 +93,22 @@ function handleConfirmClick() {
       notes: '', 
       trialID: selectedTrial.id,
       activityID: selectedActivity.id,
-      date: new Date(), // Assuming current date
+      date: selectedActivity.date, // Assuming current date
       trialName: selectedTrial.title,
+      stage : selectedTrial.stage,
       activityName: selectedActivity.title
   };
 
   database.createEvent(eventToCreate).then(response => {
-      if (response) {
-          // Handle successful event creation, maybe reset some states or close the popup
+        console.log( "hey create:", eventToCreate);
+        console.log( "hey response:", response);
+        if(response!=null){// Handle successful event creation, maybe reset some states or close the popup
           setTrial(undefined);
           setActivity(undefined);
           alert('Event created successfully.');
-      } else {
-          alert('Failed to create event.');
-      }
+        }
+        else{alert('Failed to create event.');}
+      
   }).catch(error => {
       console.error('Error creating event:', error);
       alert('An error occurred while creating the event.');
