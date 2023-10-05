@@ -29,7 +29,7 @@ export default function DeleteEvent( {deleteEvent} : DeleteEventProps) {
     <div>
       <div>
         <button
-          className=" bg-red-900 text-white py-2 px-4 rounded px-32"
+          className=" bg-red-900 text-white py-2 px-4 rounded px-32 text-2xl"
           onClick={handleOpen}
         >
           Delete

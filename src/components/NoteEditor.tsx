@@ -38,17 +38,19 @@ export default function NoteEditor({event, saveNote} : NoteEditorProps) {
     return (
         // <div style={{ display: 'flex', flexDirection: 'column', gap: '10px',height: '300px' }}>
         <div className='flex flex-col gap-3 h-72'>
+            <div className="ml-2 text-3xl font-bold text-black mt-6">
+                Note:
+            </div>
             {/* Note Textarea */}
             <textarea
-                className="bg-white text-black p-4 rounded-lg flex-grow"
+                className="bg-white text-black p-4 rounded-[15px] flex-grow text-2xl min-h-[500px]"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
             >
-
             </textarea>
 
             {/* Save and Cancel Buttons */}
-            <div className='flex justify-end gap-8'>
+            <div className='flex justify-end gap-8 justify-center text-2xl'>
                 <button className="mt-auto bg-blue-500 text-white py-2 px-4 rounded bottom-4 right-4" onClick={handleSave}>
                     Save
                 </button>

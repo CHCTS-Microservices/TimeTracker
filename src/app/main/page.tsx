@@ -26,7 +26,7 @@ export default function Page() {
     
     async function getEvents()
     {
-       const events : Event[] = await dataBase.startUp(userID);
+        const events : Event[] = await dataBase.startUp(userID) || [];
        setEvents(events);
     //    setSelectedEvent(events[0]);
  
@@ -98,67 +98,68 @@ export default function Page() {
 
     }
 
+    // useEffect(() => {
+    //     // When the component is mounted, set the overflow to 'hidden' on the body element
+    //     document.body.style.overflow = 'hidden';
+    
+    //     // When the component will unmount, reset the overflow back to 'auto'
+    //     return () => {
+    //         document.body.style.overflow = 'auto';
+    //     };
+    // }, []);
+
     if (selectedEvent != null)
     {
         return (
             <>
-                <div className="p-4 flex">
+                <div className="p-4 flex space-x-8 ml-10">
                     {/* Left 1/3 */}
-                    <div className="w-1/3">
+                    <div className="w-4/9">
                         {/* Button */}
                         <button 
-                            className="w-80 h-20 mt-4 ml-8 bg-blue-500 text-2xl flex-grow text-white rounded"
+                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-5xl flex-grow text-white rounded animate-none"
                             
-                            style={{ 
-                                width: '330px', 
-                                height: '75px', 
-                                animationDuration: '0ms'
-                            }}
                         >
                             Create Event
                         </button>
                         {/* Sidebar */}
                         <div className="">
-                        <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
+                            <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
                     </div>
         
                     {/* Right 2/3 */}
-                    <div className="w-2/3 ml-10">
-                        {/* Form - Tracking */}
-                        <div 
-                            className="gap-2.5 flex flex-col justify-between font-bold p-4 rounded-lg"
-                            style={{ 
-                                width: '1020px', 
-                                height: '889px',
-                                backgroundColor: '#fbd48c',
-                                fontFamily: 'Arial'
-                            }}
-                        >
+                    <div className="flex-grow mr-5 mt-4">
+
+                        <div className="flex flex-col bg-[#fbd48c] p-4 shadow-md overflow-y-auto overflow-x-auto h-[calc(100vh-140px)] w-2/7 mr-10 min-h-[680px]">
                             {/* First Element - 25% */}
-                            <div className="flex justify-between items-center rounded-lg p-4" style={{ height: '25%'}}>
+                            <div className="flex items-center rounded-lg p-3 h-[150px] mt-10">
                                 {/* First Sub-Element */}
-                                <div className="bg-244982 text-4xl text-black" >
-                                    {/* Joseph's work here
-                                    <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p> */}
+                                <div className="bg-244982 text-4xl mr-[70px]" >
                                     <EventDetail event={selectedEvent}/>
-                                    {/* <Metadata event={selectedEvent}/> */}
                                 </div>
+                                
                                 {/* Second Sub-Element */}
-                                <div className="flex justify-between items-center" style={{width: '40%'}}>
-                                <TimerController event={selectedEvent} setActive={toggleActive}/>
+                                <div  className="flex-grow mt-20">
+                                    <Metadata event={selectedEvent}/>
+                                        
+                                </div>
+
+                                {/* Third Sub-Element */}
+                                <div className="items-center ml-auto mr-5">
+                                    <TimerController event={selectedEvent} setActive={toggleActive}/>
                                 </div>
                             </div>
-                            {/* Second Element - 25% */}
-                            <div  style={{ height: '25%'}}>
-                                <Metadata event={selectedEvent}/>
-                                    
+
+                            <div className="flex-grow">
+                                {/* Third Element - 35% */}
+                                <div className="h-7/20 mt-10 ml-4 flex-grow">
+                                    <NoteEditor event={selectedEvent} saveNote={saveNotes}/>
+                                </div>
                             </div>
-                             {/* Third Element - 35% */}
-                            <div style={{ height: '35%' }}>
-                                <NoteEditor event={selectedEvent} saveNote={saveNotes}/>
-                            </div>
-                            <div>
+
+                            {/* Delete button */}
+                            <div className="mb-0 ml-5">
                                 <Delete deleteEvent={deleteEvent}></Delete>
                             </div>
                             
@@ -172,18 +173,13 @@ export default function Page() {
     else{
         return(
             <>
-                <div className="p-4 flex">
+                <div className="p-4 space-x-0 ml-10">
                     {/* Left 1/3 */}
                     <div className="w-1/3">
                         {/* Button */}
                         <button 
-                            className="w-80 h-20 mt-4 ml-8 bg-blue-500 text-2xl flex-grow text-white rounded"
-                            
-                            style={{ 
-                                width: '330px', 
-                                height: '75px', 
-                                animationDuration: '0ms'
-                            }}
+                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-5xl flex-grow text-white rounded animate-none"
+                        
                         >
                             Create Event
                         </button>
@@ -193,6 +189,9 @@ export default function Page() {
                         </div>
                     </div>
                 </div>
+
+
+            
             </>
         );
     }
