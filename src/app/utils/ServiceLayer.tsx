@@ -54,7 +54,7 @@ class API{
      */
         try
         {
-            let { data, error } = await supabase.from('Trials').select(`title, unit, stage`).eq('id', id);
+            let { data, error } = await supabase.from('Trials').select(`*`).eq('id', id);
             return data[0];
         }
         catch (error)
@@ -135,7 +135,7 @@ class API{
      */
         try
         {
-            let { data, error } = await supabase.from('Activity').select(`title`).eq('id', id);
+            let { data, error } = await supabase.from('Activity').select(`*`).eq('id', id);
             return data[0];
         }
         catch (error)
@@ -153,7 +153,9 @@ class API{
      */
         try
         {
-            console.log(ids);
+            if (ids.length > 1)
+            {
+                console.log(ids);
             // let { data, error } = await supabase.from('Trials').select(`title, unit, stage, activities`).eq('id', id);
             // let { data, error } = await supabase.from('Trials').select(`title, unit, stage, activities`).eq('id', id);
             // return data[0];
@@ -175,9 +177,13 @@ class API{
                 }
             }
             return activities;
+            }
+            return undefined;
+            
         }
         catch (error)
         {
+            // console.log(ids);
             console.log('Error: cant get activity details for the activity ids given');
         }
     }

@@ -32,20 +32,18 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
   //   }
 
   const [trials, setTrials] = useState<Trial[]>([]);
-  const [selectedTrial, setTrial] = useState<Trial|null>();
+  const [selectedTrial, setTrial] = useState<Trial>();
   // const [selectedActivities, setSelectedActivities] = useState<number[]>([]);
   const [activities, setActivities] = useState<Activity[]>([]);
-  const [selectedActivity, setActivity] = useState<Activity | null>();
+  const [selectedActivity, setActivity] = useState<Activity>();
 
     // Modal/dialog box visibile or not
     // const handleOpen = () => setOpen(!open);
     function handleOpen(){
         setTrials([]);
-        setTrial(null);
+        setTrial(undefined);
         setActivities([]);
-        setActivity(null);
-        
-
+        setActivity(undefined);
         setOpen(!open);
     }
 
@@ -59,9 +57,12 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
 
   // sets the Activities -> calls databse to retrieve activities associated to a trial
   const getActivites = async () => {
-    const activityDet =
+    if (selectedTrial != undefined)
+    {
+        const activityDet =
       (await database.getActivitiesDet(selectedTrial?.activities)) || [];
     setActivities(activityDet);
+    }
   };
 
   // if database or user changes, call get the Trials
@@ -71,7 +72,7 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
 
   // if selectd trial changes, call the get Activities
   useEffect(() => {
-    setActivity(null);
+    setActivity(undefined);
     getActivites();
   }, [selectedTrial]);
 
@@ -85,7 +86,7 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
 
     // it will need to find out which trial has been selected
     trials.find(function (trial) {
-      if (e.target.value == trial.title) {
+      if (e.target.value == trial.id.toString()) {
         setTrial(trial);
       }
     });
@@ -167,9 +168,7 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
                   </p>
                   <p>
                     <strong>Date:</strong>{" "}
-                    {selectedTrial.date
-                      ? selectedTrial.date.toDateString()
-                      : "N/A"}
+                    {selectedTrial.date}
                   </p>
                   {selectedTrial.staffID && (
                     <p>

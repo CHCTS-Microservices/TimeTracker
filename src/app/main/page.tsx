@@ -101,8 +101,9 @@ export default function Page() {
 
     function createEvent(event : Event){
         console.log('yayay', event);
-        const updatedEvents : Event[] = events.push(event);
-        console.log(updatedEvents);
+        setEvents([...events, event]);
+        // const updatedEvents : Event[] = events.push(event);
+        // console.log(updatedEvents);
         // setEvents(updatedEvents);
         // setSelectedEvent(event);
 
@@ -187,17 +188,7 @@ export default function Page() {
                     {/* Left 1/3 */}
                     <div className="w-1/3">
                         {/* Button */}
-                        <button 
-                            className="w-80 h-20 mt-4 ml-8 bg-blue-500 text-2xl flex-grow text-white rounded"
-                            
-                            style={{ 
-                                width: '330px', 
-                                height: '75px', 
-                                animationDuration: '0ms'
-                            }}
-                        >
-                            Create Event
-                        </button>
+                        <Create database={dataBase} userID={userID} createEvent={createEvent}/>
                         {/* Sidebar */}
                         <div className="">
                             <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
