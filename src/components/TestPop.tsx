@@ -134,7 +134,7 @@ export default function DeleteEvent({
               Trial
             </label>
             <select
-              className="mx-5 py-1 px-3 rounded"
+              className="mx-5 py-1 px-3 rounded border-4 border-cyan-200"
               onChange={handleTrialChange}
             >
               <option value="" selected>
@@ -200,9 +200,9 @@ export default function DeleteEvent({
                 <button
                   key={activity.id}
                   onClick={() => handleActivityButtonPress(activity)}
-                  className={`mx-2 py-1 px-3 rounded text-black ${
+                  className={`mx-2 p-5 rounded-full text-black ${
                     selectedActivity?.id === activity.id
-                      ? "bg-[#f5ce80]"
+                      ? "bg-[#f5ce80] border-4 border-cyan-200"
                       : "bg-[#76a7b0]"
                   } hover:bg-[#f5ce80]`}
                 >
