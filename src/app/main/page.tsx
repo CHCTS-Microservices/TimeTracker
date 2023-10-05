@@ -13,7 +13,7 @@ export default function Page() {
 
     const dataBase = new API();
     const userID : number = 1;
-    
+    const [showPopup, setShowPopup] = useState(false); 
 
 
 
@@ -42,7 +42,10 @@ export default function Page() {
     function handleEventSelect(event: Event) {
         setSelectedEvent(event);
     }
-
+    function handleEventCreated(newEvent: Event) {
+        console.log("new event",newEvent);
+        setEvents(prevEvents => [...prevEvents, newEvent]);
+      }
     function toggleActive() {
         
         if (selectedEvent?.active) // if true that means its recording

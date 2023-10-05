@@ -100,7 +100,7 @@ function handleConfirmClick() {
       stage : selectedTrial.stage,
       activityName: selectedActivity.title
   }; 
-
+  console.log("eventocreate", eventToCreate)
   onEventCreate(eventToCreate);
 }
 
