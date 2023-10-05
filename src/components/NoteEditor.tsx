@@ -43,7 +43,7 @@ export default function NoteEditor({event, saveNote} : NoteEditorProps) {
             </div>
             {/* Note Textarea */}
             <textarea
-                className="bg-white text-black p-4 rounded-[15px] flex-grow"
+                className="bg-white text-black p-4 rounded-[15px] flex-grow text-xl"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
             >
