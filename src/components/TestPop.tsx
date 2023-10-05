@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Typography,
 } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 import API from "@/app/utils/ServiceLayer";
@@ -15,15 +16,17 @@ import { Event } from "@/app/utils/types";
 interface EventPopupProps {
   database: API;
   userID: number;
-  createEvent: (newEvent : Event) => void;
+  createEvent: (newEvent: Event) => void;
   // onClose: () => void;
   // onEventCreate: (newEvent: Event) => void;
 }
 
-export default function DeleteEvent({ database, userID, createEvent}: EventPopupProps) {
+export default function DeleteEvent({
+  database,
+  userID,
+  createEvent,
+}: EventPopupProps) {
   const [open, setOpen] = useState(false);
-
-
 
   // when comfirm button is clicked do the following logic, call parent funtio delete event then close the modal
   //   function handelDelete(){
@@ -37,16 +40,15 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
   const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedActivity, setActivity] = useState<Activity>();
 
-    // Modal/dialog box visibile or not
-    // const handleOpen = () => setOpen(!open);
-    function handleOpen(){
-        setTrials([]);
-        setTrial(undefined);
-        setActivities([]);
-        setActivity(undefined);
-        setOpen(!open);
-    }
-
+  // Modal/dialog box visibile or not
+  // const handleOpen = () => setOpen(!open);
+  function handleOpen() {
+    setTrials([]);
+    setTrial(undefined);
+    setActivities([]);
+    setActivity(undefined);
+    setOpen(!open);
+  }
 
   // sets the Trials -> calls databse to retrive the trials associated to a user
   const getTrials = async () => {
@@ -57,11 +59,10 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
 
   // sets the Activities -> calls databse to retrieve activities associated to a trial
   const getActivites = async () => {
-    if (selectedTrial != undefined)
-    {
-        const activityDet =
-      (await database.getActivitiesDet(selectedTrial?.activities)) || [];
-    setActivities(activityDet);
+    if (selectedTrial != undefined) {
+      const activityDet =
+        (await database.getActivitiesDet(selectedTrial?.activities)) || [];
+      setActivities(activityDet);
     }
   };
 
@@ -97,22 +98,22 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
     setActivity(activity);
   };
 
-  function buildEvent(){
-    let newEvent : Event = {
-        id: 200,
-        userID: userID,
-        active: false,
-        activityID: selectedActivity?.id,
-        activityName: selectedActivity?.title,
-        date : new Date(),
-        notes: '',
-        stage: selectedTrial?.stage,
-        timeLine : [],
-        totalTime: 0,
-        trialID: selectedTrial?.id,
-        trialName : selectedTrial?.title,
-        unit : selectedTrial?.unit
-    }
+  function buildEvent() {
+    let newEvent: Event = {
+      id: 200,
+      userID: userID,
+      active: false,
+      activityID: selectedActivity?.id,
+      activityName: selectedActivity?.title,
+      date: new Date(),
+      notes: "",
+      stage: selectedTrial?.stage,
+      timeLine: [],
+      totalTime: 0,
+      trialID: selectedTrial?.id,
+      trialName: selectedTrial?.title,
+      unit: selectedTrial?.unit,
+    };
     createEvent(newEvent);
     handleOpen();
   }
@@ -125,8 +126,9 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
       >
         Create Event
       </Button>
-      <Dialog className="text-black" open={open} handler={handleOpen}>
-        <DialogBody className="bg-[rgb(26,97,120)] w-3/5  h-4/5 fixed rounded p-5">
+      <Dialog open={open} handler={handleOpen}>
+        <DialogHeader>Create Event</DialogHeader>
+        <DialogBody divider className="grid  gap-4">
           <div className="flex px-4 mb-5">
             <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 rounded text-white inline-block rounded text-center font-bold">
               Trial
@@ -167,8 +169,7 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
                     <strong>Stage:</strong> {selectedTrial.stage}
                   </p>
                   <p>
-                    <strong>Date:</strong>{" "}
-                    {selectedTrial.date}
+                    <strong>Date:</strong> {selectedTrial.date}
                   </p>
                   {selectedTrial.staffID && (
                     <p>
@@ -210,8 +211,8 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
             </div>
           )}
 
-          {/* Display Activity details only when Activity is selected */}
-          {selectedActivity && (
+                    {/* Display Activity details only when Activity is selected */}
+                    {selectedActivity && (
             <div className="mb-5 mt-5">
               <label className="text-white">Activity Details</label>
               <label className="w-full h-[120px] block bg-white mb-2.5 box-border">
@@ -219,9 +220,6 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
                   <div>
                     <p>
                       <strong>Title:</strong> {selectedActivity.title}
-                    </p>
-                    <p>
-                      <strong>Unit:</strong> {selectedActivity.unit}
                     </p>
                     <p>
                       <strong>Date:</strong> {selectedActivity.date}
@@ -246,23 +244,19 @@ export default function DeleteEvent({ database, userID, createEvent}: EventPopup
             </div>
           )}
 
-          <DialogFooter className="absolute bottom-5 right-5">
-            {selectedActivity ?
-            <button className="bg-green-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer" onClick={buildEvent}> Confirm
-            </button>:<></>
-            }
-
-        
-
-            <button
-              className="bg-red-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer"
-              onClick={handleOpen}
-            >
-              Cancel
-            </button>
-          </DialogFooter>
+         
+       
         </DialogBody>
+        <DialogFooter className="space-x-2">
+          <Button variant="outlined" color="red" onClick={handleOpen}>
+            Cancel
+          </Button>
+          <Button variant="gradient" color="green" onClick={buildEvent}>
+            Create
+          </Button>
+        </DialogFooter>
       </Dialog>
     </>
   );
 }
+
