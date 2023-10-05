@@ -31,6 +31,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
     return `${duration.hours}h ${duration.minutes}m ${duration.seconds}s`;
   } 
 
+
   interface EventCardProps {
     event: Event;
     onEventSelect: (event: Event) => void;

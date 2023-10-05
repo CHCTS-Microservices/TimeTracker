@@ -12,8 +12,8 @@ export type Event = {
     timeLine : Time[];
     active : boolean;
     totalTime : number;
-    notes : string;
-    
+    notes : string,
+    unit : string
 }
 
 // export type Track{
@@ -28,7 +28,7 @@ export type Trial = {
     date : Date;
     title : string;
     unit : string; // this will need to be an enum
-    Stage : string; // this will need to be an enum
+    stage : string; // this will need to be an enum
     activities : number[];
     totalTime? : number;
 }

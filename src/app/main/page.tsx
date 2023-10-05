@@ -6,11 +6,15 @@ import SidePanel from '@/components/SidePanel';
 import API from '@/app/utils/ServiceLayer';
 import { useEffect, useState } from "react";
 import NoteEditor from '@/components/NoteEditor';
+import Delete from "@/components/DeleteEvent";
+import EventDetail from "@/components/EventDetail";
+import Metadata  from "@/components/Metadata";
 
 export default function Page() {
 
     const dataBase = new API();
     const userID : number = 1;
+    
 
 
 
@@ -84,6 +88,16 @@ export default function Page() {
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
     }
 
+    // funtion that deletes the event
+    //TODO : TODO link this funtion up with the back-end to delete event. * we could create a new table that holds deleted events (after x days permanently delete it)
+    function deleteEvent()
+    {
+        const updatedEvents = events.filter((event) => event.id !== selectedEvent?.id);
+        setEvents(updatedEvents);
+        setSelectedEvent(null);
+
+    }
+
     useEffect(() => {
         // When the component is mounted, set the overflow to 'hidden' on the body element
         document.body.style.overflow = 'hidden';
@@ -122,8 +136,10 @@ export default function Page() {
                             <div className="flex items-center rounded-lg p-4 h-1/4">
                                 {/* First Sub-Element */}
                                 <div className="bg-244982 text-4xl text-black" >
-                                    {/* Joseph's work here */}
-                                    <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p>
+                                    {/* Joseph's work here
+                                    <p>{selectedEvent ? selectedEvent.trialName : "No Event Selected"}</p> */}
+                                    <EventDetail event={selectedEvent}/>
+                                    {/* <Metadata event={selectedEvent}/> */}
                                 </div>
                                 {/* Second Sub-Element */}
                                 <div className="flex items-center ml-auto mr-5">
@@ -132,11 +148,15 @@ export default function Page() {
                             </div>
                             {/* Second Element - 25% */}
                             <div  className="h-1/4">
+                                <Metadata event={selectedEvent}/>
                                     
                             </div>
                              {/* Third Element - 35% */}
                             <div className="h-7/20">
                                 <NoteEditor event={selectedEvent} saveNote={saveNotes}/>
+                            </div>
+                            <div>
+                                <Delete deleteEvent={deleteEvent}></Delete>
                             </div>
                             
                         </div>
