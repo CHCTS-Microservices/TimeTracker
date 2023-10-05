@@ -6,12 +6,14 @@ import SidePanel from '@/components/SidePanel';
 import API from '@/app/utils/ServiceLayer';
 import { useEffect, useState } from "react";
 import NoteEditor from '@/components/NoteEditor';
+import Delete from "@/components/DeleteEvent";
 import EventPopup from '@/components/EventPopUp';
 
 export default function Page() {
 
     const dataBase = new API();
     const userID : number = 1;
+    
 
 
 
@@ -85,25 +87,6 @@ export default function Page() {
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
     }
 
-    const [showPopup, setShowPopup] = useState(false);
-
-// Call this function when new event is created. 
-    function handleEventCreated(newEvent: Event) {
-        setEvents(prevEvents => [...prevEvents, newEvent]);
-    }
-
-    // Call this function when EventPopup is enabled or disabled.
-    function togglePopup() {
-        if (showPopup) {
-        // If EventPopup is currently enabled, disable page scrolling
-        document.body.style.overflow = 'auto';
-        } else {
-        // if EventPopup is currently disabled, enable page scrolling
-        document.body.style.overflow = 'hidden';
-        }
-        setShowPopup(!showPopup);
-    }
-
     if (selectedEvent != null)
     {
         return (
@@ -164,6 +147,9 @@ export default function Page() {
                              {/* Third Element - 35% */}
                             <div style={{ height: '35%' }}>
                                 <NoteEditor event={selectedEvent} saveNote={saveNotes}/>
+                            </div>
+                            <div>
+                                <Delete deleteEvent={deleteEvent}></Delete>
                             </div>
                             
                         </div>
