@@ -109,7 +109,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
             </div>
 
             {/*Card: Side panel detail. Container for detailed information about the event */}
-            <div className={`w-[165px] h-[100px] rounded-lg shadow-lg text-white bg-[rgb(32,69,119)] text-left`}>
+            <div className={`w-[178px] h-[100px] rounded-lg shadow-lg text-white bg-[rgb(32,69,119)] text-left`}>
                 <p className="text-l m-2 font-semibold truncate">Trial: {event.trialName}</p>
                 <p className="text-m m-2 truncate">Unit: {event.unit}</p>
                 <p className="text-m m-2 truncate">Activity: {event.activityName}</p>
