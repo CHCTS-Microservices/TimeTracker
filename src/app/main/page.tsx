@@ -87,6 +87,10 @@ export default function Page() {
 
     const [showPopup, setShowPopup] = useState(false);
 
+// Call this function when new event is created. 
+    function handleEventCreated(newEvent: Event) {
+        setEvents(prevEvents => [...prevEvents, newEvent]);
+    }
 
     // Call this function when EventPopup is enabled or disabled.
     function togglePopup() {
@@ -126,7 +130,7 @@ export default function Page() {
                         <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
                         {/* Conditional rendering of the EventPopup component */}
-                        {showPopup && <EventPopup database={dataBase} userID={userID} onClose={() => setShowPopup(false)}/>} 
+                        {showPopup && <EventPopup database={dataBase} userID={userID} onEventCreate={handleEventCreated} onClose={() => setShowPopup(false)}/>} 
                     </div>
         
                     {/* Right 2/3 */}
@@ -196,7 +200,7 @@ export default function Page() {
                             <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
                         {/* Conditional rendering of the EventPopup component */}
-                        {showPopup && <EventPopup database={dataBase} userID={userID}onClose={() => setShowPopup(false)}/>} 
+                        {showPopup && <EventPopup database={dataBase} userID={userID} onEventCreate={handleEventCreated} onClose={() => setShowPopup(false)}/>} 
                     </div>
                 </div>
             </>

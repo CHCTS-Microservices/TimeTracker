@@ -13,10 +13,11 @@ interface EventPopupProps {
   database : API;
   userID : number;
   onClose: () => void;
+  onEventCreate: (newEvent: Event) => void;
 }
 
 
-export default function EventPopup({database, userID, onClose} : EventPopupProps)
+export default function EventPopup({database, userID, onClose, onEventCreate} : EventPopupProps)
 {
   const [showTrialDropdown, setShowTrialDropdown] = useState(false);
   const [showActivitiesDropdown, setShowActivitiesDropdown] = useState(false);
@@ -86,7 +87,7 @@ function handleConfirmClick() {
   }
 
   const eventToCreate: Event = {
-      id: 0, // Assign a ramdom id
+      id: 200, // Assign a ramdom id
       userID: userID,
       totalTime: 0, 
       timeLine: [], 
@@ -98,7 +99,10 @@ function handleConfirmClick() {
       trialName: selectedTrial.title,
       stage : selectedTrial.stage,
       activityName: selectedActivity.title
-  };
+  }; 
+
+  onEventCreate(eventToCreate);
+}
 
   // dont do create event here
 //   database.createEvent(eventToCreate).then(response => {
@@ -115,7 +119,7 @@ function handleConfirmClick() {
 //       console.error('Error creating event:', error);
 //       alert('An error occurred while creating the event.');
 //   });
- }
+
  
     return (
       <div className="bg-[rgb(26,97,120)] w-3/5 top-[110px] right-[100px] h-4/5 fixed rounded p-5">
