@@ -3,8 +3,6 @@ import {Event, Trial, Activity} from "@/app/utils/types";
 
 type EventDetailProps = {
     event: Event,
-    trial: Trial,
-    activity: Activity
 }
 
 export default function EventDetail({ event}: EventDetailProps) {
