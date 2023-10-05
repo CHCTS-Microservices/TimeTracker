@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import {Event, Duration} from '@/app/utils/types';
 import { timeCalc } from '@/app/utils/globalFuntions';
+import '@/app/globals.css'
+
 
 
 
@@ -47,12 +49,12 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
     const initialSeconds = initialDuration.hours * 3600 + initialDuration.minutes * 60 + initialDuration.seconds;
 
     // Set the initial seconds
-    const [seconds, setSeconds] = useState(initialSeconds);
-    const isActive = event.active;
+    const [seconds, setSeconds] = useState(0);
+    // const isActive = event.active;
 
     useEffect(() => {
         let interval: any = null;
-        if (isActive) {
+        if (event.active) {
             interval = setInterval(() => {
                 setSeconds(seconds => seconds + 1);
             }, 1000);
@@ -60,7 +62,7 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
             clearInterval(interval);
         }
         return () => clearInterval(interval);
-    }, [isActive]);
+    }, [event.active]);
 
     const formatTime = () => {
       // Add initial time to the current elapsed time (in seconds)
@@ -96,8 +98,13 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
               </div>
 
               {/*Card: dynamic time. */}
-              <div className={`flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg shadow-lg bg-white`}>
-                <p className="text-xs font-semibold  bg-white text-black">{formatTime()}</p>
+              <div>
+                {/* Pulse circle only shows when event is active */}
+                {event.active && 
+                  <div className="flex items-center justify-center w-[80px] h-[30px] mt-2 ml-2 rounded-lg">
+                    <div className="pulse-circle"></div>
+                  </div>
+                }
               </div>
             </div>
 
@@ -113,11 +120,9 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
     );
   }
     // State for managing the active filter status. 
-    // It can be either `true` (Trackinig), `false` (Inactive), or `null` (show all).
     const [filterActive, setFilterActive] = useState<boolean | null>(null);
 
     // Filtering the list of events based on the active status filter.
-    // If `filterActive` is null, show all events. Otherwise, show events that match the active status.
     const filteredEvents = filterActive !== null
         ? events.filter(event => event.active === filterActive)
         : events;

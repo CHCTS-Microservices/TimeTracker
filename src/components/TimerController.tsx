@@ -1,13 +1,25 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import  * as Struct from '@/app/utils/types';
 
-function TimerController() {
-    const [seconds, setSeconds] = useState(0);
+
+interface TimerControllerProps {
+    event: Struct.Event | null;
+    setActive: () => void;
+  }
+
+function TimerController({event, setActive} : TimerControllerProps) {
+    // const [seconds, setSeconds] = useState(0);
+    // const [seconds, setSeconds] = useState((Math.floor(event.totalTime / 1000))%60);
+    const [seconds, setSeconds] = useState();
     const [isActive, setIsActive] = useState(false);
     const [status, setStatus] = useState('Stop');
 
     function toggle() {
-        console.log('yello');
+        console.log('to to ', event?.track);
+
+        setActive();
+        // toggle();
         setIsActive(!isActive);
     }
 
@@ -16,6 +28,30 @@ function TimerController() {
         setIsActive(false);
         setStatus('Stop');
     }
+
+     // Need to use Effect on event so it refreshes the notes
+     useEffect(() => {
+        setIsActive(event.active);
+        
+       
+        if (event.active)
+        {
+            setStatus('Pause');
+
+            const start = new Date(event?.timeLine[event.timeLine.length -1].start);
+            const now = new Date();
+            const dur = (now.getTime()-start.getTime());
+            // console.log('DUR', dur);
+            setSeconds(Math.floor(((event.totalTime+dur) / 1000)));
+            
+
+        }
+        else{
+            setStatus('Stop');
+            setSeconds(Math.floor(event.totalTime / 1000));
+        }
+      }, [event]);
+  
 
     
     useEffect(() => {
@@ -42,7 +78,10 @@ function TimerController() {
         return `${getHours} : ${getMinutes} : ${getSeconds}`;
     }
 
+
+
     return (
+    
         <div className="time-controller">
             <div className="flex items-center space-x-4">
                 <div className="time p-2 bg-white text-black border rounded-md text-4xl">
@@ -53,13 +92,12 @@ function TimerController() {
                 </div>
             </div>
             <div className="row">
-                {/* <button className={`bg-blue-100 button button-start ${status === 'Stop' ? 'button-disabled' : ''}`} disabled={status === 'Stop'} onClick={toggle}> */}
                 <button className={`bg-green-500 text-white p-4 rounded-lg ${isActive ? 'bg-yellow-500' : ''}`} onClick={toggle}>
                     {isActive ? 'Pause' : 'Start'}
                 </button>
-                <button className="bg-red-500 text-white p-4 rounded-lg" onClick={reset}>
+                {/* <button className="bg-red-500 text-white p-4 rounded-lg" onClick={reset}>
                     Stop
-                </button>
+                </button> */}
             </div>
         </div>
     );

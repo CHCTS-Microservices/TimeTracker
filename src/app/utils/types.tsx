@@ -12,8 +12,15 @@ export type Event = {
     timeLine : Time[];
     active : boolean;
     totalTime : number;
-    notes : string
+    notes : string;
+    
 }
+
+// export type Track{
+//     hours : number,
+//     minutes : number,
+//     seconds : number
+// }
 
 export type Trial = {
     id: number;
