@@ -1,25 +1,4 @@
-// import React from "react";
-// import "./style.css";
-
-// type MetadataProps = {
-//     metadata: string;
-// };
-
-// function Box({ metadata }: MetadataProps): JSX.Element {
-//     return (
-//         <div className="box">
-//             <div className="metadata">
-//                 <div className="overlap-group">
-//                     <div className="text-wrapper">
-//                         {metadata}
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default Box;
+"use client"
 
 import {Event, Trial, Activity} from "@/app/utils/types";
 import React from "react";
@@ -41,7 +20,7 @@ export default function Metadata ({ event}: MetadataProps) {
                         <br />
                         {`Event id: ${event.id}`}
                         <br />
-                        {`User id (useless information right now): ${event.userID} `}
+                        {`Unit: ${event.unit}`}
                         {/* <br />
                         {`Activity: ${event.activityName}`} */}
                     </div>
