@@ -126,7 +126,7 @@ export default function Page() {
                         <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
                         {/* Conditional rendering of the EventPopup component */}
-                        {showPopup && <EventPopup database={dataBase} userID={userID}/>} 
+                        {showPopup && <EventPopup database={dataBase} userID={userID} onClose={() => setShowPopup(false)}/>} 
                     </div>
         
                     {/* Right 2/3 */}
@@ -196,7 +196,7 @@ export default function Page() {
                             <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
                         {/* Conditional rendering of the EventPopup component */}
-                        {showPopup && <EventPopup database={dataBase} userID={userID}/>} 
+                        {showPopup && <EventPopup database={dataBase} userID={userID}onClose={() => setShowPopup(false)}/>} 
                     </div>
                 </div>
             </>

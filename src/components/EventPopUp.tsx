@@ -12,10 +12,11 @@ import { Event } from '@/app/utils/types';
 interface EventPopupProps {
   database : API;
   userID : number;
+  onClose: () => void;
 }
 
 
-export default function EventPopup({database, userID} : EventPopupProps)
+export default function EventPopup({database, userID, onClose} : EventPopupProps)
 {
   const [showTrialDropdown, setShowTrialDropdown] = useState(false);
   const [showActivitiesDropdown, setShowActivitiesDropdown] = useState(false);
@@ -114,7 +115,7 @@ function handleConfirmClick() {
 //       console.error('Error creating event:', error);
 //       alert('An error occurred while creating the event.');
 //   });
-// }
+ }
  
     return (
       <div className="bg-[rgb(26,97,120)] w-3/5 top-[110px] right-[100px] h-4/5 fixed rounded p-5">
@@ -191,11 +192,10 @@ function handleConfirmClick() {
         
         <div className="absolute bottom-5 right-5">
           <button className="bg-green-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer" onClick={handleConfirmClick}>Confirm</button>
-          <button className="bg-red-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer">Cancel</button>
+          <button className="bg-red-500 text-white py-3 px-8 rounded text-center inline-block m-1 cursor-pointer" onClick={onClose}>Cancel</button>
         </div>
       </div>
     );
 
 }
-
 
