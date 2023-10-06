@@ -48,8 +48,8 @@ export default function Calendar() {
 
     return (
         <>
-        <main className="flex flex-col items-center justify-between w-full h-screen overflow-hidden">
-            <div className="w-full h-full overflow-hidden">
+        <main className="flex flex-col items-center justify-between w-full">
+              <div className="w-3/5">
                 <FullCalendar
                 plugins={[
                     dayGridPlugin,
@@ -73,7 +73,6 @@ export default function Calendar() {
                 // eventClick={}
                 />
                 </div>
-                
         </main>
         </>
     )
