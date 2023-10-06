@@ -5,7 +5,6 @@ import  {Event, Time} from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
 import API from '@/app/utils/ServiceLayer';
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
 import NoteEditor from '@/components/NoteEditor';
 import Delete from "@/components/DeleteEvent";
 import EventDetail from "@/components/EventDetail";
