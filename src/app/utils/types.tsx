@@ -12,8 +12,8 @@ export type Event = {
     timeLine : Time[];
     active : boolean;
     totalTime : number;
-    notes : string;
-    
+    notes : string,
+    unit : string
 }
 
 // export type Track{
