@@ -9,12 +9,15 @@ import NoteEditor from '@/components/NoteEditor';
 import Delete from "@/components/DeleteEvent";
 import EventDetail from "@/components/EventDetail";
 import Metadata  from "@/components/Metadata";
+import Create from "@/components/EventPopUp";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/ReactToastify.min.css";
 
 export default function Page() {
 
     const dataBase = new API();
     const userID : number = 1;
-    
+    const [showPopup, setShowPopup] = useState(false); 
 
 
 
@@ -43,7 +46,10 @@ export default function Page() {
     function handleEventSelect(event: Event) {
         setSelectedEvent(event);
     }
-
+    function handleEventCreated(newEvent: Event) {
+        console.log("new event",newEvent);
+        setEvents(prevEvents => [...prevEvents, newEvent]);
+      }
     function toggleActive() {
         
         if (selectedEvent?.active) // if true that means its recording
@@ -67,16 +73,7 @@ export default function Page() {
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
         
     }
-    // fucntion updateTrack(){
 
-    // }
-   
-   
-    // function testo ()
-    // {
-    //    console.log('rip');
-    //    toggleActive();
-    // }
         
         
      // funtion to that saves notes. 
@@ -86,6 +83,16 @@ export default function Page() {
         setEvents((prevE) =>
         prevE.map((eve) =>
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
+        toast.success('Saved Notes', {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
     }
 
     // funtion that deletes the event
@@ -95,33 +102,59 @@ export default function Page() {
         const updatedEvents = events.filter((event) => event.id !== selectedEvent?.id);
         setEvents(updatedEvents);
         setSelectedEvent(null);
+        toast.success('Deleted Event', {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
 
     }
 
-    // useEffect(() => {
-    //     // When the component is mounted, set the overflow to 'hidden' on the body element
-    //     document.body.style.overflow = 'hidden';
-    
-    //     // When the component will unmount, reset the overflow back to 'auto'
-    //     return () => {
-    //         document.body.style.overflow = 'auto';
-    //     };
-    // }, []);
+    function createEvent(event : Event){
+        console.log('yayay', event);
+        setEvents([...events, event]);
+        setSelectedEvent(event);
+
+        toast.success('Created Event', {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+
+    }
+
 
     if (selectedEvent != null)
     {
         return (
             <>
                 <div className="p-4 flex space-x-8 ml-10">
+                <ToastContainer 
+                position="bottom-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"/>
                     {/* Left 1/3 */}
                     <div className="w-4/9">
                         {/* Button */}
-                        <button 
-                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-5xl flex-grow text-white rounded animate-none"
-                            
-                        >
-                            Create Event
-                        </button>
+
+                        <Create database={dataBase} userID={userID} createEvent={createEvent}/>
                         {/* Sidebar */}
                         <div className="">
                             <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
@@ -171,22 +204,30 @@ export default function Page() {
         );
     }
     else{
+       
         return(
             <>
                 <div className="p-4 space-x-0 ml-10">
+                <ToastContainer 
+                position="bottom-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"/>
                     {/* Left 1/3 */}
                     <div className="w-1/3">
                         {/* Button */}
-                        <button 
-                            className="w-[330px] h-[75px] mt-4 bg-blue-500 text-5xl flex-grow text-white rounded animate-none"
-                        
-                        >
-                            Create Event
-                        </button>
+                        <Create database={dataBase} userID={userID} createEvent={createEvent}/>
                         {/* Sidebar */}
                         <div className="">
                             <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
+
                     </div>
                 </div>
 

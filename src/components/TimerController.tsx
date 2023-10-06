@@ -87,12 +87,12 @@ function TimerController({event, setActive} : TimerControllerProps) {
                 <div className="time p-2 bg-white text-black border rounded-md text-4xl w-[200px]">
                     {formatTime()}
                 </div>
-                <div className={`status p-2 text-white text-2xl rounded-md ${status === 'Tracking' ? 'bg-green-500' : status === 'Pause' ? 'bg-yellow-500' : 'bg-red-500'}`}>
+                <div className={`status p-2 text-white text-2xl rounded-md ${status === 'Tracking' ? 'bg-green-500' : status === 'Pause' ? 'bg-yellow-900' : 'bg-red-500'}`}>
                     {status}
                 </div>
             </div>
             <div className="row">
-                <button className={`bg-green-500 text-white text-2xl p-3 rounded-lg ${isActive ? 'bg-yellow-500' : ''}`} onClick={toggle}>
+                <button className={`bg-green-500 text-white text-2xl p-3 rounded-lg ${isActive ? 'bg-yellow-900' : ''}`} onClick={toggle}>
                     {isActive ? 'Pause' : 'Start'}
                 </button>
                 {/* <button className="bg-red-500 text-white p-4 rounded-lg" onClick={reset}>

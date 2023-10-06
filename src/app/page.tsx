@@ -16,7 +16,7 @@ export default function Home() {
       
       {/* <div> */}
         {/* need to fix this way */}
-        {/* <Test name={a.name} id={a.id} role={a.role}  />  */}
+        <Test   /> 
       {/* </div> */}
       {/* <SidePanel events={events}/> */}
     </main>

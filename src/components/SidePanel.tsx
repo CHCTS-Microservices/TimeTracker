@@ -6,6 +6,7 @@ import '@/app/globals.css'
 
 
 
+
 // Interface to define the expected props for the SidePanel component
 interface SidePanelProps {
   events: Event[];
