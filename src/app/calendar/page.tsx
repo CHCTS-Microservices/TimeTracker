@@ -5,9 +5,9 @@ export default async function Page() {
 
 	return (
 		<>
-			<h1 className="text-red-500 text-center align-middle w-auto h-auto">
-				THIS HERE IS CALENDAR PAGE
-			</h1>
+			{/* <h1 className="text-red-500 text-center align-middle w-auto h-auto"> */}
+				{/* THIS HERE IS CALENDAR PAGE */}
+			{/* </h1> */}
 			<div>
 				<Calendar />
 			</div>
