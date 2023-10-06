@@ -121,20 +121,20 @@ export default function DeleteEvent({
   return (
     <>
       <Button
-        className="w-80 h-20 mt-4 ml-8 bg-blue-500 text-2xl flex-grow text-white rounded"
+        className="w-[330px] h-20 mt-4 ml-0 bg-blue-500 text-2xl flex-grow text-white rounded"
         onClick={handleOpen}
       >
         Create Event
       </Button>
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Create Event</DialogHeader>
+        <DialogHeader className="text-3xl">Create Event</DialogHeader>
         <DialogBody divider className="grid  gap-4">
           <div className="flex px-4 mb-5">
-            <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 rounded text-white inline-block rounded text-center font-bold">
+            <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 text-white rounded text-center font-bold text-2xl flex items-center">
               Trial
             </label>
             <select
-              className="mx-5 py-1 px-3 rounded border-4 border-cyan-200"
+              className="mx-5 py-1 px-3 rounded border-4 border-cyan-200 text-2xl"
               onChange={handleTrialChange}
             >
               <option value="" selected>
@@ -146,7 +146,7 @@ export default function DeleteEvent({
                 </option>
               ))}
             </select>
-            <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 text-white h-[30px] inline-block rounded ml-12 px-2">
+            <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 text-white rounded ml-12 text-2xl flex items-center font-bold">
               <p>
                 <strong> Stage: </strong>{" "}
                 {selectedTrial ? selectedTrial.stage : ""}
@@ -154,9 +154,9 @@ export default function DeleteEvent({
             </label>
           </div>
 
-          <div className="mb-5 mt-5 flex flex-col ml-40">
-            <label className="text-black text-xl"> Trial Details</label>
-            <label className="w-5/12 block bg-white mb-2.5 border-4 border-blue-gray-700">
+          <div className="mb-5 mt-5 flex flex-col ml-5 mr-5">
+            <label className="text-black text-2xl"> Trial Details</label>
+            <label className=" block bg-white mb-2.5 border-4 border-blue-gray-700 text-2xl">
               {selectedTrial ? (
                 <div>
                   <p>
@@ -197,10 +197,10 @@ export default function DeleteEvent({
           {/* Display the Activity label only when Trial is selected */}
           {selectedTrial && (
             <div className="">
-              <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 rounded text-white inline-block rounded text-center font-bold ">
+              <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 rounded text-white inline-block text-center font-bold text-2xl ml-5">
                 Activity
               </label>
-              <div className="flex-col py-4">
+              <div className="flex-col py-4 text-xl ml-2">
                 {activities.map((activity) => (
                   <button
                     key={activity.id}
@@ -220,9 +220,9 @@ export default function DeleteEvent({
 
           {/* Display Activity details only when Activity is selected */}
           {selectedActivity && (
-            <div className="mb-5 ml-40">
-              <label className="text-black text-xl">Activity Details</label>
-              <label className="w-5/12 block bg-white mb-2.5 border-4 border-blue-gray-700">
+            <div className="mb-5 ml-5 mr-5">
+              <label className="text-black text-2xl">Activity Details</label>
+              <label className=" block bg-white mb-2.5 border-4 border-blue-gray-700 text-2xl">
                 {selectedActivity ? (
                   <div>
                     <p>
@@ -254,11 +254,11 @@ export default function DeleteEvent({
           )}
         </DialogBody>
         <DialogFooter className="space-x-2">
-          <Button variant="outlined" color="red" onClick={handleOpen}>
+          <Button variant="outlined" color="red" onClick={handleOpen} className="text-xl">
             Cancel
           </Button>
           {selectedActivity ? (
-            <Button variant="gradient" color="green" onClick={buildEvent}>
+            <Button variant="gradient" color="green" onClick={buildEvent} className="text-xl">
               Create
             </Button>
           ) : (
