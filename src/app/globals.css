@@ -28,3 +28,17 @@ body {
 .side-pannel-width{
   width: -webkit-fill-available;;
 }
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.pulse-circle {
+  background-color: #00c400; /* Green */
+  border-radius: 50%; /* Make the element circular */
+  width: 20px;
+  height: 20px;
+  animation: pulse 2s ease-in-out infinite;
+}

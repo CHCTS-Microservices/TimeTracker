@@ -12,16 +12,23 @@ export type Event = {
     timeLine : Time[];
     active : boolean;
     totalTime : number;
-    notes : string
+    notes : string,
+    unit : string
 }
+
+// export type Track{
+//     hours : number,
+//     minutes : number,
+//     seconds : number
+// }
 
 export type Trial = {
     id: number;
-    staffID : number[];
-    date : Date;
+    staffID? : number[];
+    date? : Date;
     title : string;
     unit : string; // this will need to be an enum
-    Stage : string; // this will need to be an enum
+    stage : string; // this will need to be an enum
     activities : number[];
     totalTime? : number;
 }

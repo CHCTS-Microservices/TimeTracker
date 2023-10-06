@@ -13,7 +13,7 @@ export default function NavBar(props: NavProps) {
     
 
   return (
-    <div className='w-full h-20 flex  bg-slate-500'>
+    <div className='w-full h-20 flex  bg-blue-gray-500'>
         <div className='my-auto mx-32' >
         <Link className='text-4xl' href="/">{title}</Link>
         </div>
