@@ -9,10 +9,9 @@ import NoteEditor from '@/components/NoteEditor';
 import Delete from "@/components/DeleteEvent";
 import EventDetail from "@/components/EventDetail";
 import Metadata  from "@/components/Metadata";
-import Create from "@/components/TestPop";
+import Create from "@/components/EventPopUp";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/ReactToastify.min.css";
-import EventPopup from '@/components/EventPopUp';
 
 export default function Page() {
 
@@ -71,16 +70,7 @@ export default function Page() {
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
         
     }
-    // fucntion updateTrack(){
 
-    // }
-   
-   
-    // function testo ()
-    // {
-    //    console.log('rip');
-    //    toggleActive();
-    // }
         
         
      // funtion to that saves notes. 
@@ -125,10 +115,8 @@ export default function Page() {
     function createEvent(event : Event){
         console.log('yayay', event);
         setEvents([...events, event]);
-        // const updatedEvents : Event[] = events.push(event);
-        // console.log(updatedEvents);
-        // setEvents(updatedEvents);
-        // setSelectedEvent(event);
+        setSelectedEvent(event);
+
         toast.success('Created Event', {
             position: "bottom-right",
             autoClose: 1000,
@@ -142,15 +130,6 @@ export default function Page() {
 
     }
 
-    // useEffect(() => {
-    //     // When the component is mounted, set the overflow to 'hidden' on the body element
-    //     document.body.style.overflow = 'hidden';
-    
-    //     // When the component will unmount, reset the overflow back to 'auto'
-    //     return () => {
-    //         document.body.style.overflow = 'auto';
-    //     };
-    // }, []);
 
     if (selectedEvent != null)
     {
@@ -177,8 +156,6 @@ export default function Page() {
                         <div className="">
                             <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
-                        {/* Conditional rendering of the EventPopup component */}
-                        {showPopup && <EventPopup database={dataBase} userID={userID} onEventCreate={handleEventCreated} onClose={() => setShowPopup(false)}/>} 
                     </div>
         
                     {/* Right 2/3 */}
@@ -247,8 +224,7 @@ export default function Page() {
                         <div className="">
                             <SidePanel events={events} selectedEvent={selectedEvent} onEventSelect={handleEventSelect}/>
                         </div>
-                        {/* Conditional rendering of the EventPopup component */}
-                        {showPopup && <EventPopup database={dataBase} userID={userID} onEventCreate={handleEventCreated} onClose={() => setShowPopup(false)}/>} 
+
                     </div>
                 </div>
 
