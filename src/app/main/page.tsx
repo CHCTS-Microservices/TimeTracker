@@ -10,6 +10,8 @@ import Delete from "@/components/DeleteEvent";
 import EventDetail from "@/components/EventDetail";
 import Metadata  from "@/components/Metadata";
 import Create from "@/components/TestPop";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/ReactToastify.min.css";
 
 export default function Page() {
 
@@ -87,6 +89,16 @@ export default function Page() {
         setEvents((prevE) =>
         prevE.map((eve) =>
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
+        toast.success('Saved Notes', {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
     }
 
     // funtion that deletes the event
@@ -96,6 +108,16 @@ export default function Page() {
         const updatedEvents = events.filter((event) => event.id !== selectedEvent?.id);
         setEvents(updatedEvents);
         setSelectedEvent(null);
+        toast.success('Deleted Event', {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
 
     }
 
@@ -106,6 +128,16 @@ export default function Page() {
         // console.log(updatedEvents);
         // setEvents(updatedEvents);
         // setSelectedEvent(event);
+        toast.success('Created Event', {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
 
     }
 
@@ -124,6 +156,17 @@ export default function Page() {
         return (
             <>
                 <div className="p-4 flex space-x-8 ml-10">
+                <ToastContainer 
+                position="bottom-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"/>
                     {/* Left 1/3 */}
                     <div className="w-4/9">
                         {/* Button */}
@@ -181,6 +224,17 @@ export default function Page() {
         return(
             <>
                 <div className="p-4 space-x-0 ml-10">
+                <ToastContainer 
+                position="bottom-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"/>
                     {/* Left 1/3 */}
                     <div className="w-1/3">
                         {/* Button */}
