@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1xc3Z1cGxwcHN3ZHdoeWJlZXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTUxMDY2NjIsImV4cCI6MjAxMDY4MjY2Mn0.7S9S1mWsIJb2Dv9X5Twehy56mO0LffLB_Y5kPsY1pcs';
 // const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default function  Testing(user : User) {
+export default function  Testing() {
   const testl = new API();
   const [count, setCount] = useState<number>(0);
   // const dummyEvent : Event[] = dummyEvent;
@@ -86,6 +86,7 @@ export default function  Testing(user : User) {
     totalTime : 5
     };
     // console.log(dd.date);
+    console.log(await testl.getTrials(1));
     // console.log(dd.date.getDate() +'/' + dd.date.getMonth() + '/' + dd.date.getFullYear())
     // console.log(dd);
     let ff : any = await testl.createEvent(dd);
@@ -115,7 +116,7 @@ export default function  Testing(user : User) {
           ohh a Number: {count}
         </h1>
         <h1 className="text-emerald-600 text-center align-middle text-9xl">
-           Hello, {user.name} ! 
+           Hello, ! 
         </h1>
         
       </div>
