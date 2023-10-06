@@ -160,26 +160,31 @@ export default function DeleteEvent({
               {selectedTrial ? (
                 <div>
                   <p>
-                    <span className="font-semibold">Title:</span> {selectedTrial.title}
+                    <span className="font-semibold">Title:</span>{" "}
+                    {selectedTrial.title}
                   </p>
                   <p>
-                  <span className="font-semibold">Unit:</span>  {selectedTrial.unit}
+                    <span className="font-semibold">Unit:</span>{" "}
+                    {selectedTrial.unit}
                   </p>
                   <p>
-                  <span className="font-semibold">Stage:</span>  {selectedTrial.stage}
+                    <span className="font-semibold">Stage:</span>{" "}
+                    {selectedTrial.stage}
                   </p>
                   <p>
-                  <span className="font-semibold">Date:</span>  {selectedTrial.date}
+                    <span className="font-semibold">Date:</span>{" "}
+                    {selectedTrial.date}
                   </p>
                   {selectedTrial.staffID && (
                     <p>
-                      <span className="font-semibold">Staff Ids:</span> {" "}
+                      <span className="font-semibold">Staff Ids:</span>{" "}
                       {selectedTrial.staffID.join(", ")}
                     </p>
                   )}
                   {selectedTrial.totalTime && (
                     <p>
-                      <span className="font-semibold">Total Time:</span>  {selectedTrial.totalTime}
+                      <span className="font-semibold">Total Time:</span>{" "}
+                      {selectedTrial.totalTime}
                     </p>
                   )}
                 </div>
@@ -196,37 +201,37 @@ export default function DeleteEvent({
                 Activity
               </label>
               <div className="flex-col py-4">
-              {activities.map((activity) => (
-                <button
-                  key={activity.id}
-                  onClick={() => handleActivityButtonPress(activity)}
-                  className={`mx-2 p-5 rounded-full text-black ${
-                    selectedActivity?.id === activity.id
-                      ? "bg-[#f5ce80] border-4 border-cyan-200"
-                      : "bg-[#76a7b0]"
-                  } hover:bg-[#f5ce80]`}
-                >
-                  {activity.title}
-                </button>
-              ))}
-
+                {activities.map((activity) => (
+                  <button
+                    key={activity.id}
+                    onClick={() => handleActivityButtonPress(activity)}
+                    className={`mx-2 p-5 rounded-full text-black ${
+                      selectedActivity?.id === activity.id
+                        ? "bg-[#f5ce80] border-4 border-cyan-200"
+                        : "bg-[#76a7b0]"
+                    } hover:bg-[#f5ce80]`}
+                  >
+                    {activity.title}
+                  </button>
+                ))}
               </div>
-              
             </div>
           )}
 
-                    {/* Display Activity details only when Activity is selected */}
-                    {selectedActivity && (
+          {/* Display Activity details only when Activity is selected */}
+          {selectedActivity && (
             <div className="mb-5 ml-40">
               <label className="text-black text-xl">Activity Details</label>
               <label className="w-5/12 block bg-white mb-2.5 border-4 border-blue-gray-700">
                 {selectedActivity ? (
                   <div>
                     <p>
-                    <span className="font-semibold">Title:</span> {selectedActivity.title}
+                      <span className="font-semibold">Title:</span>{" "}
+                      {selectedActivity.title}
                     </p>
                     <p>
-                    <span className="font-semibold">Date:</span> {selectedActivity.date}
+                      <span className="font-semibold">Date:</span>{" "}
+                      {selectedActivity.date}
                     </p>
                     {selectedActivity.staffID && (
                       <p>
@@ -247,18 +252,20 @@ export default function DeleteEvent({
               </label>
             </div>
           )}
-
         </DialogBody>
         <DialogFooter className="space-x-2">
           <Button variant="outlined" color="red" onClick={handleOpen}>
             Cancel
           </Button>
-          <Button variant="gradient" color="green" onClick={buildEvent}>
-            Create
-          </Button>
+          {selectedActivity ? (
+            <Button variant="gradient" color="green" onClick={buildEvent}>
+              Create
+            </Button>
+          ) : (
+            <div></div>
+          )}
         </DialogFooter>
       </Dialog>
     </>
   );
 }
-
