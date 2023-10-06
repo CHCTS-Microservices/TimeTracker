@@ -63,7 +63,7 @@ export default function  Testing() {
     const testl = new API();
     // console.log( await testl.getEvent(1));
     let dd : Event = {
-    id: 17,
+    id:74,
     userID: 1,
     trialID: 2,
     trialName: "TESTING",
@@ -81,16 +81,21 @@ export default function  Testing() {
             end : new Date(2023, 9, 8, 16, 10, 42, 11)   
         },
     ],
-    notes: "sfsdfdfdfdfg",
-    active : false,
+    notes: "Yellow",
+    active : true,
     totalTime : 5
     };
     // console.log(dd.date);
-    console.log(await testl.getTrials(1));
+    // console.log(await testl.getTrials(1));
     // console.log(dd.date.getDate() +'/' + dd.date.getMonth() + '/' + dd.date.getFullYear())
     // console.log(dd);
-    let ff : any = await testl.createEvent(dd);
-    toast.success('Created Event');
+    // let ff : any = await testl.updateEvent(dd);
+    // // let ff : any = await testl.deleteEvent(dd);
+    // if (ff != null || ff!= undefined)
+    // {
+    //   toast.success('Created Event');
+    // }
+    
     // toast('ffff', {
     //   duration : 4000,
     //   position: 'top-center',
