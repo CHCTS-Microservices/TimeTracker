@@ -92,13 +92,12 @@ export default function EventPopUp({
 
   function buildEvent() {
     let newEvent: Event = {
-      id: 200,
       userID: userID,
       active: false,
       activityID: selectedActivity?.id,
       activityName: selectedActivity?.title,
       date: new Date(),
-      notes: "",
+      notes: " ",
       stage: selectedTrial?.stage,
       timeLine: [],
       totalTime: 0,

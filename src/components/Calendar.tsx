@@ -24,7 +24,7 @@ export default function Calendar() {
   async function getEvents()
   {
      
-     const fetchedEvents = await dataBase.startUp(userID);
+     const fetchedEvents = await dataBase.getAllEvents(userID);
     if(fetchedEvents) {
       setEvents(fetchedEvents);
     } 
