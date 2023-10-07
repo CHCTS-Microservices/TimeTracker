@@ -52,6 +52,7 @@ export default function Page() {
         if (selectedEvent?.active) // if true that means its recording
         {
             selectedEvent.timeLine[selectedEvent.timeLine.length -1].end = new Date();
+            selectedEvent.totalTime += selectedEvent?.timeLine[selectedEvent.timeLine.length -1].end.getTime() - selectedEvent?.timeLine[selectedEvent.timeLine.length -1].start.getTime();
         }
         else
         {
@@ -75,15 +76,17 @@ export default function Page() {
         
         
      // funtion to that saves notes. 
-    //TODO link this funtion up with the back-end save for permenent save
     async function saveNotes (newNote : String){
         selectedEvent.notes = newNote;
         setEvents((prevE) =>
         prevE.map((eve) =>
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
-
-        if (await dataBase.updateEvent(selectedEvent))
+        
+        const t :  boolean = await dataBase.updateEvent(selectedEvent);
+        console.log(selectedEvent);
+        if (t)
         {
+            console.log(selectedEvent)
             toast.success('Saved Notes', {
                 position: "bottom-right",
                 autoClose: 1000,
@@ -110,7 +113,7 @@ export default function Page() {
     }
 
     // funtion that deletes the event
-    //TODO : TODO link this funtion up with the back-end to delete event. * we could create a new table that holds deleted events (after x days permanently delete it)
+    //TODO : TODO * we could create a new table that holds deleted events (after x days permanently delete it)
     async function deleteEvent()
     {
         if (await dataBase.deleteEvent(selectedEvent))
@@ -151,8 +154,8 @@ export default function Page() {
         const newEvent : Event = await dataBase.createEvent(event);
         if (newEvent != null)
         {
-            setEvents([...events, event]);
-            setSelectedEvent(event);
+            setEvents([...events, newEvent]);
+            setSelectedEvent(newEvent);
     
             toast.success('Created Event', {
                 position: "bottom-right",

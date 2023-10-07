@@ -92,7 +92,6 @@ export default function EventPopUp({
 
   function buildEvent() {
     let newEvent: Event = {
-      id: 200,
       userID: userID,
       active: false,
       activityID: selectedActivity?.id,
