@@ -98,7 +98,7 @@ export default function EventPopUp({
       activityID: selectedActivity?.id,
       activityName: selectedActivity?.title,
       date: new Date(),
-      notes: "",
+      notes: " ",
       stage: selectedTrial?.stage,
       timeLine: [],
       totalTime: 0,

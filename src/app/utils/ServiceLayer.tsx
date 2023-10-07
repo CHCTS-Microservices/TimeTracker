@@ -16,7 +16,9 @@ class API{
      */
         try
         {
-            let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID`).eq('userID', id);
+            const date = new Date();
+            const d = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`
+            let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID`).eq('userID', id).eq('date', d);
             let events : Event[] = [];
             if (data?.length != 0)
             {
@@ -249,6 +251,7 @@ class API{
         catch (error)
         {
             console.log('Error: cant create event');
+            return null;
         }
     }
 
@@ -281,11 +284,12 @@ class API{
 
             await this.logAction(log);
 
-            return data;
+            return true;
         }
         catch (error)
         {
             console.log('Error: cant update event');
+            return false;
         }
     }
 
@@ -309,11 +313,12 @@ class API{
             };
             await this.logAction(log);
 
-            return error;
+            return true;
         }
         catch (error)
         {
             console.log('Error: cant delete event');
+            return false
         }
     }
 

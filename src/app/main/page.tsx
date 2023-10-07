@@ -36,7 +36,6 @@ export default function Page() {
     }
 
   
- 
     useEffect(() => {
         getEvents();
     }, []);
@@ -46,11 +45,9 @@ export default function Page() {
     function handleEventSelect(event: Event) {
         setSelectedEvent(event);
     }
-    function handleEventCreated(newEvent: Event) {
-        console.log("new event",newEvent);
-        setEvents(prevEvents => [...prevEvents, newEvent]);
-      }
-    function toggleActive() {
+
+
+    async function toggleActive() {
         
         if (selectedEvent?.active) // if true that means its recording
         {
@@ -71,6 +68,7 @@ export default function Page() {
         setEvents((prevE) =>
         prevE.map((eve) =>
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
+        await dataBase.updateEvent(selectedEvent);
         
     }
 
@@ -78,28 +76,46 @@ export default function Page() {
         
      // funtion to that saves notes. 
     //TODO link this funtion up with the back-end save for permenent save
-    function saveNotes (newNote : String){
+    async function saveNotes (newNote : String){
         selectedEvent.notes = newNote;
         setEvents((prevE) =>
         prevE.map((eve) =>
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
-        toast.success('Saved Notes', {
-            position: "bottom-right",
-            autoClose: 1000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
+
+        if (await dataBase.updateEvent(selectedEvent))
+        {
+            toast.success('Saved Notes', {
+                position: "bottom-right",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        }
+        else{
+            toast.error('Failed to save Notes', {
+                position: "bottom-right",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        }
     }
 
     // funtion that deletes the event
     //TODO : TODO link this funtion up with the back-end to delete event. * we could create a new table that holds deleted events (after x days permanently delete it)
-    function deleteEvent()
+    async function deleteEvent()
     {
-        const updatedEvents = events.filter((event) => event.id !== selectedEvent?.id);
+        if (await dataBase.deleteEvent(selectedEvent))
+        {
+            const updatedEvents = events.filter((event) => event.id !== selectedEvent?.id);
         setEvents(updatedEvents);
         setSelectedEvent(null);
         toast.success('Deleted Event', {
@@ -112,24 +128,57 @@ export default function Page() {
             progress: undefined,
             theme: "light",
             });
+        }
+        else{
+            toast.error('Failed to delete Event', {
+                position: "bottom-right",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+            }
 
     }
+        
 
-    function createEvent(event : Event){
-        console.log('yayay', event);
-        setEvents([...events, event]);
-        setSelectedEvent(event);
 
-        toast.success('Created Event', {
-            position: "bottom-right",
-            autoClose: 1000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
+    async function createEvent(event : Event){
+
+        const newEvent : Event = await dataBase.createEvent(event);
+        if (newEvent != null)
+        {
+            setEvents([...events, event]);
+            setSelectedEvent(event);
+    
+            toast.success('Created Event', {
+                position: "bottom-right",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        }
+        else{
+            toast.error('Failed to Create Event', {
+                position: "bottom-right",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        }
+
+       
 
     }
 
