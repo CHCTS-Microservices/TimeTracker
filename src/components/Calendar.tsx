@@ -8,6 +8,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { EventSourceInput } from '@fullcalendar/core/index.js'
 import { Event } from '@/app/utils/types'
+import { Trial } from "@/app/utils/types";
 
 import API from '@/app/utils/ServiceLayer';
 
@@ -18,11 +19,16 @@ export default function Calendar() {
 
   const [events, setEvents] = useState<Event[]>([]);
 
-  
+
+
   async function getEvents()
   {
-     const events : Event[] = await dataBase.startUp(userID);
-     setEvents(events);
+     
+     const fetchedEvents = await dataBase.startUp(userID);
+    if(fetchedEvents) {
+      setEvents(fetchedEvents);
+    } 
+
 
   }
 
@@ -30,14 +36,29 @@ export default function Calendar() {
       getEvents();
   }, []);
 
+  function getColorByStage(stage: String): string {
+    switch (stage) {
+      case 'Start-Up':
+        return 'lightcoral';
+      case 'Setup':
+        return 'lightblue';
+      case 'Conduct':
+        return 'lightsalmon';
+      case 'Closeout':
+          return 'lightgreen';
+      default:
+        return 'lightgray'; // default color
+    }
+  }
+  
     const fullCalendarEvents = events.flatMap(event => {
         return event.timeLine.map(timeRange => {
           return {
-            id: event.id.toString(),
+            id: event.id ? event.id.toString() : "defaultId",
             title: event.activityName.toString(),
             start: timeRange.start,
-            ...(timeRange.end !== null ? { end: timeRange.end } : {})
-           
+            ...(timeRange.end !== null ? { end: timeRange.end } : {}),
+            backgroundColor: getColorByStage(event.stage)
           };
         });
       });
