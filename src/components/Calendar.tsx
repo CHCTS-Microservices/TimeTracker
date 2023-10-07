@@ -78,10 +78,10 @@ export default function Calendar() {
                     timeGridPlugin
                 ]}
                 headerToolbar={{
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'resourceTimelineWook, dayGridMonth,timeGridWeek,dayGridDay'
-                  }}
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'resourceTimelineWook, dayGridMonth,timeGridWeek,timeGridDay'
+                }}
                 events={fullCalendarEvents}
                 
                 nowIndicator={true}
