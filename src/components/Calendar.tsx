@@ -80,7 +80,7 @@ export default function Calendar() {
                 headerToolbar={{
                   left: 'prev,next today',
                   center: 'title',
-                  right: 'resourceTimelineWook, dayGridMonth,timeGridWeek,timeGridDay'
+                  right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 }}
                 events={fullCalendarEvents}
                 
