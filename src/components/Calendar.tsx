@@ -8,6 +8,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { EventSourceInput } from '@fullcalendar/core/index.js'
 import { Event } from '@/app/utils/types'
+import { Trial } from "@/app/utils/types";
 
 import API from '@/app/utils/ServiceLayer';
 
@@ -18,11 +19,16 @@ export default function Calendar() {
 
   const [events, setEvents] = useState<Event[]>([]);
 
-  
+
+
   async function getEvents()
   {
-     const events : Event[] = await dataBase.getAllEvents(userID);
-     setEvents(events);
+     
+     const fetchedEvents = await dataBase.getAllEvents(userID);
+    if(fetchedEvents) {
+      setEvents(fetchedEvents);
+    } 
+
 
   }
 
@@ -30,14 +36,29 @@ export default function Calendar() {
       getEvents();
   }, []);
 
+  function getColorByStage(stage: String): string {
+    switch (stage) {
+      case 'Start-Up':
+        return 'lightcoral';
+      case 'Setup':
+        return 'lightblue';
+      case 'Conduct':
+        return 'lightsalmon';
+      case 'Closeout':
+          return 'lightgreen';
+      default:
+        return 'lightgray'; // default color
+    }
+  }
+  
     const fullCalendarEvents = events.flatMap(event => {
         return event.timeLine.map(timeRange => {
           return {
-            id: event.id.toString(),
+            id: event.id ? event.id.toString() : "defaultId",
             title: event.activityName.toString(),
             start: timeRange.start,
-            ...(timeRange.end !== null ? { end: timeRange.end } : {})
-           
+            ...(timeRange.end !== null ? { end: timeRange.end } : {}),
+            backgroundColor: getColorByStage(event.stage)
           };
         });
       });
@@ -48,12 +69,8 @@ export default function Calendar() {
 
     return (
         <>
-        <nav className="flex justify-between mb-12 border-b border-violet-100 p-4">
-            <h1 className="font-bold text-2xl text-gray-700">Calendar</h1>
-        </nav>
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <div className="grid grid-cols-10">
-            <div className="col-span-8">
+        <main className="flex flex-col items-center justify-between w-full">
+              <div className="w-3/5">
                 <FullCalendar
                 plugins={[
                     dayGridPlugin,
@@ -61,10 +78,10 @@ export default function Calendar() {
                     timeGridPlugin
                 ]}
                 headerToolbar={{
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'resourceTimelineWook, dayGridMonth,timeGridWeek,dayGridDay'
-                  }}
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                }}
                 events={fullCalendarEvents}
                 
                 nowIndicator={true}
@@ -77,8 +94,6 @@ export default function Calendar() {
                 // eventClick={}
                 />
                 </div>
-                
-            </div>
         </main>
         </>
     )
