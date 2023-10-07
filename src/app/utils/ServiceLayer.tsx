@@ -18,7 +18,7 @@ class API{
             const date = new Date();
             const offset = date.getTimezoneOffset();
             const auDate = new Date(date.getTime() - (offset*60*1000))
-            console.log('gg ', auDate.toISOString().split('T')[0])
+            // console.log('gg ', auDate.toISOString().split('T')[0])
             const d = auDate.toISOString().split('T')[0];
             let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID`).eq('userID', id).eq('date', d);
             let events : Event[] = [];
@@ -264,6 +264,9 @@ class API{
      */
         try
         {
+            const date = new Date();
+            const offset = date.getTimezoneOffset();
+            const auDate = new Date(date.getTime() - (offset*60*1000))
             const { data, error } = await supabase.from('Events').insert(
             [
                 {
@@ -273,7 +276,7 @@ class API{
                  timeLine: event.timeLine,
                  active: event.active,
                  notes: event.notes,
-                 date: event.date}
+                 date: auDate}
             ]).select();
 
             const log : Log = {
