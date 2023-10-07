@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import {Event} from '@/app/utils/types';
+import {Event, User} from '@/app/utils/types';
 import API from '../app/utils/ServiceLayer';
 import SidePanel from './SidePanel';
 import supabase from '../../supabase';
 import test from "node:test";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 // import { createClient } from '@supabase/supabase-js';
@@ -61,7 +63,7 @@ export default function  Testing() {
     const testl = new API();
     // console.log( await testl.getEvent(1));
     let dd : Event = {
-    id: 17,
+    id:74,
     userID: 1,
     trialID: 2,
     trialName: "TESTING",
@@ -79,18 +81,30 @@ export default function  Testing() {
             end : new Date(2023, 9, 8, 16, 10, 42, 11)   
         },
     ],
-    notes: "sfsdfdfdfdfg",
-    active : false,
+    notes: "Yellow",
+    active : true,
     totalTime : 5
     };
     // console.log(dd.date);
-    console.log(await testl.getTrials(1));
+    // console.log(await testl.getTrials(1));
     // console.log(dd.date.getDate() +'/' + dd.date.getMonth() + '/' + dd.date.getFullYear())
     // console.log(dd);
-    // let ff : any = await testl.createEvent(dd);
+    // let ff : any = await testl.updateEvent(dd);
+    // // let ff : any = await testl.deleteEvent(dd);
+    // if (ff != null || ff!= undefined)
+    // {
+    //   toast.success('Created Event');
+    // }
+    
+    // toast('ffff', {
+    //   duration : 4000,
+    //   position: 'top-center',
+    // });
+    // toast.success('Successfully toasted!');
+    // console.log('hehe');
     // console.log(ff);
-    // ff.notes = "uisahf sdkjlfh dsff";
-    // console.log(await testl.deleteEvent(17));
+    // dd.notes = "uisahf sdkjlfh dsff";
+    // console.log(await testl.deleteEvent(dd));
     
   
   }
@@ -101,6 +115,7 @@ export default function  Testing() {
 
   return (
     <div>
+       <ToastContainer />
       <div className="pb-5 flex">
         <h1 className="text-emerald-600 text-center align-middle text-9xl">
           ohh a Number: {count}

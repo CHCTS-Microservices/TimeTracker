@@ -235,6 +235,15 @@ class API{
                  date: event.date}
             ]).select();
 
+            const log : Log = {
+                eventID : data[0].id,
+                staffID : event.userID,
+                action : "Created Event",
+                date : new Date(),
+
+            };
+            await this.logAction(log);
+
             return data;
         }
         catch (error)
@@ -263,16 +272,25 @@ class API{
                  date: event.date}
             ).eq('id', event.id).select();
 
+            const log : Log = {
+                eventID : event.id,
+                staffID : event.userID,
+                action : "Updated Event",
+                date : new Date(),
+            };
+
+            await this.logAction(log);
+
             return data;
         }
         catch (error)
         {
-            console.log('Error: cant create event');
+            console.log('Error: cant update event');
         }
     }
 
     // delete Event, funtion will return error
-    async deleteEvent(id : number)
+    async deleteEvent(event : Event)
     {
     /**
      *  delete event for event id {id}
@@ -280,13 +298,53 @@ class API{
      */
         try
         {
-            const { data, error } = await supabase.from('Events').delete().eq('id', id);
+            const { data, error } = await supabase.from('Events').delete().eq('id', event.id);
+
+            const log : Log = {
+                eventID : event.id,
+                staffID : event.userID,
+                action : "Deleted Event",
+                date : new Date(),
+
+            };
+            await this.logAction(log);
 
             return error;
         }
         catch (error)
         {
-            console.log('Error: cant create event');
+            console.log('Error: cant delete event');
+        }
+    }
+
+    // Funtionality for logs
+    // create Log, funtion will return
+    async logAction(log : Log)
+    {
+    /**
+     *  Returns event for event id {id}
+     *  @return {} event
+     */
+        try
+        {
+            const { data, error } = await supabase.from('Logs').insert(
+            [
+                {
+                 action: log.action,
+                 staffID: log.staffID,
+                 eventID: log.eventID,
+                 date: log.date,
+                }
+                 
+            ]).select();
+     
+
+
+            return data;
+        }
+        catch (error)
+        {
+            console.log('Error: cant log');
         }
     }
 
