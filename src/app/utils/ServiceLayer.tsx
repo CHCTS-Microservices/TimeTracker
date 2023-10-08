@@ -1,17 +1,59 @@
 
 import { createClient } from '@supabase/supabase-js'
-import {Event, Trial, Activity} from '@/app/utils/types';
+import {Event, Trial, Activity, Log} from '@/app/utils/types';
 import supabase from '@/../supabase';
 
 
 class API{
  
     // gets user id and querys events for that user
-    //!!!!!!!TODO will need to only get data for the current date 
     async startUp(id : number)
     {
      /**
-     *  Returns evetns for user {id}
+     *  Returns evetns for user {id} for the current day
+     *  @return {events} env
+     */
+        try
+        {
+            const date = new Date();
+            const offset = date.getTimezoneOffset();
+            const auDate = new Date(date.getTime() - (offset*60*1000))
+            // console.log('gg ', auDate.toISOString().split('T')[0])
+            const d = auDate.toISOString().split('T')[0];
+            let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID`).eq('userID', id).eq('date', d);
+            let events : Event[] = [];
+            if (data?.length != 0)
+            {
+                // @ts-ignore: Object is possibly 'null'.
+                for (const ev of data)
+                {
+
+                    let trial : any = await this.getTrialDet(ev.trialID);
+                    let activity : any = await this.getActivityDet(ev.activityID);
+                    let event : Event = {
+                        ...ev,
+                        trialName : trial.title,
+                        activityName : activity.title,
+                        stage : trial.stage,
+                        unit : trial.unit,
+                        ...trial[0],
+                    };
+                    events.push(event);
+                }
+            }
+            return events;
+            
+        }
+        catch (error)
+        {
+            console.log('Error: cant get events');
+        }
+    }
+
+    async getAllEvents(id : number)
+    {
+     /**
+     *  Returns all events for user {id}
      *  @return {events} env
      */
         try
@@ -20,6 +62,7 @@ class API{
             let events : Event[] = [];
             if (data?.length != 0)
             {
+                // @ts-ignore: Object is possibly 'null'.
                 for (const ev of data)
                 {
 
@@ -55,6 +98,7 @@ class API{
         try
         {
             let { data, error } = await supabase.from('Trials').select(`*`).eq('id', id);
+            // @ts-ignore: Object is possibly 'null'.
             return data[0];
         }
         catch (error)
@@ -136,6 +180,7 @@ class API{
         try
         {
             let { data, error } = await supabase.from('Activity').select(`*`).eq('id', id);
+            // @ts-ignore: Object is possibly 'null'.
             return data[0];
         }
         catch (error)
@@ -197,10 +242,14 @@ class API{
      */
         try
         {
+            
             let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID, date`).eq('id', id);
+            // @ts-ignore: Object is possibly 'null'.
             let trial : any = await this.getTrialDet(data[0].trialID);
+            // @ts-ignore: Object is possibly 'null'.
             let activity : any = await this.getTrialDet(data[0].activityID);
             let event : Event = {
+                // @ts-ignore: Object is possibly 'null'.
                 ...data[0],
                 trialName : trial.title,
                 activityName : activity.title,
@@ -223,6 +272,9 @@ class API{
      */
         try
         {
+            const date = new Date();
+            const offset = date.getTimezoneOffset();
+            const auDate = new Date(date.getTime() - (offset*60*1000))
             const { data, error } = await supabase.from('Events').insert(
             [
                 {
@@ -232,10 +284,11 @@ class API{
                  timeLine: event.timeLine,
                  active: event.active,
                  notes: event.notes,
-                 date: event.date}
+                 date: auDate}
             ]).select();
 
             const log : Log = {
+                // @ts-ignore: Object is possibly 'null'.
                 eventID : data[0].id,
                 staffID : event.userID,
                 action : "Created Event",
@@ -243,12 +296,30 @@ class API{
 
             };
             await this.logAction(log);
+            // @ts-ignore: Object is possibly 'null'.
+            console.log(data[0]);
+            if (data)
+            {
+                let newEvent : Event={
+                    id : data[0].id,
+                    ...data[0],
+                    trialName : event.trialName,
+                    activityName : event.activityName,
+                    unit : event.unit,
+                    stage : event.stage
+                }
+                // console.log('new', newEvent)
+                return newEvent;
 
-            return data;
+            }
+            return null;
+
+            // return data[0];
         }
         catch (error)
         {
             console.log('Error: cant create event');
+            return null;
         }
     }
 
@@ -269,10 +340,12 @@ class API{
                  timeLine: event.timeLine,
                  active: event.active,
                  notes: event.notes,
-                 date: event.date}
+                 date: event.date,
+                 totalTime : event.totalTime}
             ).eq('id', event.id).select();
 
             const log : Log = {
+                // @ts-ignore: Object is possibly 'null'.
                 eventID : event.id,
                 staffID : event.userID,
                 action : "Updated Event",
@@ -281,11 +354,19 @@ class API{
 
             await this.logAction(log);
 
-            return data;
+            if (data)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         catch (error)
         {
             console.log('Error: cant update event');
+            return false;
         }
     }
 
@@ -301,6 +382,7 @@ class API{
             const { data, error } = await supabase.from('Events').delete().eq('id', event.id);
 
             const log : Log = {
+                // @ts-ignore: Object is possibly 'null'.
                 eventID : event.id,
                 staffID : event.userID,
                 action : "Deleted Event",
@@ -309,11 +391,20 @@ class API{
             };
             await this.logAction(log);
 
-            return error;
+            if (error)
+            {
+                console.log(data, error);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         catch (error)
         {
             console.log('Error: cant delete event');
+            return false
         }
     }
 

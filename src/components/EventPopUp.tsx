@@ -94,18 +94,23 @@ export default function EventPopUp({
 
   function buildEvent() {
     let newEvent: Event = {
-      id: 200,
       userID: userID,
       active: false,
+      // @ts-ignore: Object is possibly 'null'.
       activityID: selectedActivity?.id,
+      // @ts-ignore: Object is possibly 'null'.
       activityName: selectedActivity?.title,
       date: new Date(),
-      notes: "",
+      notes: " ",
+      // @ts-ignore: Object is possibly 'null'.
       stage: selectedTrial?.stage,
       timeLine: [],
       totalTime: 0,
+      // @ts-ignore: Object is possibly 'null'.
       trialID: selectedTrial?.id,
+      // @ts-ignore: Object is possibly 'null'.
       trialName: selectedTrial?.title,
+      // @ts-ignore: Object is possibly 'null'.
       unit: selectedTrial?.unit,
     };
     createEvent(newEvent);
@@ -161,7 +166,7 @@ export default function EventPopUp({
                     {selectedTrial.stage}
                   </p>
                   <p>
-                    <span className="font-semibold">Date:</span>{" "}
+                    <span className="font-semibold">Date:</span>{" "}  
                     {selectedTrial.date}
                   </p>
                   {selectedTrial.staffID && (
