@@ -262,18 +262,14 @@ export default function EventPopUp({
           >
             Cancel
           </Button>
-          {selectedActivity ? (
-            <Button
-              variant="gradient"
-              color="green"
-              onClick={buildEvent}
-              className="text-xl"
-            >
-              Create
-            </Button>
-          ) : (
-            <div></div>
-          )}
+          <Button
+            variant="gradient"
+            color="green"
+            onClick={buildEvent}
+            className="text-xl"
+          >
+            {selectedActivity ? "Create" : ""}
+          </Button>
         </DialogFooter>
       </Dialog>
     </>
