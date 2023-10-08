@@ -56,13 +56,16 @@ export default function EventPopUp({
 
   // sets the Activities -> calls databse to retrieve activities associated to a trial
   const getActivites = async () => {
-    if (selectedTrial != undefined) {
-      const activityDet =
-        (await database.getActivitiesDet(selectedTrial?.activities)) || [];
-      setActivities(activityDet);
+    if (!selectedTrial) return; // Ensure selectedTrial is not undefined
+
+    try {
+        const activityDet = await database.getActivitiesDet(selectedTrial.activities);
+        setActivities(activityDet || []);
+    } catch (error) {
+        console.error("Error fetching activities:", error);
     }
-    return;
   };
+
 
   // if database or user changes, call get the Trials
   useEffect(() => {
@@ -75,9 +78,10 @@ export default function EventPopUp({
 
   // if selectd trial changes, call the get Activities
   useEffect(() => {
-    setActivity(undefined);
-    getActivites();
-    return;
+    const fetchActivities = async () => {
+        await getActivites();
+    };
+    fetchActivities();
   }, [selectedTrial]);
 
   // funtion sets the selected Trial
