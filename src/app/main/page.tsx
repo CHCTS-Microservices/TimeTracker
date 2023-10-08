@@ -4,7 +4,7 @@ import TimerController from "@/components/TimerController";
 import  {Event, Time} from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
 import API from '@/app/utils/ServiceLayer';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import NoteEditor from '@/components/NoteEditor';
 import Delete from "@/components/DeleteEvent";
 import EventDetail from "@/components/EventDetail";
@@ -27,15 +27,11 @@ export default function Page() {
     // Initially set to null, meaning no event is selected at the start
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
     
-    async function getEvents()
-    {
+    const getEvents = useCallback(async () => {
         const events : Event[] = await dataBase.startUp(userID) || [];
-       setEvents(events);
-    //    setSelectedEvent(events[0]);
-        return;
- 
-    }
-
+        setEvents(events);
+    }, [dataBase, userID]);
+    
   
     useEffect(() => {
         getEvents();
