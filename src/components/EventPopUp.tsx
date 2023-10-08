@@ -66,9 +66,12 @@ export default function EventPopUp({
 
   // if database or user changes, call get the Trials
   useEffect(() => {
-    getTrials();
-    return;
+    const fetchData = async () => {
+        await getTrials();
+    };
+    fetchData();
   }, [database, userID, open]);
+
 
   // if selectd trial changes, call the get Activities
   useEffect(() => {
