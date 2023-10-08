@@ -61,17 +61,18 @@ export default function NoteEditor({event, saveNote} : NoteEditorProps) {
             </textarea>
 
             {/* Save and Cancel Buttons */}
-            {visibile ?
-            <div className='flex justify-end gap-8 justify-center text-2xl'>
-            <button className="mt-auto bg-blue-500 text-white py-2 px-4 rounded bottom-4 right-4" onClick={handleSave}>
-                Save
-            </button>
-            <button className="mt-auto bg-red-500 text-white py-2 px-4 rounded bottom-4 right-4" onClick={handleCancel}>
-                Cancel
-            </button>
-        </div>
-        :
-        <div></div>}
+            {visibile && (
+                <div className='flex justify-end gap-8 justify-center text-2xl'>
+                    <button className="mt-auto bg-blue-500 text-white py-2 px-4 rounded bottom-4 right-4" onClick={handleSave}>
+                        Save
+                    </button>
+                    <button className="mt-auto bg-red-500 text-white py-2 px-4 rounded bottom-4 right-4" onClick={handleCancel}>
+                        Cancel
+                    </button>
+                </div>
+            )}
+
+
             
         </div>
     );
