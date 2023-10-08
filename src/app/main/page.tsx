@@ -32,18 +32,21 @@ export default function Page() {
         const events : Event[] = await dataBase.startUp(userID) || [];
        setEvents(events);
     //    setSelectedEvent(events[0]);
+        return;
  
     }
 
   
     useEffect(() => {
         getEvents();
+        return;
     }, []);
 
     // Handler function to update the selectedEvent state 
     // when an event is selected from the side panel
     function handleEventSelect(event: Event) {
         setSelectedEvent(event);
+        return;
     }
 
 
@@ -75,6 +78,7 @@ export default function Page() {
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
         // @ts-ignore: Object is possibly 'null'.
         await dataBase.updateEvent(selectedEvent);
+        return;
         
     }
 
@@ -118,6 +122,7 @@ export default function Page() {
                 theme: "light",
                 });
         }
+        return;
     }
 
     // funtion that deletes the event
@@ -153,6 +158,7 @@ export default function Page() {
                 theme: "light",
                 });
             }
+            return;
 
     }
         
@@ -190,6 +196,7 @@ export default function Page() {
                 });
         }
 
+        return;
        
 
     }

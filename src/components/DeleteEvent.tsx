@@ -23,6 +23,7 @@ export default function DeleteEvent( {deleteEvent} : DeleteEventProps) {
   function handelDelete(){
     deleteEvent();
     handleOpen;
+    return;
   }
 
   return (

@@ -28,12 +28,14 @@ export default function Calendar() {
     if(fetchedEvents) {
       setEvents(fetchedEvents);
     } 
+    return;
 
 
   }
 
   useEffect(() => {
       getEvents();
+      return;
   }, []);
 
   function getColorByStage(stage: String): string {

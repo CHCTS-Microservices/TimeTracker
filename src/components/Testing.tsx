@@ -56,35 +56,36 @@ export default function  Testing() {
     // console.log(count)
     // console.log(dummyEvent[count]);
     // console.log(timeCalc(dummyEvent[count]));
+    return;
 
   }
   
   async function testo(){
     const testl = new API();
     // console.log( await testl.getEvent(1));
-    let dd : Event = {
-    id:74,
-    userID: 1,
-    trialID: 2,
-    trialName: "TESTING",
-    stage : "Start-Up",
-    activityID: 2,
-    activityName: "asdfsadf",
-    date : new Date ("2023-10-07"),
-    timeLine : [
-        {
-            start : new Date(2023, 9, 8, 8, 10, 42, 11),
-            end : new Date(2023, 9, 8, 9, 10, 42, 11)   
-        },
-        {
-            start : new Date(2023, 9, 8, 12, 10, 42, 11),
-            end : new Date(2023, 9, 8, 16, 10, 42, 11)   
-        },
-    ],
-    notes: "Yellow",
-    active : true,
-    totalTime : 5
-    };
+    // let dd : Event = {
+    // id:74,
+    // userID: 1,
+    // trialID: 2,
+    // trialName: "TESTING",
+    // stage : "Start-Up",
+    // activityID: 2,
+    // activityName: "asdfsadf",
+    // date : new Date ("2023-10-07"),
+    // timeLine : [
+    //     {
+    //         start : new Date(2023, 9, 8, 8, 10, 42, 11),
+    //         end : new Date(2023, 9, 8, 9, 10, 42, 11)   
+    //     },
+    //     {
+    //         start : new Date(2023, 9, 8, 12, 10, 42, 11),
+    //         end : new Date(2023, 9, 8, 16, 10, 42, 11)   
+    //     },
+    // ],
+    // notes: "Yellow",
+    // active : true,
+    // totalTime : 5
+    // };
     // console.log(dd.date);
     // console.log(await testl.getTrials(1));
     // console.log(dd.date.getDate() +'/' + dd.date.getMonth() + '/' + dd.date.getFullYear())

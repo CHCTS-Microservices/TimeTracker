@@ -45,6 +45,7 @@ export default function EventPopUp({
     setActivities([]);
     setActivity(undefined);
     setOpen(!open);
+    return; 
   }
 
   // sets the Trials -> calls databse to retrive the trials associated to a user
@@ -52,6 +53,7 @@ export default function EventPopUp({
     const trialIDs: number[] = (await database.getTrials(userID)) || [];
     const trialDetails: Trial[] = (await database.getTrialsDet(trialIDs)) || [];
     setTrials(trialDetails);
+    return;
   };
 
   // sets the Activities -> calls databse to retrieve activities associated to a trial
@@ -61,17 +63,20 @@ export default function EventPopUp({
         (await database.getActivitiesDet(selectedTrial?.activities)) || [];
       setActivities(activityDet);
     }
+    return;
   };
 
   // if database or user changes, call get the Trials
   useEffect(() => {
     getTrials();
+    return;
   }, [database, userID, open]);
 
   // if selectd trial changes, call the get Activities
   useEffect(() => {
     setActivity(undefined);
     getActivites();
+    return;
   }, [selectedTrial]);
 
   // funtion sets the selected Trial
@@ -84,12 +89,14 @@ export default function EventPopUp({
   
     const selectedTrialFromList = trials.find(trial => trial.id === selectedOption.value);
     setTrial(selectedTrialFromList);
+    return;
   };
   
 
   // Funtion sets the selected Activity
   const handleActivityButtonPress = (activity: Activity) => {
     setActivity(activity);
+    return;
   };
 
   function buildEvent() {
@@ -115,6 +122,7 @@ export default function EventPopUp({
     };
     createEvent(newEvent);
     handleOpen();
+    return;
   }
 
   return (

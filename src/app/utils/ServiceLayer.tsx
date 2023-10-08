@@ -47,6 +47,7 @@ class API{
         catch (error)
         {
             console.log('Error: cant get events');
+            return;
         }
     }
 
@@ -85,6 +86,7 @@ class API{
         catch (error)
         {
             console.log('Error: cant get events');
+            return;
         }
     }
 
@@ -104,6 +106,7 @@ class API{
         catch (error)
         {
             console.log('Error: cant get trial details');
+            return;
         }
     }
 
@@ -141,6 +144,7 @@ class API{
          catch (error)
          {
              console.log('Error: cant get trial details for the trials IDs list given');
+             return;
          }
      }
 
@@ -166,6 +170,7 @@ class API{
         catch (error)
         {
             console.log('Error: cant get trials that user is part of');
+            return;
         }
     }
 
@@ -186,6 +191,7 @@ class API{
         catch (error)
         {
             console.log('Error: cant get activity details');
+            return;
         }
     }
 
@@ -260,6 +266,7 @@ class API{
         catch (error)
         {
             console.log('Error: cant get event details');
+            return;
         }
     }
 
@@ -436,6 +443,7 @@ class API{
         catch (error)
         {
             console.log('Error: cant log');
+            return;
         }
     }
 

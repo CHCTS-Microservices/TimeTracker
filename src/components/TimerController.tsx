@@ -21,12 +21,14 @@ function TimerController({event, setActive} : TimerControllerProps) {
         setActive();
         // toggle();
         setIsActive(!isActive);
+        return;
     }
 
     function reset() {
         setSeconds(0);
         setIsActive(false);
         setStatus('Stop');
+        return;
     }
 
      // Need to use Effect on event so it refreshes the notes
@@ -50,6 +52,8 @@ function TimerController({event, setActive} : TimerControllerProps) {
             setStatus('Stop');
             setSeconds(Math.floor(event.totalTime / 1000));
         }
+        return;
+        
       }, [event]);
   
 

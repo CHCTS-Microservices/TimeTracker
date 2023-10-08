@@ -19,6 +19,7 @@ export default function NoteEditor({event, saveNote} : NoteEditorProps) {
 
         saveNote(note);
         setVisible(false);
+        return;
         
     };
 
@@ -27,6 +28,7 @@ export default function NoteEditor({event, saveNote} : NoteEditorProps) {
 
         setVisible(false)
         setNote(event.notes);
+        return;
     };
 
     // Need to use Effect on event so it refreshes the notes
@@ -34,6 +36,7 @@ export default function NoteEditor({event, saveNote} : NoteEditorProps) {
         
       setNote(event.notes);
       setVisible(false);
+      return;
     }, [event]);
 
   
