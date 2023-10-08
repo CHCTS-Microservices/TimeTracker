@@ -9,9 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 import API from "@/app/utils/ServiceLayer";
-import { Trial } from "@/app/utils/types";
-import { Activity } from "@/app/utils/types";
-import { Event } from "@/app/utils/types";
+import { Trial, Activity, Event } from "@/app/utils/types";
 import Select from 'react-select';
 
 interface EventPopupProps {
