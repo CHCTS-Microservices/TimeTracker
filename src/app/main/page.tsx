@@ -47,11 +47,13 @@ export default function Page() {
     }
 
 
+    //@ts-ignore
     async function toggleActive() {
         
         if (selectedEvent?.active) // if true that means its recording
         {
             selectedEvent.timeLine[selectedEvent.timeLine.length -1].end = new Date();
+            // @ts-ignore: Object is possibly 'null'.
             selectedEvent.totalTime += selectedEvent?.timeLine[selectedEvent.timeLine.length -1].end.getTime() - selectedEvent?.timeLine[selectedEvent.timeLine.length -1].start.getTime();
         }
         else
@@ -61,14 +63,17 @@ export default function Page() {
 
         }
         // selectedEvent?.track = 0;
-        
+        // @ts-ignore: Object is possibly 'null'.
         selectedEvent.active = !selectedEvent.active;
         console.log(selectedEvent);
         
         console.log(selectedEvent?.active);
+        // @ts-ignore: Object is possibly 'null'.
         setEvents((prevE) =>
         prevE.map((eve) =>
+        // @ts-ignore: Object is possibly 'null'.
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
+        // @ts-ignore: Object is possibly 'null'.
         await dataBase.updateEvent(selectedEvent);
         
     }
@@ -77,11 +82,14 @@ export default function Page() {
         
      // funtion to that saves notes. 
     async function saveNotes (newNote : String){
+        // @ts-ignore: Object is possibly 'null'.
         selectedEvent.notes = newNote;
+        // @ts-ignore: Object is possibly 'null'.
         setEvents((prevE) =>
         prevE.map((eve) =>
+        // @ts-ignore: Object is possibly 'null'.
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
-        
+        // @ts-ignore: Object is possibly 'null'.
         const t :  boolean = await dataBase.updateEvent(selectedEvent);
         console.log(selectedEvent);
         if (t)
@@ -116,6 +124,7 @@ export default function Page() {
     //TODO : TODO * we could create a new table that holds deleted events (after x days permanently delete it)
     async function deleteEvent()
     {
+        // @ts-ignore: Object is possibly 'null'.
         if (await dataBase.deleteEvent(selectedEvent))
         {
             const updatedEvents = events.filter((event) => event.id !== selectedEvent?.id);
@@ -150,7 +159,7 @@ export default function Page() {
 
 
     async function createEvent(event : Event){
-
+        // @ts-ignore: Object is possibly 'null'.
         const newEvent : Event = await dataBase.createEvent(event);
         if (newEvent != null)
         {

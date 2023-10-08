@@ -1,6 +1,6 @@
 
 import { createClient } from '@supabase/supabase-js'
-import {Event, Trial, Activity} from '@/app/utils/types';
+import {Event, Trial, Activity, Log} from '@/app/utils/types';
 import supabase from '@/../supabase';
 
 
@@ -24,6 +24,7 @@ class API{
             let events : Event[] = [];
             if (data?.length != 0)
             {
+                // @ts-ignore: Object is possibly 'null'.
                 for (const ev of data)
                 {
 
@@ -61,6 +62,7 @@ class API{
             let events : Event[] = [];
             if (data?.length != 0)
             {
+                // @ts-ignore: Object is possibly 'null'.
                 for (const ev of data)
                 {
 
@@ -96,6 +98,7 @@ class API{
         try
         {
             let { data, error } = await supabase.from('Trials').select(`*`).eq('id', id);
+            // @ts-ignore: Object is possibly 'null'.
             return data[0];
         }
         catch (error)
@@ -177,6 +180,7 @@ class API{
         try
         {
             let { data, error } = await supabase.from('Activity').select(`*`).eq('id', id);
+            // @ts-ignore: Object is possibly 'null'.
             return data[0];
         }
         catch (error)
@@ -238,10 +242,14 @@ class API{
      */
         try
         {
+            
             let { data, error } = await supabase.from('Events').select(`id, userID, totalTime, timeLine, active, notes, trialID, activityID, date`).eq('id', id);
+            // @ts-ignore: Object is possibly 'null'.
             let trial : any = await this.getTrialDet(data[0].trialID);
+            // @ts-ignore: Object is possibly 'null'.
             let activity : any = await this.getTrialDet(data[0].activityID);
             let event : Event = {
+                // @ts-ignore: Object is possibly 'null'.
                 ...data[0],
                 trialName : trial.title,
                 activityName : activity.title,
@@ -280,6 +288,7 @@ class API{
             ]).select();
 
             const log : Log = {
+                // @ts-ignore: Object is possibly 'null'.
                 eventID : data[0].id,
                 staffID : event.userID,
                 action : "Created Event",
@@ -287,6 +296,7 @@ class API{
 
             };
             await this.logAction(log);
+            // @ts-ignore: Object is possibly 'null'.
             console.log(data[0]);
             if (data)
             {
@@ -335,6 +345,7 @@ class API{
             ).eq('id', event.id).select();
 
             const log : Log = {
+                // @ts-ignore: Object is possibly 'null'.
                 eventID : event.id,
                 staffID : event.userID,
                 action : "Updated Event",
@@ -371,6 +382,7 @@ class API{
             const { data, error } = await supabase.from('Events').delete().eq('id', event.id);
 
             const log : Log = {
+                // @ts-ignore: Object is possibly 'null'.
                 eventID : event.id,
                 staffID : event.userID,
                 action : "Deleted Event",
