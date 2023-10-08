@@ -48,35 +48,24 @@ export default function Page() {
 
     //@ts-ignore
     async function toggleActive() {
-        
-        if (selectedEvent?.active) // if true that means its recording
-        {
-            selectedEvent.timeLine[selectedEvent.timeLine.length -1].end = new Date();
-            // @ts-ignore: Object is possibly 'null'.
-            selectedEvent.totalTime += selectedEvent?.timeLine[selectedEvent.timeLine.length -1].end.getTime() - selectedEvent?.timeLine[selectedEvent.timeLine.length -1].start.getTime();
+        if (!selectedEvent) return;
+    
+        const updatedEvent = { ...selectedEvent };
+    
+        if (updatedEvent.active) {
+            updatedEvent.timeLine[updatedEvent.timeLine.length - 1].end = new Date();
+            updatedEvent.totalTime += updatedEvent.timeLine[updatedEvent.timeLine.length - 1].end.getTime() - updatedEvent.timeLine[updatedEvent.timeLine.length - 1].start.getTime();
+        } else {
+            let x: Time = { start: new Date(), end: null };
+            updatedEvent.timeLine.push(x);
         }
-        else
-        {
-            let x : Time = {start : new Date(), end : null};
-            selectedEvent?.timeLine.push(x);
-
-        }
-        // selectedEvent?.track = 0;
-        // @ts-ignore: Object is possibly 'null'.
-        selectedEvent.active = !selectedEvent.active;
-        console.log(selectedEvent);
-        
-        console.log(selectedEvent?.active);
-        // @ts-ignore: Object is possibly 'null'.
-        setEvents((prevE) =>
-        prevE.map((eve) =>
-        // @ts-ignore: Object is possibly 'null'.
-        eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
-        // @ts-ignore: Object is possibly 'null'.
-        await dataBase.updateEvent(selectedEvent);
-        return;
-        
+    
+        updatedEvent.active = !updatedEvent.active;
+    
+        setEvents((prevE) => prevE.map((eve) => eve.id === updatedEvent.id ? updatedEvent : eve));
+        await dataBase.updateEvent(updatedEvent);
     }
+    
 
         
         
