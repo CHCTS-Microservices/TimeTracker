@@ -12,6 +12,7 @@ import API from "@/app/utils/ServiceLayer";
 import { Trial } from "@/app/utils/types";
 import { Activity } from "@/app/utils/types";
 import { Event } from "@/app/utils/types";
+import Select from 'react-select';
 
 interface EventPopupProps {
   database: API;
@@ -31,6 +32,10 @@ export default function EventPopUp({
   // const [selectedActivities, setSelectedActivities] = useState<number[]>([]);
   const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedActivity, setActivity] = useState<Activity>();
+  const trialOptions = trials.map(trial => ({
+  value: trial.id,
+  label: trial.title
+}));
 
   // Modal/dialog box visibile or not
   // const handleOpen = () => setOpen(!open);
@@ -70,20 +75,17 @@ export default function EventPopUp({
   }, [selectedTrial]);
 
   // funtion sets the selected Trial
-  const handleTrialChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === "") {
+  const handleTrialChange = (selectedOption: any) => {
+    if (!selectedOption) {
       setTrial(undefined);
       setActivity(undefined);
       return;
     }
-
-    // it will need to find out which trial has been selected
-    trials.find(function (trial) {
-      if (e.target.value == trial.id.toString()) {
-        setTrial(trial);
-      }
-    });
+  
+    const selectedTrialFromList = trials.find(trial => trial.id === selectedOption.value);
+    setTrial(selectedTrialFromList);
   };
+  
 
   // Funtion sets the selected Activity
   const handleActivityButtonPress = (activity: Activity) => {
@@ -127,23 +129,18 @@ export default function EventPopUp({
         <DialogHeader className="text-3xl">Create Event</DialogHeader>
         <DialogBody divider className="grid  gap-4">
           <div className="flex px-4 mb-5">
-            <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 text-white rounded text-center font-bold text-2xl flex items-center">
+            {/* might need some UI changes for fonts */}
+            <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 text-white rounded text-center font-bold text-2xl flex items-center"> 
               Trial
             </label>
-            <select
-              className="mx-5 py-1 px-3 rounded border-4 border-cyan-200 text-2xl"
-              onChange={handleTrialChange}
-            >
-              <option value="" selected>
-                Select a Trial
-              </option>
-              {trials.map((trial) => (
-                <option key={trial.id} value={trial.id}>
-                  {trial.title}
-                </option>
-              ))}
-            </select>
-            <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 text-white rounded ml-12 text-2xl flex items-center font-bold">
+            <Select
+            options={trialOptions}
+            onChange={(selectedOption) => handleTrialChange(selectedOption)}
+            placeholder="Select a Trial"
+            className="react-select-container mx-5 py-1 px-3 rounded border-4 border-cyan-200 text-2xl"
+            classNamePrefix="react-select"
+          />
+            <label className="bg-[rgb(37,73,133)] mx-2 py-1 px-3 text-white rounded ml-12 text-2xl flex items-center">
               <p>
                 <strong> Stage: </strong>{" "}
                 {selectedTrial ? selectedTrial.stage : ""}
