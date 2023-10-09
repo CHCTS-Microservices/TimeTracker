@@ -1,17 +1,20 @@
 
 "use client"
-import TimerController from "@/components/TimerController";
-import  {Event, Time} from '@/app/utils/types'
-import SidePanel from '@/components/SidePanel';
-import API from '@/app/utils/ServiceLayer';
-import { useEffect, useState } from "react";
-import NoteEditor from '@/components/NoteEditor';
-import Delete from "@/components/DeleteEvent";
-import EventDetail from "@/components/EventDetail";
-import Metadata  from "@/components/Metadata";
-import Create from "@/components/EventPopUp";
+import { useEffect, useState, useCallback } from "react";
+import dynamic from 'next/dynamic';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/ReactToastify.min.css";
+import API from '@/app/utils/ServiceLayer';
+import  {Event, Time} from '@/app/utils/types';
+
+// Dynamic imports
+const TimerController = dynamic(() => import("@/components/TimerController"));
+const SidePanel = dynamic(() => import("@/components/SidePanel"));
+const NoteEditor = dynamic(() => import("@/components/NoteEditor"));
+const Delete = dynamic(() => import("@/components/DeleteEvent"));
+const EventDetail = dynamic(() => import("@/components/EventDetail"));
+const Metadata = dynamic(() => import("@/components/Metadata"));
+const Create = dynamic(() => import("@/components/EventPopUp"));
 
 export default function Page() {
 
