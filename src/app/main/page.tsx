@@ -17,7 +17,7 @@ const Metadata = dynamic(() => import("@/components/Metadata"));
 const Create = dynamic(() => import("@/components/EventPopUp"));
 
 export default function Page() {
-    
+    console.log("Page component rendered");
 
     const dataBase = new API();
     const userID : number = 1;
@@ -26,14 +26,18 @@ export default function Page() {
 
 
     const [events, setEvents] = useState<Event[]>([]);
-
+    console.log("Initial state set for events:", events);
+    
     // Setting up a state to track which event has been selected by the user
     // Initially set to null, meaning no event is selected at the start
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-    
+    console.log("Initial state set for selectedEvent:", selectedEvent);
+
     async function getEvents()
     {
+        console.log("getEvents function called");
         const events : Event[] = await dataBase.startUp(userID) || [];
+        console.log("Events fetched:", events);
        setEvents(events);
     //    setSelectedEvent(events[0]);
  
@@ -41,19 +45,21 @@ export default function Page() {
 
   
     useEffect(() => {
+        console.log("useEffect called for getEvents");
         getEvents();
     }, []);
 
     // Handler function to update the selectedEvent state 
     // when an event is selected from the side panel
     function handleEventSelect(event: Event) {
+        console.log("handleEventSelect called with event:", event);
         setSelectedEvent(event);
     }
 
 
     //@ts-ignore
     async function toggleActive() {
-        
+        console.log("toggleActive function called");
         if (selectedEvent?.active) // if true that means its recording
         {
             selectedEvent.timeLine[selectedEvent.timeLine.length -1].end = new Date();
@@ -86,6 +92,7 @@ export default function Page() {
         
      // funtion to that saves notes. 
     async function saveNotes (newNote : String){
+        console.log("saveNotes function called with note:", newNote);
         // @ts-ignore: Object is possibly 'null'.
         selectedEvent.notes = newNote;
         // @ts-ignore: Object is possibly 'null'.
@@ -128,6 +135,7 @@ export default function Page() {
     //TODO : TODO * we could create a new table that holds deleted events (after x days permanently delete it)
     async function deleteEvent()
     {
+        console.log("deleteEvent function called");
         // @ts-ignore: Object is possibly 'null'.
         if (await dataBase.deleteEvent(selectedEvent))
         {
@@ -163,6 +171,7 @@ export default function Page() {
 
 
     async function createEvent(event : Event){
+        console.log("createEvent function called with event:", event);
         // @ts-ignore: Object is possibly 'null'.
         const newEvent : Event = await dataBase.createEvent(event);
         if (newEvent != null)
@@ -201,6 +210,7 @@ export default function Page() {
 
     if (selectedEvent != null)
     {
+        console.log("Rendering with selectedEvent:", selectedEvent);
         return (
             <>
                 <div className="p-4 flex space-x-8 ml-10">
@@ -269,7 +279,7 @@ export default function Page() {
         );
     }
     else{
-       
+        console.log("Rendering without selectedEvent");
         return(
             <>
                 <div className="p-4 space-x-0 ml-10">
