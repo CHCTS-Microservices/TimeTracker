@@ -4,7 +4,7 @@ import TimerController from "@/components/TimerController";
 import  {Event, Time} from '@/app/utils/types'
 import SidePanel from '@/components/SidePanel';
 import API from '@/app/utils/ServiceLayer';
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import NoteEditor from '@/components/NoteEditor';
 import Delete from "@/components/DeleteEvent";
 import EventDetail from "@/components/EventDetail";
@@ -27,45 +27,56 @@ export default function Page() {
     // Initially set to null, meaning no event is selected at the start
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
     
-    const getEvents = useCallback(async () => {
+    async function getEvents()
+    {
         const events : Event[] = await dataBase.startUp(userID) || [];
-        setEvents(events);
-    }, [dataBase, userID]);
-    
+       setEvents(events);
+    //    setSelectedEvent(events[0]);
+ 
+    }
+
   
     useEffect(() => {
         getEvents();
-        return;
     }, []);
 
     // Handler function to update the selectedEvent state 
     // when an event is selected from the side panel
     function handleEventSelect(event: Event) {
         setSelectedEvent(event);
-        return;
     }
 
 
     //@ts-ignore
     async function toggleActive() {
-        if (!selectedEvent) return;
-    
-        const updatedEvent = { ...selectedEvent };
-    
-        if (updatedEvent.active) {
-            updatedEvent.timeLine[updatedEvent.timeLine.length - 1].end = new Date();
-            updatedEvent.totalTime += updatedEvent.timeLine[updatedEvent.timeLine.length - 1].end.getTime() - updatedEvent.timeLine[updatedEvent.timeLine.length - 1].start.getTime();
-        } else {
-            let x: Time = { start: new Date(), end: null };
-            updatedEvent.timeLine.push(x);
+        
+        if (selectedEvent?.active) // if true that means its recording
+        {
+            selectedEvent.timeLine[selectedEvent.timeLine.length -1].end = new Date();
+            // @ts-ignore: Object is possibly 'null'.
+            selectedEvent.totalTime += selectedEvent?.timeLine[selectedEvent.timeLine.length -1].end.getTime() - selectedEvent?.timeLine[selectedEvent.timeLine.length -1].start.getTime();
         }
-    
-        updatedEvent.active = !updatedEvent.active;
-    
-        setEvents((prevE) => prevE.map((eve) => eve.id === updatedEvent.id ? updatedEvent : eve));
-        await dataBase.updateEvent(updatedEvent);
+        else
+        {
+            let x : Time = {start : new Date(), end : null};
+            selectedEvent?.timeLine.push(x);
+
+        }
+        // selectedEvent?.track = 0;
+        // @ts-ignore: Object is possibly 'null'.
+        selectedEvent.active = !selectedEvent.active;
+        console.log(selectedEvent);
+        
+        console.log(selectedEvent?.active);
+        // @ts-ignore: Object is possibly 'null'.
+        setEvents((prevE) =>
+        prevE.map((eve) =>
+        // @ts-ignore: Object is possibly 'null'.
+        eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
+        // @ts-ignore: Object is possibly 'null'.
+        await dataBase.updateEvent(selectedEvent);
+        
     }
-    
 
         
         
@@ -107,7 +118,6 @@ export default function Page() {
                 theme: "light",
                 });
         }
-        return;
     }
 
     // funtion that deletes the event
@@ -143,7 +153,6 @@ export default function Page() {
                 theme: "light",
                 });
             }
-            return;
 
     }
         
@@ -181,7 +190,6 @@ export default function Page() {
                 });
         }
 
-        return;
        
 
     }
