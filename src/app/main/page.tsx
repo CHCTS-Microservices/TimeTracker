@@ -17,6 +17,7 @@ const Metadata = dynamic(() => import("@/components/Metadata"));
 const Create = dynamic(() => import("@/components/EventPopUp"));
 
 export default function Page() {
+    
 
     const dataBase = new API();
     const userID : number = 1;
@@ -303,4 +304,11 @@ export default function Page() {
         
         
     
+}
+ 
+// Disable prerendering
+export async function getServerSideProps() {
+    return {
+        props: {}
+    };
 }

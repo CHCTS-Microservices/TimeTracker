@@ -161,4 +161,6 @@ function SidePanel({ events, selectedEvent, onEventSelect}: SidePanelProps) {
   // );
 }
 
+
+
 export default SidePanel;
