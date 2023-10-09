@@ -307,8 +307,6 @@ export default function Page() {
 }
  
 // Disable prerendering
-export async function getServerSideProps() {
-    return {
-        props: {}
-    };
+Page.getInitialProps = async () => {
+    return {};
 }
