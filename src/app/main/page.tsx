@@ -65,9 +65,9 @@ export default function Page() {
         // selectedEvent?.track = 0;
         // @ts-ignore: Object is possibly 'null'.
         selectedEvent.active = !selectedEvent.active;
-        console.log(selectedEvent);
+        //console.log(selectedEvent);
         
-        console.log(selectedEvent?.active);
+        //console.log(selectedEvent?.active);
         // @ts-ignore: Object is possibly 'null'.
         setEvents((prevE) =>
         prevE.map((eve) =>
@@ -91,10 +91,10 @@ export default function Page() {
         eve.id === selectedEvent.id ? { ...selectedEvent } : eve));
         // @ts-ignore: Object is possibly 'null'.
         const t :  boolean = await dataBase.updateEvent(selectedEvent);
-        console.log(selectedEvent);
+       // console.log(selectedEvent);
         if (t)
         {
-            console.log(selectedEvent)
+           // console.log(selectedEvent)
             toast.success('Saved Notes', {
                 position: "bottom-right",
                 autoClose: 1000,
