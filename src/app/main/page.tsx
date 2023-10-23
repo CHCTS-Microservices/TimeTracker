@@ -199,7 +199,7 @@ export default function Page() {
     {
         return (
             <>
-                <div className="p-4 flex space-x-8 ml-10">
+                <div className="p-4 flex space-x-8 ml-0">
                 <ToastContainer 
                 position="bottom-right"
                 autoClose={1000}
@@ -268,7 +268,7 @@ export default function Page() {
        
         return(
             <>
-                <div className="p-4 space-x-0 ml-10">
+                <div className="p-4 space-x-0 ml-8">
                 <ToastContainer 
                 position="bottom-right"
                 autoClose={1000}
