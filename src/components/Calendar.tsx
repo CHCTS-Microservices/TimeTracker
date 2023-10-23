@@ -69,11 +69,11 @@ export default function Calendar() {
 
     return (
         <>
-        <main className="flex flex-col items-center justify-between w-full">
-        <div className="flex w-full">
-              <div className="w-5/6 ">
+        <main className="flex flex-col items-center justify-center w-full h-screen">
+        <div className="flex w-full max-w-7xl mx-auto">
+              <div className="w-full flex-shrink-0 bg-white rounded-md shadow p-6">
                 <FullCalendar
-                height="80%"
+                height="auto"
                 plugins={[
                     dayGridPlugin,
                     interactionPlugin,
