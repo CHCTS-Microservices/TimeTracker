@@ -69,9 +69,11 @@ export default function Calendar() {
 
     return (
         <>
-        <main className="flex flex-col items-center justify-between w-full">
-              <div className="w-3/5">
+        <main className="flex flex-col items-center justify-center w-full h-screen">
+        <div className="flex w-full max-w-7xl mx-auto">
+              <div className="w-full flex-shrink-0 bg-white rounded-md shadow p-6">
                 <FullCalendar
+                height="auto"
                 plugins={[
                     dayGridPlugin,
                     interactionPlugin,
@@ -94,6 +96,25 @@ export default function Calendar() {
                 // eventClick={}
                 />
                 </div>
+                <div className="ml-8 flex-shrink-0">
+                  <h3>Stages Legend:</h3>
+                  <div className="flex items-center mt-2">
+                    <div className="w-4 h-4 mr-2 bg-red-300"></div> Start-Up
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <div className="w-4 h-4 mr-2 bg-blue-200"></div> Setup
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <div className="w-4 h-4 mr-2 bg-red-200"></div> Conduct
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <div className="w-4 h-4 mr-2 bg-green-200"></div> Closeout
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <div className="w-4 h-4 mr-2 bg-gray-300"></div> Default
+                  </div>
+                </div>
+        </div>
         </main>
         </>
     )

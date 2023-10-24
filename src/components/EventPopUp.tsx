@@ -199,11 +199,11 @@ export default function EventPopUp({
                   <button
                     key={activity.id}
                     onClick={() => handleActivityButtonPress(activity)}
-                    className={`mx-2 p-5 rounded-full text-black ${
+                    className={`mx-2 p-5 rounded-full text-black border-4 border-cyan-200 ${
                       selectedActivity?.id === activity.id
-                        ? "bg-[#f5ce80] border-4 border-cyan-200"
+                        ? "bg-[#f5ce80]"
                         : "bg-[#76a7b0]"
-                    } hover:bg-[#f5ce80]`}
+                    } hover:bg-blue-700`}
                   >
                     {activity.title}
                   </button>
@@ -252,7 +252,7 @@ export default function EventPopUp({
             variant="outlined"
             color="red"
             onClick={handleOpen}
-            className="text-xl"
+            className="text-xl "
           >
             Cancel
           </Button>
